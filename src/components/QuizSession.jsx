@@ -22,10 +22,10 @@ export default function QuizSession({
   if (!question) return null;
 
   return (
-    <div className="fixed inset-0 flex flex-col bg-bg overflow-hidden animate-in fade-in duration-700 h-[100svh] h-[100dvh]">
-      <div className="flex-1 flex flex-col max-w-2xl mx-auto w-full px-4 py-4 sm:py-8 overflow-hidden">
+    <div className="flex flex-col bg-bg min-h-screen sm:min-h-0 sm:h-auto overflow-x-hidden animate-in fade-in duration-700 sm:relative fixed inset-0 h-[100svh] h-[100dvh]">
+      <div className="flex-1 flex flex-col max-w-2xl mx-auto w-full px-4 py-4 sm:py-10 overflow-hidden sm:overflow-visible">
         {/* Top Header */}
-        <div className="flex items-center justify-between mb-4 gap-4 shrink-0">
+        <div className="flex items-center justify-between mb-4 sm:mb-8 gap-4 shrink-0">
           <button
             type="button"
             onClick={onQuitter}

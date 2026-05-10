@@ -30,7 +30,7 @@ export default function QuestionCard({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className="card relative overflow-hidden flex flex-col h-full max-h-full"
+      className="card relative overflow-hidden flex flex-col h-full sm:h-auto max-h-full sm:max-h-none"
     >
       <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
       
@@ -44,9 +44,9 @@ export default function QuestionCard({
         </span>
       </div>
 
-      {/* Question Text - Scrollable if too long, but flex-1 to take space */}
-      <div className="overflow-y-auto mb-4 flex-grow min-h-0 py-2">
-        <h2 className="title-display text-base sm:text-lg normal-case tracking-normal leading-relaxed text-white">
+      {/* Question Text - Scrollable on mobile if long, natural height on desktop */}
+      <div className="overflow-y-auto sm:overflow-visible mb-6 flex-grow sm:flex-grow-0 min-h-0 py-2">
+        <h2 className="title-display text-base sm:text-xl normal-case tracking-normal leading-relaxed text-white">
           {question.question}
         </h2>
       </div>
