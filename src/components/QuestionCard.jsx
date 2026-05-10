@@ -24,21 +24,23 @@ export default function QuestionCard({
     feedbackVisible && reponseEnCours === question.reponseCorrecte;
 
   return (
-    <div className="card">
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold text-muted uppercase tracking-wide">
-          Question {numero} / {total}
+    <div className="card relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+      
+      <div className="flex items-center justify-between mb-6">
+        <span className="text-[10px] font-bold text-accent uppercase tracking-[0.2em]">
+          Question {numero} <span className="text-muted mx-1">/</span> {total}
         </span>
-        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${badge.cls}`}>
+        <span className={`text-[9px] font-bold px-3 py-1 rounded-sm border border-current uppercase tracking-widest ${badge.cls}`}>
           {badge.label}
         </span>
       </div>
 
-      <h2 className="font-display text-lg sm:text-xl text-primary leading-snug mb-5">
+      <h2 className="title-display text-lg sm:text-xl normal-case tracking-normal mb-8 leading-relaxed text-white">
         {question.question}
       </h2>
 
-      <div className="grid gap-2.5 sm:gap-3" role="radiogroup" aria-label="Choisissez une réponse">
+      <div className="grid gap-3 sm:gap-4" role="radiogroup" aria-label="Choisissez une réponse">
         {question.options.map((opt, i) => (
           <OptionButton
             key={i}
@@ -54,14 +56,14 @@ export default function QuestionCard({
       </div>
 
       {!feedbackVisible && (
-        <div className="mt-5 flex justify-end">
+        <div className="mt-8 flex justify-center">
           <button
             type="button"
             disabled={reponseEnCours === null}
             onClick={onValider}
-            className="btn-primary"
+            className="btn-primary w-full sm:w-auto min-w-[160px]"
           >
-            Valider
+            Valider la réponse
           </button>
         </div>
       )}

@@ -3,11 +3,11 @@ import React from 'react';
 export default function ScoreIndicator({ bonnes }) {
   return (
     <div
-      className="inline-flex items-center gap-1.5 text-sm font-semibold text-correct bg-correct/10 px-2.5 py-1 rounded-full"
+      className="inline-flex items-center gap-2 text-xs font-bold text-accent border border-accent/20 bg-accent/5 px-3 py-1 rounded-sm uppercase tracking-widest"
       aria-live="polite"
     >
-      <span aria-hidden>✓</span>
-      <span>{bonnes} bonne{bonnes > 1 ? 's' : ''} réponse{bonnes > 1 ? 's' : ''}</span>
+      <span className="text-sm" aria-hidden>٭</span>
+      <span>{bonnes} Réussite{bonnes > 1 ? 's' : ''}</span>
     </div>
   );
 }

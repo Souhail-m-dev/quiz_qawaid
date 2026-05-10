@@ -12,18 +12,18 @@ export default function OptionButton({
   onClick
 }) {
   let classes =
-    'w-full text-left rounded-xl border px-4 py-3 sm:py-3.5 transition flex items-start gap-3 ';
+    'w-full text-left rounded-lg border px-4 py-3 sm:py-4 transition-all duration-300 flex items-start gap-4 group ';
 
   if (!valide) {
     classes += selectionne
-      ? 'border-primary bg-primary/5 shadow-soft'
-      : 'border-primary/15 bg-white hover:border-primary/40';
+      ? 'border-accent bg-accent/10 shadow-gold'
+      : 'border-white/10 bg-surface/50 hover:border-accent/40 hover:bg-surface/80';
   } else if (estCorrecte) {
-    classes += 'border-correct bg-correct/10';
+    classes += 'border-correct bg-correct/10 shadow-[0_0_15px_rgba(16,185,129,0.2)]';
   } else if (estChoisie) {
     classes += 'border-incorrect bg-incorrect/10';
   } else {
-    classes += 'border-primary/10 bg-white opacity-70';
+    classes += 'border-white/5 bg-surface/30 opacity-50';
   }
 
   let icone = null;
@@ -41,20 +41,20 @@ export default function OptionButton({
       className={classes}
     >
       <span
-        className={`shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold ${
+        className={`shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-sm text-xs font-bold transition-colors duration-300 ${
           valide && estCorrecte
-            ? 'bg-correct text-white'
+            ? 'bg-correct text-bg'
             : valide && estChoisie
             ? 'bg-incorrect text-white'
             : selectionne
-            ? 'bg-primary text-white'
-            : 'bg-primary/10 text-primary'
+            ? 'bg-accent text-bg'
+            : 'bg-white/10 text-accent group-hover:bg-accent group-hover:text-bg'
         }`}
       >
         {LETTRES[index]}
       </span>
-      <span className="flex-1 text-sm sm:text-base text-ink leading-relaxed">{texte}</span>
-      {icone && <span className="text-lg">{icone}</span>}
+      <span className="flex-1 text-sm sm:text-base text-white/90 group-hover:text-white leading-relaxed font-medium">{texte}</span>
+      {icone && <span className="text-lg animate-in zoom-in duration-300">{icone}</span>}
     </button>
   );
 }

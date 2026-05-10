@@ -3,19 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #1B3A5C;
-  --color-primary-light: #2E5F8A;
-  --color-accent: #C9A84C;
-  --color-accent-light: #F0D080;
-  --color-bg: #F5F0E8;
-  --color-surface: #FFFFFF;
-  --color-text: #1A1A1A;
-  --color-text-muted: #6B7280;
-  --color-correct: #16A34A;
-  --color-incorrect: #DC2626;
-  --color-facile: #16A34A;
-  --color-moyenne: #D97706;
-  --color-difficile: #DC2626;
+  --color-primary: #1A1F2C;
+  --color-primary-light: #252B3B;
+  --color-accent: #C5A059;
+  --color-accent-light: #D4AF37;
+  --color-bg: #101827;
+  --color-surface: #1A1F2C;
+  --color-beige: #E6DFD1;
+  --color-text: #F9FAFB;
+  --color-text-muted: #9CA3AF;
+  --color-correct: #10B981;
+  --color-incorrect: #EF4444;
 }
 
 html,
@@ -28,41 +26,78 @@ body {
   margin: 0;
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: 'Noto Serif', Georgia, serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
-  background-image:
-    radial-gradient(circle at 12% 8%, rgba(201, 168, 76, 0.10) 0, transparent 38%),
-    radial-gradient(circle at 88% 92%, rgba(27, 58, 92, 0.08) 0, transparent 42%);
+  
+  /* Islamic Pattern Background */
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 30-15 30-15-30z' fill='%23C5A059' fill-opacity='0.03'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 50% 50%, #1A1F2C 0%, #101827 100%);
   background-attachment: fixed;
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-white px-5 py-3 font-semibold shadow-soft transition active:scale-[0.98] hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-accent text-bg px-6 py-3 font-bold uppercase tracking-wider shadow-gold transition duration-300 active:scale-[0.98] hover:bg-accent-light hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-white text-primary border border-primary/20 px-5 py-3 font-semibold transition active:scale-[0.98] hover:bg-primary/5;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-transparent text-accent border border-accent/40 px-6 py-3 font-bold uppercase tracking-wider transition duration-300 active:scale-[0.98] hover:bg-accent/10 hover:border-accent;
   }
 
   .btn-accent {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent text-primary px-5 py-3 font-semibold shadow-soft transition active:scale-[0.98] hover:bg-accent-light;
+    @apply btn-primary;
   }
 
   .card {
-    @apply bg-surface rounded-2xl shadow-card p-5 sm:p-6;
+    @apply bg-surface/80 backdrop-blur-md rounded-xl border border-accent/20 shadow-card p-6 sm:p-8;
   }
 
-  .ornament {
-    background-image:
-      linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.6), transparent);
-    height: 1px;
+  .ornament-border {
+    @apply relative;
   }
+
+  .ornament-border::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-[1px] bg-gradient-to-r from-transparent via-accent/60 to-transparent;
+  }
+
+  .qawaid-container {
+    @apply relative overflow-hidden;
+    mask-image: linear-gradient(to bottom, black calc(100% - 40px), transparent 100%);
+  }
+  
+  .title-display {
+    @apply font-display text-accent uppercase tracking-[0.2em] leading-tight;
+  }
+}
+
+/* Custom Curved Shape for Specific Containers (like the bottom one in image) */
+.curved-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), 80% 100%, 20% 100%, 0 calc(100% - 40px));
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-light);
 }
 
 /* Focus ring (a11y) */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-  border-radius: 8px;
+  border-radius: 4px;
 }

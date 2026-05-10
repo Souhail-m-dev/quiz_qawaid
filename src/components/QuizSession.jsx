@@ -22,19 +22,19 @@ export default function QuizSession({
   if (!question) return null;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 sm:py-8">
-      <div className="flex items-center justify-between mb-4 gap-3">
+    <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12 animate-in fade-in duration-700">
+      <div className="flex items-center justify-between mb-8 gap-4">
         <button
           type="button"
           onClick={onQuitter}
-          className="text-sm text-primary/70 hover:text-primary inline-flex items-center gap-1"
+          className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent/60 hover:text-accent inline-flex items-center gap-2 group transition-colors"
         >
-          <span aria-hidden>✕</span> Quitter
+          <span className="text-sm transition-transform group-hover:rotate-90" aria-hidden>✕</span> Abandonner
         </button>
         <ScoreIndicator bonnes={bonnes} />
       </div>
 
-      <div className="mb-5">
+      <div className="mb-8">
         <ProgressBar courant={index + 1} total={total} />
       </div>
 
@@ -49,6 +49,12 @@ export default function QuizSession({
         onValider={onValider}
         onSuivant={onSuivant}
       />
+      
+      <div className="mt-8 text-center opacity-30">
+        <div className="w-1 h-1 bg-accent rounded-full inline-block mx-1" />
+        <div className="w-1 h-1 bg-accent rounded-full inline-block mx-1" />
+        <div className="w-1 h-1 bg-accent rounded-full inline-block mx-1" />
+      </div>
     </div>
   );
 }

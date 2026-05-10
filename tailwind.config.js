@@ -5,30 +5,34 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#1B3A5C',
-          light: '#2E5F8A'
+          DEFAULT: '#1A1F2C',
+          light: '#252B3B'
         },
         accent: {
-          DEFAULT: '#C9A84C',
-          light: '#F0D080'
+          DEFAULT: '#C5A059',
+          light: '#D4AF37'
         },
-        bg: '#F5F0E8',
-        surface: '#FFFFFF',
-        ink: '#1A1A1A',
-        muted: '#6B7280',
-        correct: '#16A34A',
-        incorrect: '#DC2626',
-        facile: '#16A34A',
-        moyenne: '#D97706',
-        difficile: '#DC2626'
+        bg: '#101827',
+        surface: '#1A1F2C',
+        beige: '#E6DFD1',
+        white: '#F9FAFB',
+        ink: '#F9FAFB',
+        muted: '#9CA3AF',
+        correct: '#10B981',
+        incorrect: '#EF4444',
+        facile: '#10B981',
+        moyenne: '#F59E0B',
+        difficile: '#EF4444'
       },
       fontFamily: {
-        display: ['Amiri', 'Georgia', 'serif'],
-        body: ['"Noto Serif"', 'Georgia', 'serif']
+        display: ['"Playfair Display"', 'serif'],
+        body: ['Montserrat', 'sans-serif'],
+        arabic: ['Amiri', 'serif']
       },
       boxShadow: {
-        soft: '0 2px 12px rgba(27, 58, 92, 0.08)',
-        card: '0 4px 24px rgba(27, 58, 92, 0.10)'
+        soft: '0 2px 12px rgba(0, 0, 0, 0.3)',
+        card: '0 8px 32px rgba(0, 0, 0, 0.4)',
+        gold: '0 0 15px rgba(197, 160, 89, 0.2)'
       }
     }
   },

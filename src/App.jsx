@@ -120,8 +120,11 @@ export default function App() {
         />
       )}
 
-      <footer className="text-center text-xs text-muted py-6">
-        Al-Qawā'id Al-Muthlaa — Révision libre
+      <footer className="text-center py-10 opacity-40">
+        <div className="w-8 h-[1px] bg-accent/30 mx-auto mb-4" />
+        <p className="text-[10px] text-accent uppercase tracking-[0.4em]">
+          Al-Qawā'id Al-Muthlaa • Révision
+        </p>
       </footer>
     </div>
   );

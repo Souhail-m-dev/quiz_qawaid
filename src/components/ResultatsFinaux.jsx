@@ -29,29 +29,29 @@ export default function ResultatsFinaux({ questions, reponses, onRejouer, onAccu
   const [ouverte, setOuverte] = useState(true);
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 sm:py-10">
-      <div className="text-center mb-6">
-        <div className="font-display text-4xl sm:text-5xl text-primary">
-          {score} <span className="text-muted text-2xl">/ {total}</span>
+    <div className="max-w-2xl mx-auto px-4 py-8 sm:py-14">
+      <div className="text-center mb-10">
+        <div className="title-display text-5xl sm:text-6xl text-white mb-2">
+          {score} <span className="text-accent text-2xl">/ {total}</span>
         </div>
-        <div className={`mt-3 inline-block border rounded-full px-4 py-1.5 text-sm font-semibold ${TON_CLS[mention.ton]}`}>
+        <div className={`mt-4 inline-block border-2 rounded-sm px-6 py-2 text-xs font-bold uppercase tracking-[0.2em] ${TON_CLS[mention.ton]}`}>
           {mention.libelle}
         </div>
-        <p className="text-sm text-muted mt-2">{mention.sousTitre}</p>
+        <p className="text-sm text-muted mt-4 italic tracking-wide">{mention.sousTitre}</p>
       </div>
 
-      <div className="card mb-5">
-        <h3 className="font-display text-lg text-primary mb-3">Score par difficulté</h3>
-        <ul className="space-y-2">
+      <div className="card mb-6 border-accent/10">
+        <h3 className="title-display text-sm mb-4 tracking-[0.2em]">Bilan par difficulté</h3>
+        <ul className="space-y-3">
           {['facile', 'moyenne', 'difficile'].map((lvl) => {
             const b = buckets[lvl];
             if (b.total === 0) return null;
             return (
-              <li key={lvl} className="flex items-center justify-between text-sm">
-                <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${BADGE_DIFF[lvl]}`}>
-                  {lvl[0].toUpperCase() + lvl.slice(1)}s
+              <li key={lvl} className="flex items-center justify-between text-sm py-2 border-b border-white/5 last:border-0">
+                <span className={`px-3 py-1 rounded-sm text-[10px] font-bold uppercase tracking-widest border border-current ${BADGE_DIFF[lvl]}`}>
+                  {lvl}
                 </span>
-                <span className="font-semibold text-ink">{b.ok} / {b.total}</span>
+                <span className="font-bold text-white tracking-widest">{b.ok} <span className="text-muted mx-1">/</span> {b.total}</span>
               </li>
             );
           })}
@@ -59,34 +59,39 @@ export default function ResultatsFinaux({ questions, reponses, onRejouer, onAccu
       </div>
 
       {ratees.length > 0 && (
-        <div className="card mb-5">
+        <div className="card mb-8 border-accent/10">
           <button
             type="button"
             onClick={() => setOuverte((v) => !v)}
-            className="w-full flex items-center justify-between text-left"
+            className="w-full flex items-center justify-between text-left group"
             aria-expanded={ouverte}
           >
-            <h3 className="font-display text-lg text-primary">
-              Questions ratées ({ratees.length})
+            <h3 className="title-display text-sm tracking-[0.2em]">
+              Points à consolider ({ratees.length})
             </h3>
-            <span className="text-primary text-xl" aria-hidden>{ouverte ? '−' : '+'}</span>
+            <span className="text-accent text-2xl transition-transform duration-300 group-hover:scale-110" aria-hidden>{ouverte ? '−' : '+'}</span>
           </button>
 
           {ouverte && (
-            <ul className="mt-4 space-y-4">
+            <ul className="mt-6 space-y-6">
               {ratees.map(({ q, r }) => (
-                <li key={q.id} className="border-l-2 border-incorrect/40 pl-3">
-                  <p className="font-semibold text-ink text-sm">{q.question}</p>
-                  {r?.reponseChoisie != null && (
-                    <p className="mt-1 text-xs text-incorrect">
-                      Votre réponse : {LETTRES[r.reponseChoisie]}. {q.options[r.reponseChoisie]}
+                <li key={q.id} className="relative pl-5 border-l border-accent/20">
+                  <div className="absolute top-0 left-0 w-[2px] h-4 bg-accent/40" />
+                  <p className="font-medium text-white text-sm leading-relaxed">{q.question}</p>
+                  <div className="mt-3 space-y-2">
+                    {r?.reponseChoisie != null && (
+                      <p className="text-[11px] text-incorrect uppercase tracking-wider font-bold">
+                        Votre choix : <span className="opacity-80 italic font-normal normal-case">{q.options[r.reponseChoisie]}</span>
+                      </p>
+                    )}
+                    <p className="text-[11px] text-correct uppercase tracking-wider font-bold">
+                      Réponse correcte : <span className="opacity-80 italic font-normal normal-case">{q.options[q.reponseCorrecte]}</span>
                     </p>
-                  )}
-                  <p className="mt-1 text-xs text-correct">
-                    Bonne réponse : {LETTRES[q.reponseCorrecte]}. {q.options[q.reponseCorrecte]}
-                  </p>
+                  </div>
                   {q.justification && (
-                    <p className="mt-1 text-xs text-muted leading-relaxed">{q.justification}</p>
+                    <div className="mt-3 p-3 bg-white/5 rounded text-[11px] text-muted leading-relaxed italic border-l-2 border-accent/10">
+                      {q.justification}
+                    </div>
                   )}
                 </li>
               ))}
@@ -95,12 +100,12 @@ export default function ResultatsFinaux({ questions, reponses, onRejouer, onAccu
         </div>
       )}
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         <button type="button" onClick={onRejouer} className="btn-primary">
-          Rejouer
+          Nouvelle session
         </button>
         <button type="button" onClick={onAccueil} className="btn-secondary">
-          Retour accueil
+          Quitter le quiz
         </button>
       </div>
     </div>
