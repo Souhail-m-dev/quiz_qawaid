@@ -78,51 +78,49 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen min-h-[100dvh]">
-      <main className="flex-1">
-        {phase === 'accueil' && (
-          <Accueil
-            meta={data.meta}
-            onChoisirComplet={choisirComplet}
-            onChoisirCours={choisirCours}
-            coursDisponibles={data.cours.filter((c) => c.questions.length > 0)}
-            onChoisirCoursDirect={choisirCoursId}
-          />
-        )}
+    <div className="min-h-screen bg-bg">
+      {phase === 'accueil' && (
+        <Accueil
+          meta={data.meta}
+          onChoisirComplet={choisirComplet}
+          onChoisirCours={choisirCours}
+          coursDisponibles={data.cours.filter((c) => c.questions.length > 0)}
+          onChoisirCoursDirect={choisirCoursId}
+        />
+      )}
 
-        {phase === 'selection_cours' && (
-          <SelectionCours
-            cours={data.cours}
-            onSelect={choisirCoursId}
-            onRetour={() => setPhase('accueil')}
-          />
-        )}
+      {phase === 'selection_cours' && (
+        <SelectionCours
+          cours={data.cours}
+          onSelect={choisirCoursId}
+          onRetour={() => setPhase('accueil')}
+        />
+      )}
 
-        {phase === 'quiz' && (
-          <QuizSession
-            questions={questions}
-            index={indexQuestion}
-            reponses={reponses}
-            reponseEnCours={reponseEnCours}
-            feedbackVisible={feedbackVisible}
-            onChoisir={(i) => !feedbackVisible && setReponseEnCours(i)}
-            onValider={valider}
-            onSuivant={suivant}
-            onQuitter={retourAccueil}
-          />
-        )}
+      {phase === 'quiz' && (
+        <QuizSession
+          questions={questions}
+          index={indexQuestion}
+          reponses={reponses}
+          reponseEnCours={reponseEnCours}
+          feedbackVisible={feedbackVisible}
+          onChoisir={(i) => !feedbackVisible && setReponseEnCours(i)}
+          onValider={valider}
+          onSuivant={suivant}
+          onQuitter={retourAccueil}
+        />
+      )}
 
-        {phase === 'resultats' && (
-          <ResultatsFinaux
-            questions={questions}
-            reponses={reponses}
-            onRejouer={rejouer}
-            onAccueil={retourAccueil}
-          />
-        )}
-      </main>
+      {phase === 'resultats' && (
+        <ResultatsFinaux
+          questions={questions}
+          reponses={reponses}
+          onRejouer={rejouer}
+          onAccueil={retourAccueil}
+        />
+      )}
 
-      <footer className="text-center py-10 opacity-40 shrink-0">
+      <footer className="text-center py-10 opacity-40">
         <div className="w-8 h-[1px] bg-accent/30 mx-auto mb-4" />
         <p className="text-[10px] text-accent uppercase tracking-[0.4em]">
           Al-Qawā'id Al-Muthlaa • Révision

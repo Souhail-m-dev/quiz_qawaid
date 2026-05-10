@@ -30,36 +30,31 @@ export default function QuestionCard({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className="card relative overflow-hidden flex flex-col h-full sm:h-auto max-h-full sm:max-h-none"
+      className="card relative overflow-hidden"
     >
       <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
       
-      {/* Header Area - Compact */}
-      <div className="flex items-center justify-between mb-4 shrink-0">
+      <div className="flex items-center justify-between mb-6">
         <span className="text-[10px] font-bold text-accent uppercase tracking-[0.2em]">
           Unité {question.coursId} <span className="text-muted mx-1">•</span> Q{numero}
         </span>
-        <span className={`text-[9px] font-bold px-2 py-0.5 rounded-sm border border-current uppercase tracking-widest ${badge.cls}`}>
+        <span className={`text-[9px] font-bold px-3 py-1 rounded-sm border border-current uppercase tracking-widest ${badge.cls}`}>
           {badge.label}
         </span>
       </div>
 
-      {/* Question Text - Scrollable on mobile if long, natural height on desktop */}
-      <div className="overflow-y-auto sm:overflow-visible mb-6 flex-grow sm:flex-grow-0 min-h-0 py-2">
-        <h2 className="title-display text-base sm:text-xl normal-case tracking-normal leading-relaxed text-white">
+      <div className="mb-8">
+        <h2 className="title-display text-lg sm:text-xl normal-case tracking-normal leading-relaxed text-white">
           {question.question}
         </h2>
       </div>
 
-      {/* Options Area */}
-      <div className="grid gap-2 sm:gap-3 shrink-0" role="radiogroup" aria-label="Choisissez une réponse">
+      <div className="grid gap-3 sm:gap-4" role="radiogroup" aria-label="Choisissez une réponse">
         <AnimatePresence mode="popLayout">
           {question.options.map((opt, i) => {
             const isCorrect = i === question.reponseCorrecte;
             const isSelected = reponseEnCours === i;
             
-            // Logic: If feedback is visible, only show the correct option 
-            // and the selected option (if it was wrong).
             if (feedbackVisible && !isCorrect && !isSelected) return null;
 
             return (
@@ -87,31 +82,25 @@ export default function QuestionCard({
       </div>
 
       {!feedbackVisible && (
-        <div className="mt-4 shrink-0">
+        <div className="mt-8 flex justify-center">
           <button
             type="button"
             disabled={reponseEnCours === null}
             onClick={onValider}
-            className="btn-primary w-full"
+            className="btn-primary w-full sm:w-auto min-w-[160px]"
           >
-            Valider
+            Valider la réponse
           </button>
         </div>
       )}
 
       {feedbackVisible && (
-        <motion.div 
-          initial={{ opacity: 0, h: 0 }}
-          animate={{ opacity: 1, h: 'auto' }}
-          className="mt-4 shrink-0 overflow-hidden"
-        >
-          <FeedbackPanel
-            estCorrecte={estCorrecteSelection}
-            justification={question.justification}
-            derniere={derniere}
-            onSuivant={onSuivant}
-          />
-        </motion.div>
+        <FeedbackPanel
+          estCorrecte={estCorrecteSelection}
+          justification={question.justification}
+          derniere={derniere}
+          onSuivant={onSuivant}
+        />
       )}
     </motion.div>
   );
