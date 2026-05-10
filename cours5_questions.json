@@ -1,0 +1,291 @@
+{
+  "cours": {
+    "id": 5,
+    "titre": "Première règle : Tous les Noms d'Allah sont extrêmement beaux et bons",
+    "date": "18/07/2025",
+    "instructeur": "Dr. Abdelrahman Abu AbdelWahhab",
+    "repartition": { "facile": 10, "moyenne": 5, "difficile": 5 }
+  },
+  "questions": [
+    {
+      "id": "c5_q1",
+      "numero": 1,
+      "difficulte": "facile",
+      "question": "Dans combien de versets du Coran Allah affirme-t-il explicitement que Lui appartiennent les noms extrêmement beaux (al-asmāʾ al-ḥusnā) ?",
+      "options": [
+        "Deux versets",
+        "Trois versets",
+        "Quatre versets",
+        "Sept versets"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Dans quatre versets du Coran, Allah affirme clairement qu'à Lui appartiennent les noms extrêmement beaux et bons (al-asmāʾ al-ḥusnā) : sourate al-Aʿrāf (7:180), sourate al-Isrāʾ (17:110), sourate Ṭā-Hā (20:8) et sourate al-Ḥashr (59:24)."
+    },
+    {
+      "id": "c5_q2",
+      "numero": 2,
+      "difficulte": "facile",
+      "question": "Que signifie le mot « al-ḥusnā » grammaticalement dans l'expression al-asmāʾ al-ḥusnā ?",
+      "options": [
+        "Un pluriel masculin signifiant « beaux »",
+        "La forme féminine du superlatif « aḥsan », signifiant « extrêmement beau et bon »",
+        "Un adjectif relatif signifiant « bons par rapport à d'autres »",
+        "Un nom d'action signifiant « embellissement »"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Le mot « al-ḥusnā » est la forme féminine du superlatif « aḥsan », qui signifie « extrêmement beau et bon ». Il s'agit d'un superlatif absolu et non relatif."
+    },
+    {
+      "id": "c5_q3",
+      "numero": 3,
+      "difficulte": "facile",
+      "question": "Parmi les quatre catégories de significations des noms selon Ibn ʿUthaymīn, laquelle est la seule qui convient à être attribuée à Allah ?",
+      "options": [
+        "Ce qui désigne le mal ou l'imperfection en soi",
+        "Ce qui désigne un sens positif seulement dans un contexte particulier",
+        "Ce qui désigne quelque chose de bon mais sans perfection assurée",
+        "Ce qui désigne quelque chose de bon de manière parfaite et absolue"
+      ],
+      "reponseCorrecte": 3,
+      "justification": "Seule la quatrième catégorie correspond aux noms d'Allah : ce qui désigne quelque chose de bon de manière parfaite et absolue. Par exemple, as-Samīʿ (L'Audient parfait) et al-Baṣīr (Le Clairvoyant parfait). Les autres catégories ne peuvent en aucun cas être attribuées à Allah."
+    },
+    {
+      "id": "c5_q4",
+      "numero": 4,
+      "difficulte": "facile",
+      "question": "Quelle est la différence fondamentale entre les noms d'Allah et les noms des créatures ?",
+      "options": [
+        "Les noms d'Allah sont en arabe uniquement, contrairement aux noms des créatures",
+        "Les noms d'Allah sont limités en nombre, contrairement aux noms des créatures",
+        "Les noms d'Allah sont fondés sur des attributs réels et parfaits, tandis que les noms des créatures sont des noms propres figés sans lien nécessaire avec le sens",
+        "Les noms d'Allah ne peuvent être prononcés qu'en prière, contrairement aux noms des créatures"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Les noms d'Allah ne sont pas de simples appellations sans signification. Ils sont fondés sur des attributs réels et parfaits qu'Allah possède véritablement. En revanche, les noms des créatures sont des noms propres, figés, sans lien nécessaire avec la réalité de leur être : une personne peut s'appeler « Ḥakīm » sans pour autant avoir la sagesse."
+    },
+    {
+      "id": "c5_q5",
+      "numero": 5,
+      "difficulte": "facile",
+      "question": "Combien de fois le nom « al-Ḥayy » (Le Vivant) revient-il dans le Coran, et avec quel autre nom est-il toujours associé ?",
+      "options": [
+        "Une seule fois, associé à al-Raḥmān",
+        "Deux fois, associé à al-ʿAlīm",
+        "Trois fois, associé à al-Qayyūm",
+        "Quatre fois, associé à al-Qahhar"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Le nom al-Ḥayy (Le Vivant) revient à trois reprises dans le Coran, toujours associé à al-Qayyūm (Celui qui subsiste par Lui-même et qui fait subsister toute chose) : sourate al-Baqara (2:255), sourate Āl ʿImrān (3:2), et sourate Ṭā-Hā (20:111)."
+    },
+    {
+      "id": "c5_q6",
+      "numero": 6,
+      "difficulte": "facile",
+      "question": "Quelle est la particularité de la vie d'Allah (al-ḥayāt) par rapport à la vie des créatures ?",
+      "options": [
+        "Elle est plus longue que la vie des créatures mais a tout de même un début",
+        "Elle n'est pas précédée de néant et n'est pas suivie de disparition, et n'est touchée par aucune faiblesse ni défaut",
+        "Elle est identique à la vie des créatures dans son essence mais supérieure dans sa durée",
+        "Elle existe uniquement dans l'au-delà et non dans ce bas monde"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "La vie d'Allah est parfaite : elle n'est pas précédée de néant, n'est pas suivie de disparition, et n'est touchée par aucune faiblesse, ni défaut, ni manquement. C'est une vie éternelle et absolue, contrairement à celle des créatures qui est imparfaite et limitée."
+    },
+    {
+      "id": "c5_q7",
+      "numero": 7,
+      "difficulte": "facile",
+      "question": "Quel exemple illustre le cas d'un nom qui ne peut s'utiliser pour Allah que dans un contexte restreint (et non comme nom autonome) ?",
+      "options": [
+        "Al-Mutakallim (Celui qui parle)",
+        "Al-Mākir (Celui qui ruse/complote)",
+        "Al-Qahhār (Le Dominateur)",
+        "Al-Jabbār (Le Tout-Puissant)"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Al-Mākir désigne un sens positif seulement dans un contexte particulier : on peut informer qu'Allah complote contre ceux qui complotent, comme dans le verset de la sourate Āl ʿImrān, mais ce n'est pas une chose qu'on Lui attribue directement de façon totale et absolue comme nom."
+    },
+    {
+      "id": "c5_q8",
+      "numero": 8,
+      "difficulte": "facile",
+      "question": "Quelle est la différence entre le superlatif absolu et le superlatif relatif dans la description des noms d'Allah ?",
+      "options": [
+        "Le superlatif absolu implique une comparaison avec les créatures, le relatif n'en implique pas",
+        "Le superlatif absolu indique la perfection sans comparaison ni égal, tandis que le superlatif relatif implique une comparaison avec un autre élément",
+        "Le superlatif absolu s'applique aux attributs d'action, le relatif aux attributs d'essence",
+        "Les deux types sont équivalents et s'appliquent tous deux aux noms d'Allah"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Le superlatif relatif implique une comparaison (exemple : Muḥammad est plus intelligent que Zayd). Le superlatif absolu indique la perfection sans comparaison, sans égal ni associé (exemple : les noms d'Allah sont extrêmement beaux, sans que cela soit relatif à d'autres). Dire que les noms d'Allah atteignent la perfection suprême ne veut pas dire qu'ils ont une limite ou une fin."
+    },
+    {
+      "id": "c5_q9",
+      "numero": 9,
+      "difficulte": "facile",
+      "question": "Que précise Ibn al-Qayyim sur la raison pour laquelle tous les noms d'Allah sont extrêmement beaux ?",
+      "options": [
+        "Parce qu'ils sont mentionnés dans le Coran et la Sunna uniquement",
+        "Parce qu'ils expriment tous la louange, l'éloge et la glorification",
+        "Parce qu'ils sont en nombre limité et bien connus des savants",
+        "Parce qu'ils sont prononcés en arabe classique"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Ibn al-Qayyim a dit : « Tous les noms d'Allah sont extrêmement beaux, car ils expriment tous la louange, l'éloge et la glorification. » Il est impossible de louer une entité parfaite avec des noms péjoratifs ou imparfaits."
+    },
+    {
+      "id": "c5_q10",
+      "numero": 10,
+      "difficulte": "facile",
+      "question": "Pourquoi le nom al-Mutakallim (Celui qui parle) ne peut-il pas être attribué à Allah en tant que nom autonome ?",
+      "options": [
+        "Parce qu'Allah ne parle pas selon les textes du Coran",
+        "Parce que la parole peut être bonne, mais aussi mauvaise ; ce nom est ambigu et ne convient pas à Allah",
+        "Parce que ce nom est réservé aux prophètes dans le Coran",
+        "Parce que ce nom implique une ressemblance avec les créatures"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Al-Mutakallim (celui qui parle) désigne quelque chose de bon, mais sans perfection assurée : la parole peut être bonne, mais aussi mauvaise. Ce type de nom est ambigu et ne convient pas à Allah en tant que nom autonome."
+    },
+    {
+      "id": "c5_q11",
+      "numero": 11,
+      "difficulte": "moyenne",
+      "question": "Quelle est la règle concernant les noms d'Allah qui ne se mentionnent qu'en duo (al-ism al-mzdawaj), et quel exemple en est donné ?",
+      "options": [
+        "Ces noms peuvent se mentionner seuls car chacun contient un sens complet ; exemple : al-Awwal et al-Ākhir",
+        "Ces noms ne s'utilisent qu'en paire pour exprimer la perfection globale, car les mentionner séparément créerait une ambiguïté ; exemple : al-Nāfiʿ et al-Ḍārr",
+        "Ces noms sont toujours associés à al-Ḥayy et al-Qayyūm pour renforcer leur sens",
+        "Ces noms sont limités à deux paires dans tout le Coran"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Certains noms ne s'utilisent qu'en paire pour exprimer la perfection globale. Exemple : al-Nāfiʿ (Celui qui accorde le profit) et al-Ḍārr (Celui qui inflige le mal). On ne dit pas simplement al-Nāfiʿ seul, car on ne peut attribuer ce nom sans son pendant al-Ḍārr, pour ne pas créer d'ambiguïté. Ensemble, ils expriment que seul Allah détient le pouvoir de nuire et de bénéficier."
+    },
+    {
+      "id": "c5_q12",
+      "numero": 12,
+      "difficulte": "moyenne",
+      "question": "Comment la combinaison des noms al-ʿAzīz et al-Ḥakīm produit-elle une perfection supérieure à celle de chacun pris séparément ?",
+      "options": [
+        "Car leur réunion double simplement la perfection de chaque nom sans ajouter de nouveau sens",
+        "Car la puissance d'Allah est toujours accompagnée de sagesse, ce qui exclut toute injustice, et Sa sagesse est soutenue par une puissance parfaite qui ne subit aucune pression",
+        "Car ces deux noms ensemble désignent la même réalité que le nom al-Qahhar",
+        "Car leur association est mentionnée dans la sourate al-Fātiḥa"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Al-ʿAzīz implique la puissance parfaite, al-Ḥakīm implique la sagesse parfaite. Pris ensemble, ils indiquent que la puissance d'Allah est toujours accompagnée de sagesse — Il n'est jamais injuste dans l'usage de Sa puissance — et que Son jugement est appuyé par Sa puissance, car Il ne craint personne et ne subit aucune pression. C'est un niveau de perfection supérieur que les créatures puissantes ne possèdent pas."
+    },
+    {
+      "id": "c5_q13",
+      "numero": 13,
+      "difficulte": "moyenne",
+      "question": "Quelle est la spécificité qui distingue le nom al-Khāliq du nom al-Bāriʾ selon le cours ?",
+      "options": [
+        "Al-Khāliq désigne la création à partir du néant uniquement, tandis qu'al-Bāriʾ désigne la création à partir d'une matière existante",
+        "Al-Khāliq est Celui qui a créé toute chose avec mesure et précision, tandis qu'al-Bāriʾ est Celui qui donne forme aux créatures à partir du néant",
+        "Al-Khāliq concerne les créatures visibles et al-Bāriʾ concerne les créatures invisibles",
+        "Al-Khāliq et al-Bāriʾ sont des synonymes parfaits qui peuvent s'interchanger librement"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Ces noms ne sont pas interchangeables : al-Khāliq est Celui qui a créé toute chose avec mesure et précision, tandis qu'al-Bāriʾ est Celui qui donne forme aux créatures à partir du néant. Ils renvoient à des aspects différents et complémentaires de la perfection divine."
+    },
+    {
+      "id": "c5_q14",
+      "numero": 14,
+      "difficulte": "moyenne",
+      "question": "Quelle est la science de la miséricorde d'Allah décrite dans le hadith du Prophète concernant ar-Raḥmān, et quel verset coranique en confirme la vastitude ?",
+      "options": [
+        "Allah est plus miséricordieux envers Ses serviteurs qu'un père envers son fils ; confirmé par la sourate al-Fātiḥa",
+        "Allah est plus miséricordieux envers Ses serviteurs que cette mère envers son enfant ; confirmé par : « Ma miséricorde s'étend à toutes choses » (al-Aʿrāf, 7:156)",
+        "Allah réserve Sa miséricorde aux croyants uniquement ; confirmé par la sourate al-Bayyina",
+        "Allah distribue Sa miséricorde selon la piété de chacun ; confirmé par la sourate az-Zumar"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Le Prophète a dit : « Allah est plus miséricordieux envers Ses serviteurs que cette mère envers son enfant. » Ce hadith a été prononcé en voyant une mère retrouver son enfant égaré et le serrer contre elle. Allah confirme dans le Coran : « Ma miséricorde s'étend à toutes choses. » (Sourate al-Aʿrāf, 7:156)."
+    },
+    {
+      "id": "c5_q15",
+      "numero": 15,
+      "difficulte": "moyenne",
+      "question": "Quelle est la signification linguistique du nom « Allah » selon le tafsīr d'Ibn ʿAbbās ?",
+      "options": [
+        "Celui qui est présent partout et en tout temps",
+        "Celui qui possède la divinité et l'adoration sur toute la création",
+        "Celui dont le nom est inconnaissable et indicible",
+        "Celui qui a créé toute chose à partir du néant"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Selon le tafsīr d'Ibn ʿAbbās : « Allah est Celui qui possède la divinité et l'adoration sur toute la création. » Cela signifie qu'Allah est Celui qui mérite l'adoration exclusive et que l'adoration sincère, l'amour, l'espérance et la crainte Lui sont dus uniquement."
+    },
+    {
+      "id": "c5_q16",
+      "numero": 16,
+      "difficulte": "difficile",
+      "question": "Pourquoi la structure linguistique du verset « wa-li-Llāhi al-asmāʾ al-ḥusnā » exprime-t-elle une exclusivité et une restriction, et comment s'appelle ce procédé rhétorique ?",
+      "options": [
+        "Car le pluriel « al-asmāʾ » indique une multitude ; ce procédé s'appelle at-takthīr",
+        "Car la particule lām précédée de wa indique l'appartenance exclusive et le fait de mettre ce qui est possédé en tête exprime la restriction (ḥaṣr) ; ce procédé s'appelle taqdīm mā ḥaqquhu at-taʾkhīr",
+        "Car le nom d'Allah est placé après ses attributs, ce qui en rhétorique s'appelle at-taʾkhīr al-maqṣūd",
+        "Car la conjonction wa au début du verset lie ce verset au précédent pour renforcer l'exclusivité ; ce procédé s'appelle al-waṣl"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "La particule lām indique ici l'appartenance exclusive. En rhétorique arabe (balāgha), mettre en tête ce qui devrait normalement venir après s'appelle taqdīm mā ḥaqquhu at-taʾkhīr, et cela exprime la restriction (ḥaṣr). De même que dire « à toi ce stylo » signifie qu'il est uniquement à toi, le verset signifie que ces noms appartiennent exclusivement à Allah."
+    },
+    {
+      "id": "c5_q17",
+      "numero": 17,
+      "difficulte": "difficile",
+      "question": "La science d'Allah (al-ʿIlm) contenue dans le nom al-ʿAlīm couvre quatre dimensions. Laquelle parmi les propositions suivantes les énumère correctement ?",
+      "options": [
+        "Ce qui est passé, ce qui est présent, ce qui est futur, et ce qui est caché aux anges",
+        "Ce qui est (mā yakūn), ce qui était (mā kāna), ce qui sera (mā sayakūn), et ce qui ne s'est pas produit et comment cela aurait été s'il s'était produit (mā lam yakun law kāna kayfa yakūn)",
+        "Ce qui est dans les cieux, ce qui est sur la terre, ce qui est dans les mers, et ce qui est dans les cœurs",
+        "La science de la prédestination, la science des livres révélés, la science des créatures et la science du Jour Dernier"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "La science d'Allah couvre : ce qui est (mā yakūn), ce qui était (mā kāna), ce qui sera (mā sayakūn), et ce qui ne s'est pas produit et comment cela aurait été s'il s'était produit (mā lam yakun law kāna kayfa yakūn). Cette science n'est précédée d'aucune ignorance et n'est sujette à aucun oubli."
+    },
+    {
+      "id": "c5_q18",
+      "numero": 18,
+      "difficulte": "difficile",
+      "question": "Pourquoi est-il incorrect d'affirmer que les noms d'Allah atteignent une « extrême limite » dans le sens d'une limite ou d'une fin de leur nombre ou de leur signification ?",
+      "options": [
+        "Car le Coran a explicitement dit que leurs nombres sont infinis, ce qui contredit l'idée de limite",
+        "Car « atteindre l'extrême limite » signifie qu'ils sont d'une perfection absolue sans fin dans leur sens, non qu'ils ont une limite quantitative ; rien ne Lui est comparable et nul ne Lui est semblable ni comparable",
+        "Car les savants ont établi un nombre fixe de noms et cette limite est un consensus",
+        "Car l'idée d'une limite implique nécessairement une imperfection, que les savants ont réfutée par consensus"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Dire que les noms d'Allah atteignent la perfection suprême et leur extrême limite signifie qu'ils sont absolument parfaits dans leurs sens, sans aucun défaut. Cela ne veut pas dire qu'ils ont une limite ou une fin, ni dans leur nombre ni dans leur signification. Rien de Lui ne ressemble, nul ne Lui est semblable ni comparable."
+    },
+    {
+      "id": "c5_q19",
+      "numero": 19,
+      "difficulte": "difficile",
+      "question": "Pourquoi le mal existe-t-il dans la création d'Allah sans qu'il entre pour autant dans Ses noms ou Ses attributs, et quel exemple coranique l'illustre ?",
+      "options": [
+        "Car Allah délègue la création du mal aux anges déchus ; illustré par la sourate al-Baqara sur Iblīs",
+        "Car le mal est une notion relative qui dépend du point de vue humain et non d'une réalité objective dans la création",
+        "Car le mal existe dans la création mais pas dans les noms, les attributs ni les actions d'Allah ; illustré par le verset al-Fātiḥa où Allah ne S'attribue pas directement la colère et l'égarement mais les mentionne de manière implicite",
+        "Car Allah a interdit l'attribution du mal aux noms divins par un verset explicite de la sourate al-Aʿrāf"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Le mal existe dans la création, mais pas dans les noms, les attributs ni les actions d'Allah. Un exemple coranique : dans la sourate al-Fātiḥa (1:7), Allah n'attribue pas directement la colère et l'égarement à Lui-même, mais les mentionne de manière implicite : « le chemin de ceux que Tu as comblés de faveurs, non pas de ceux qui ont encouru Ta colère, ni des égarés. »"
+    },
+    {
+      "id": "c5_q20",
+      "numero": 20,
+      "difficulte": "difficile",
+      "question": "Quel est le Nom Suprême d'Allah (al-ism al-aʿẓam) selon la majorité des savants, et sur quelle base l'établissent-ils ?",
+      "options": [
+        "Le nom ar-Raḥmān, car il n'est attribué qu'à Allah seul dans le Coran",
+        "Le nom al-Ḥayy al-Qayyūm, car ils sont toujours associés dans les passages les plus importants du Coran",
+        "Le nom « Allah », car tous les autres noms lui sont rattachés, il englobe les significations des autres noms, et il est le seul retrouvé dans tous les hadiths mentionnant le Nom Suprême",
+        "Le nom al-Aḥad, car la sourate al-Ikhlāṣ l'établit comme unique et indivisible"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "La majorité des savants dit que le Nom Suprême est « Allah », pour plusieurs raisons : tous les autres noms lui sont rattachés, il englobe les significations des autres noms, il est le nom propre d'Allah, et il est le seul retrouvé dans tous les hadiths mentionnant le Nom Suprême. Il est aussi le plus mentionné dans le Coran, plus de 2000 fois."
+    }
+  ]
+}

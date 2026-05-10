@@ -1,0 +1,295 @@
+{
+  "cours": {
+    "id": 1,
+    "titre": "Introduction à l'unicité d'Allah (at-Tawḥīd)",
+    "date": "Mercredi 2 juillet 2025 – 7 Muḥarram 1447 H",
+    "instructeur": "Dr. Abdelrahman Abu AbdelWahhab",
+    "repartition": {
+      "facile": 10,
+      "moyenne": 5,
+      "difficile": 5
+    }
+  },
+  "questions": [
+    {
+      "id": "c1_q1",
+      "numero": 1,
+      "difficulte": "facile",
+      "question": "Quel est le but de la création des djinns et des hommes selon le Coran ?",
+      "options": [
+        "Peupler la terre",
+        "Adorer Allah",
+        "Accomplir les cinq piliers",
+        "Connaître les savants"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Allah dit dans la sourate adh-Dhāriyāt, verset 56 : « Je n'ai créé les djinns et les hommes que pour qu'ils M'adorent. »"
+    },
+    {
+      "id": "c1_q2",
+      "numero": 2,
+      "difficulte": "facile",
+      "question": "Que signifie le mot « Tawḥīd » dans la langue arabe ?",
+      "options": [
+        "Associer plusieurs êtres à Allah",
+        "Rendre une chose unique, ou le fait qu'une chose soit unique par rapport à d'autres",
+        "Accomplir les actes d'adoration obligatoires",
+        "Croire aux prophètes et aux livres révélés"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "L'unicité dans la langue arabe signifie : rendre une chose unique, ou le fait qu'une chose soit unique par rapport à d'autres."
+    },
+    {
+      "id": "c1_q3",
+      "numero": 3,
+      "difficulte": "facile",
+      "question": "Quel est le contraire du Tawḥīd ?",
+      "options": [
+        "Al-Kufr (la mécréance)",
+        "Al-Chirk (le polythéisme)",
+        "An-Nifāq (l'hypocrisie)",
+        "Al-Bid'a (l'innovation)"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Le polythéisme (al-shirk), qui est l'opposé de l'unicité, consiste à associer à Allah d'autres êtres dans ce qui Lui est exclusivement réservé."
+    },
+    {
+      "id": "c1_q4",
+      "numero": 4,
+      "difficulte": "facile",
+      "question": "Combien de catégories comprend le Tawḥīd selon les textes du Coran et de la Sunna ?",
+      "options": [
+        "Deux",
+        "Trois",
+        "Quatre",
+        "Cinq"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Les textes du Coran et de la Sunna montrent que l'unicité d'Allah se divise en trois formes : Tawḥīd ar-Rubūbiyya, Tawḥīd al-Ulūhiyya, et Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt."
+    },
+    {
+      "id": "c1_q5",
+      "numero": 5,
+      "difficulte": "facile",
+      "question": "Que désigne le Tawḥīd ar-Rubūbiyya ?",
+      "options": [
+        "Vouer exclusivement à Allah tous les actes d'adoration",
+        "Croire aux noms et attributs d'Allah",
+        "Unifier Allah dans Ses actes tels que la création, la vie et la mort, le pouvoir et l'organisation de l'univers",
+        "Reconnaître les cinq piliers de l'Islam"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Tawḥīd ar-Rubūbiyya : c'est le fait d'unifier Allah dans Ses actes, tels que la création, la vie et la mort, le pouvoir, l'organisation et la gestion de l'univers."
+    },
+    {
+      "id": "c1_q6",
+      "numero": 6,
+      "difficulte": "facile",
+      "question": "Que désigne le Tawḥīd al-Ulūhiyya ?",
+      "options": [
+        "Unifier Allah dans Sa seigneurie uniquement",
+        "Vouer exclusivement à Allah tous les actes d'adoration, apparents ou cachés, par les paroles ou les actes",
+        "Croire aux noms et attributs d'Allah sans les déformer",
+        "Connaître le nombre des noms d'Allah"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Tawḥīd al-Ulūhiyya : c'est vouer exclusivement à Allah tous les actes d'adoration : apparents ou cachés, par les paroles ou les actes. Aucune forme d'adoration ne doit être dirigée vers un autre qu'Allah."
+    },
+    {
+      "id": "c1_q7",
+      "numero": 7,
+      "difficulte": "facile",
+      "question": "Combien de noms Allah possède-t-Il selon le hadith d'Abū Hurayra rapporté dans ce cours ?",
+      "options": [
+        "100 noms",
+        "99 noms (cent moins un)",
+        "1000 noms",
+        "Un seul nom connu"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Dans le hadith rapporté par Abū Hurayra, le Prophète a dit : « Certes, Allah a 99 noms — cent moins un —, celui qui les recense entrera au Paradis. »"
+    },
+    {
+      "id": "c1_q8",
+      "numero": 8,
+      "difficulte": "facile",
+      "question": "Quelle est la première obligation religieuse selon le Prophète qui envoyait Muʿādh au Yémen ?",
+      "options": [
+        "La prière",
+        "Le jeûne",
+        "Réaliser l'unicité d'Allah",
+        "La zakāt"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Le Prophète a dit à Muʿādh : « Informe-les que le premier devoir qui leur incombe est de réaliser l'unicité d'Allah. » Ce qui montre que la connaissance de l'unicité d'Allah est la première obligation religieuse, avant même la prière."
+    },
+    {
+      "id": "c1_q9",
+      "numero": 9,
+      "difficulte": "facile",
+      "question": "Que dit Ibn al-Qayyim à propos de la valeur d'une science ?",
+      "options": [
+        "La valeur d'une science dépend du nombre de ses étudiants",
+        "La valeur d'une science dépend de l'objet qu'elle étudie",
+        "La valeur d'une science dépend de l'ancienneté de ses sources",
+        "La valeur d'une science dépend de la difficulté de ses règles"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Ibn al-Qayyim a dit : « La valeur d'une science dépend de l'objet qu'elle étudie. Or il n'y a pas de sujet plus noble que la connaissance d'Allah, de Ses noms, de Ses attributs, et de Ses actions. »"
+    },
+    {
+      "id": "c1_q10",
+      "numero": 10,
+      "difficulte": "facile",
+      "question": "Que signifie littéralement le mot Chirk (al-shirk) ?",
+      "options": [
+        "Nier",
+        "Associer",
+        "Déformer",
+        "Ignorer"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Chirk signifie littéralement : associer. Le polythéisme (al-shirk) consiste à associer à Allah d'autres êtres dans ce qui Lui est exclusivement réservé."
+    },
+    {
+      "id": "c1_q11",
+      "numero": 11,
+      "difficulte": "moyenne",
+      "question": "Quelle est la définition religieuse du Tawḥīd selon le Coran et la Sunna ?",
+      "options": [
+        "Prononcer la shahāda une seule fois dans sa vie",
+        "Unifier Allah dans Ses spécificités et dans les droits qui Lui reviennent exclusivement",
+        "Accomplir les cinq piliers de l'Islam sans faute",
+        "Rejeter toutes les autres religions"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Dans les textes, le Tawḥīd consiste à unifier Allah dans Ses spécificités et dans les droits qui Lui reviennent exclusivement."
+    },
+    {
+      "id": "c1_q12",
+      "numero": 12,
+      "difficulte": "moyenne",
+      "question": "Comment le Tawḥīd al-Ulūhiyya se situe-t-il par rapport aux deux autres catégories du Tawḥīd ?",
+      "options": [
+        "Il est indépendant des deux autres catégories",
+        "Il est moins important que les deux autres",
+        "Il comprend et englobe les deux autres formes, puisqu'on n'adore qu'Allah en raison de Sa seigneurie et de Ses attributs parfaits",
+        "Il est identique au Tawḥīd ar-Rubūbiyya"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Le Tawḥīd al-Ulūhiyya comprend et englobe les deux autres formes, puisqu'on n'adore qu'Allah en raison de Sa seigneurie et de Ses attributs parfaits."
+    },
+    {
+      "id": "c1_q13",
+      "numero": 13,
+      "difficulte": "moyenne",
+      "question": "Quelle sourate affirme l'unicité absolue d'Allah dans Ses noms, attributs et essence, et que le Prophète récitait fréquemment avant de dormir ?",
+      "options": [
+        "Sourate al-Fātiḥa",
+        "Sourate al-Baqara",
+        "Sourate al-Ikhlāṣ",
+        "Sourate al-Mujādila"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Sourate al-Ikhlāṣ affirme l'unicité absolue d'Allah dans Ses noms, attributs et essence. Le Prophète récitait cette sourate ainsi que al-Kāfirūn dans les sunnan, les prières de voyage, et avant de dormir, comme une affirmation constante du Tawḥīd."
+    },
+    {
+      "id": "c1_q14",
+      "numero": 14,
+      "difficulte": "moyenne",
+      "question": "Comment ʿĀʾishah a-t-elle réagi lors de la révélation de la sourate al-Mujādilah ?",
+      "options": [
+        "Elle a demandé des précisions sur le sens du verset",
+        "Elle a dit : « Gloire à Celui dont l'ouïe entend tout ! »",
+        "Elle a pleuré en entendant le verset",
+        "Elle n'a pas compris le sens du verset"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "ʿĀʾishah a dit : « Gloire à Celui dont l'ouïe entend tout ! » Elle dit cela en réaction à la descente du verset, car elle-même n'avait pas bien entendu ce qu'avait dit la femme. Mais Allah, Lui, a tout entendu et a révélé ce verset."
+    },
+    {
+      "id": "c1_q15",
+      "numero": 15,
+      "difficulte": "moyenne",
+      "question": "Quelle est la position des pieux prédécesseurs (Salaf aṣ-Ṣāliḥ) concernant les Noms et Attributs d'Allah ?",
+      "options": [
+        "Ils les interprétaient selon la raison et la philosophie",
+        "Ils les acceptaient tels quels, y croyaient et agissaient en conséquence, sans les déformer, les nier, ni en discuter le comment",
+        "Ils en niaient certains pour éviter l'anthropomorphisme",
+        "Ils réservaient leur connaissance aux savants uniquement"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Les compagnons acceptaient les Noms et les Attributs d'Allah tels quels, y croyaient et agissaient en conséquence, sans chercher à en déformer le sens, à les nier, ni à en discuter le 'comment' (bi-lā kayf). C'est le fondement de la croyance des gens de la Sunna."
+    },
+    {
+      "id": "c1_q16",
+      "numero": 16,
+      "difficulte": "difficile",
+      "question": "Quelle secte définit l'unicité d'Allah comme « l'affirmation d'une présence absolue, dépourvue d'attributs, de caractéristiques, et au-delà de toute description » ?",
+      "options": [
+        "Les Muʿtazilites",
+        "Les Jahmites",
+        "Les philosophes",
+        "Les partisans de l'ittihād"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Les philosophes définissent l'unicité d'Allah comme étant : « L'affirmation d'une présence absolue, dépourvue d'attributs, de caractéristiques, et au-delà de toute description. » Cela mène à la négation des noms et attributs d'Allah. Leur Divinité devient une abstraction intellectuelle vide."
+    },
+    {
+      "id": "c1_q17",
+      "numero": 17,
+      "difficulte": "difficile",
+      "question": "Quelle est la doctrine des partisans de l'ittihād (panhéistes) concernant Allah ?",
+      "options": [
+        "Ils nient la prédestination divine",
+        "Ils nient les attributs d'Allah tout en affirmant Son existence",
+        "Ils affirment qu'Allah est présent réellement et concrètement dans toutes les choses, faisant de toute chose Allah",
+        "Ils affirment que l'homme n'est l'auteur d'aucune de ses actions"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Les partisans de l'ittihād affirment que : « Allah est présent réellement et concrètement dans toutes les choses. » Selon cette croyance, toute chose est Allah, et il n'y aurait donc qu'un seul être existant. Cette doctrine, adoptée par certaines branches du soufisme extrême, est une forme claire de mécréance (kufr)."
+    },
+    {
+      "id": "c1_q18",
+      "numero": 18,
+      "difficulte": "difficile",
+      "question": "Selon le shaykh Ṣāliḥ al-Fawzān, pourquoi la reconnaissance du Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt par les polythéistes ne les rendait-elle pas monothéistes ?",
+      "options": [
+        "Car ils ne connaissaient pas tous les noms d'Allah",
+        "Car cette reconnaissance ne dépasse pas le cadre d'une reconnaissance de l'unicité dans la seigneurie, et ils commettaient le shirk dans l'adoration",
+        "Car ils rejetaient l'ensemble des attributs d'Allah",
+        "Car ils n'accomplissaient pas la prière"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Le shaykh al-Fawzān a répondu : « Le fait de reconnaître l'unicité dans les noms et attributs ne suffit pas, car cela ne dépasse pas le cadre d'une reconnaissance de l'unicité dans la seigneurie. » Les polythéistes commettaient le shirk dans l'adoration (tawḥīd al-ulūhiyyah)."
+    },
+    {
+      "id": "c1_q19",
+      "numero": 19,
+      "difficulte": "difficile",
+      "question": "Comment Ibn al-Qayyim et certains savants résument-ils le Tawḥīd en deux grandes catégories ?",
+      "options": [
+        "Tawḥīd de la seigneurie et Tawḥīd de l'adoration uniquement",
+        "Tawḥīd al-ʿIlmī al-Iʿtiqādī (connaissance et croyance : seigneurie + noms et attributs) et Tawḥīd al-ʿAmalī aṭ-Ṭalabī (actes et adoration)",
+        "Tawḥīd apparent et Tawḥīd caché",
+        "Tawḥīd obligatoire et Tawḥīd recommandé"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Certains savants résument le Tawḥīd en deux grandes catégories : 1. Tawḥīd al-ʿIlmī al-Iʿtiqādī : ce qui relève de la connaissance et de la croyance (seigneurie + noms et attributs). 2. Tawḥīd al-ʿAmalī aṭ-Ṭalabī : ce qui relève des actes et de l'adoration. Cette classification est présente chez des imams comme Ibn al-Qayyim et revient au même que la division classique en trois."
+    },
+    {
+      "id": "c1_q20",
+      "numero": 20,
+      "difficulte": "difficile",
+      "question": "Que disent les Jabrites (al-Jabriyya) concernant les actions de l'être humain ?",
+      "options": [
+        "L'homme crée ses propres actions librement sans intervention divine",
+        "L'homme est partiellement libre dans ses actions",
+        "L'homme n'est l'auteur d'aucune de ses actions, il est contraint comme une feuille portée par le vent",
+        "L'homme est responsable de ses actes mais Allah les juge selon Sa volonté"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Les Jabrites disent : « L'homme n'est l'auteur d'aucune de ses actions. Il est contraint, comme une feuille portée par le vent. » Ils nient le libre arbitre et la responsabilité de l'homme, attribuant toutes les actions à Allah sans distinction. Cela annule la notion même de taklīf (responsabilité religieuse)."
+    }
+  ]
+}

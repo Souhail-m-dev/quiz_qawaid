@@ -1,0 +1,291 @@
+{
+  "cours": {
+    "id": 4,
+    "titre": "Introduction du livre Al-Qawaid Al-Muthlaa et ouvrages de références",
+    "date": "13/07/2025",
+    "instructeur": "Dr. Abdelrahman Abu AbdelWahhab",
+    "repartition": { "facile": 10, "moyenne": 5, "difficile": 5 }
+  },
+  "questions": [
+    {
+      "id": "c4_q1",
+      "numero": 1,
+      "difficulte": "facile",
+      "question": "Quel est le titre complet du livre étudié dans cette série de cours, et quel en est l'auteur ?",
+      "options": [
+        "Al-Ḥamawiyya al-Kubrā, d'Ibn Taymiyya",
+        "Al-Qawāʿid al-Muthlā fī Ṣifāt Allāh wa-Asmāʾihi al-Ḥusnā, d'Ibn ʿUthaymīn",
+        "Aṣ-Ṣawāʿiq al-Mursalā, d'Ibn al-Qayyim",
+        "Darʾ Taʿāruḍ al-ʿAql wa-n-Naql, d'Ibn Taymiyya"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Le livre étudié s'intitule Al-Qawāʿid al-Muthlā fī Ṣifāt Allāh wa-Asmāʾihi al-Ḥusnā (Les règles exemplaires concernant les Attributs d'Allah et Ses Noms), de Shaykh Muḥammad Ṣāliḥ Ibn ʿUthaymīn."
+    },
+    {
+      "id": "c4_q2",
+      "numero": 2,
+      "difficulte": "facile",
+      "question": "En combien de grandes parties le livre Al-Qawāʿid al-Muthlā est-il divisé ?",
+      "options": [
+        "Trois grandes parties",
+        "Quatre grandes parties",
+        "Cinq grandes parties auxquelles s'ajoute une conclusion réfutative",
+        "Sept grandes parties correspondant aux sept règles sur les Noms"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Ce livre est divisé en cinq grandes parties, auxquelles s'ajoute une conclusion réfutative : une introduction, les règles relatives aux Noms (7 règles), les règles relatives aux Attributs (7 règles), les règles concernant les textes scripturaires (4 règles), et les réfutations aux interprètes."
+    },
+    {
+      "id": "c4_q3",
+      "numero": 3,
+      "difficulte": "facile",
+      "question": "Combien de règles fondamentales le livre Al-Qawāʿid al-Muthlā consacre-t-il respectivement aux Noms et aux Attributs d'Allah ?",
+      "options": [
+        "5 règles pour les Noms et 5 règles pour les Attributs",
+        "7 règles pour les Noms et 4 règles pour les Attributs",
+        "7 règles pour les Noms et 7 règles pour les Attributs",
+        "4 règles pour les Noms et 7 règles pour les Attributs"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Le livre contient 7 règles fondamentales relatives aux Noms d'Allah et 7 règles relatives aux Attributs d'Allah."
+    },
+    {
+      "id": "c4_q4",
+      "numero": 4,
+      "difficulte": "facile",
+      "question": "Quels sont les quatre piliers de la foi en Allah mentionnés dans l'introduction du livre ?",
+      "options": [
+        "Croire en Allah, aux anges, aux livres et aux prophètes",
+        "Croire en l'existence d'Allah, en Sa seigneurie, en Sa divinité exclusive et en Ses Noms et Attributs",
+        "Croire en l'unicité, en la prophétie, en le Jugement Dernier et en la prédestination",
+        "Croire en la prière, le jeûne, le pèlerinage et l'aumône"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Les piliers de la foi en Allah sont : 1. Croire en l'existence d'Allah et en Sa présence, 2. Croire en Sa seigneurie (rubūbiyya), 3. Croire en Sa divinité exclusive (ulūhiyya), 4. Croire en Ses Noms et Attributs (al-Asmāʾ wa-ṣ-Ṣifāt)."
+    },
+    {
+      "id": "c4_q5",
+      "numero": 5,
+      "difficulte": "facile",
+      "question": "Quelle est la première règle concernant les Noms d'Allah énoncée dans le livre Al-Qawāʿid al-Muthlā ?",
+      "options": [
+        "Les Noms d'Allah sont limités à quatre-vingt-dix-neuf",
+        "Les Noms d'Allah sont d'institution divine (tawqīfiyya)",
+        "Tous les Noms d'Allah sont beaux (ḥusnā)",
+        "Les Noms d'Allah s'affirment uniquement par le Coran"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "La première règle dans les Noms d'Allah est : tous les Noms d'Allah sont bons/beaux (ḥusnā)."
+    },
+    {
+      "id": "c4_q6",
+      "numero": 6,
+      "difficulte": "facile",
+      "question": "Selon quelle règle les Noms d'Allah ne peuvent-ils être établis que par le Coran et la Sunna, sans que la raison humaine ait sa place dans ce domaine ?",
+      "options": [
+        "Les Noms d'Allah sont limitatifs",
+        "Les Noms d'Allah sont d'institution divine (tawqīfiyya)",
+        "Les Noms d'Allah sont à la fois des dénominatifs et des attributs",
+        "Les Noms d'Allah indiquent Son entité de trois manières"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "La règle 5 sur les Noms stipule que les Noms d'Allah sont d'institution divine (tawqīfiyya) : la raison humaine n'a pas sa place dans ce domaine. La base dans l'affirmation des noms et des attributs d'Allah est le Coran et la Sunna."
+    },
+    {
+      "id": "c4_q7",
+      "numero": 7,
+      "difficulte": "facile",
+      "question": "Qu'est-ce que l'ilḥād (abjuration ou profanation) dans les Noms d'Allah ?",
+      "options": [
+        "Mémoriser les Noms d'Allah sans les comprendre",
+        "Se détourner de ce qu'implique leur bon usage et leurs droits",
+        "Invoquer Allah par des Noms non mentionnés dans le Coran",
+        "Comparer les Noms d'Allah à ceux des créatures"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "La 7e règle sur les Noms précise que l'ilḥād (abjuration ou profanation) dans les Noms d'Allah, c'est se détourner de ce qu'implique leur bon usage et leurs droits."
+    },
+    {
+      "id": "c4_q8",
+      "numero": 8,
+      "difficulte": "facile",
+      "question": "Quelles sont les deux catégories des Attributs affirmés (thubūtiyya) d'Allah ?",
+      "options": [
+        "Attributs généraux et attributs spécifiques",
+        "Attributs anciens et attributs nouveaux",
+        "Attributs liés à l'entité (ṣifāt dhātiyya) et attributs liés aux actions (ṣifāt fiʿliyya)",
+        "Attributs connus et attributs inconnus"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Les Attributs affirmés se divisent en deux catégories : les Attributs liés à l'entité (ṣifāt dhātiyya) et les Attributs liés aux actions (ṣifāt fiʿliyya)."
+    },
+    {
+      "id": "c4_q9",
+      "numero": 9,
+      "difficulte": "facile",
+      "question": "Quels sont les deux types d'invocation inclus dans le verset « Invoquez-Le donc par ces noms » selon l'explication du shaykh Ibn ʿUthaymīn ?",
+      "options": [
+        "L'invocation publique et l'invocation secrète",
+        "L'invocation d'adoration (duʿāʾ al-ʿibāda) et l'invocation de demande (duʿāʾ al-masʾala)",
+        "L'invocation collective et l'invocation individuelle",
+        "L'invocation obligatoire et l'invocation recommandée"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Dans le verset de la sourate al-Aʿrāf (v. 180), le terme « invoquez-Le » inclut : l'invocation d'adoration (duʿāʾ al-ʿibāda) et l'invocation de demande (duʿāʾ al-masʾala)."
+    },
+    {
+      "id": "c4_q10",
+      "numero": 10,
+      "difficulte": "facile",
+      "question": "Quel ouvrage d'Ibn Taymiyya est décrit comme destiné au niveau avancé, portant sur la réfutation des rationalistes et étant très technique ?",
+      "options": [
+        "Al-Ḥamawiyya al-Kubrā",
+        "At-Tadmuriyya",
+        "Darʾ Taʿāruḍ al-ʿAql wa-n-Naql",
+        "Naqḍ at-Taʾsīs"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Darʾ Taʿāruḍ al-ʿAql wa-n-Naql d'Ibn Taymiyya est classé au niveau avancé : c'est une réfutation majeure des rationalistes, très technique, qui nécessite un bon niveau."
+    },
+    {
+      "id": "c4_q11",
+      "numero": 11,
+      "difficulte": "moyenne",
+      "question": "Pourquoi le domaine des Attributs d'Allah est-il dit plus vaste que celui des Noms ?",
+      "options": [
+        "Car les Attributs ont été mentionnés plus souvent dans le Coran que les Noms",
+        "Car tout Nom implique un attribut, mais tout attribut n'est pas forcément un Nom",
+        "Car les Attributs peuvent être établis par la raison contrairement aux Noms",
+        "Car les Attributs sont en nombre illimité alors que les Noms sont fixés à quatre-vingt-dix-neuf"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "La règle 2 sur les Attributs précise : le domaine des Attributs est plus vaste que celui des Noms, car tout Nom implique un attribut, mais tout attribut n'est pas forcément un Nom."
+    },
+    {
+      "id": "c4_q12",
+      "numero": 12,
+      "difficulte": "moyenne",
+      "question": "Quels sont les trois points essentiels par lesquels l'imām Ibn ʿUthaymīn souligne l'importance du Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt dans son introduction ?",
+      "options": [
+        "Cette science est obligatoire, ancienne et unique en son genre",
+        "Cette science fait partie intégrante de la foi en Allah, elle est l'une des trois catégories de l'unicité, et l'adoration ne peut être parfaite sans la connaissance des Noms et Attributs",
+        "Cette science réfute les sectes, complète la foi et protège des innovations",
+        "Cette science est la plus noble, la plus ancienne et la plus difficile des sciences islamiques"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Ibn ʿUthaymīn a voulu souligner trois points essentiels : 1. Cette science fait partie intégrante de la foi en Allah. 2. Elle constitue l'une des trois catégories de l'unicité d'Allah ; sans elle, le tawḥīd reste incomplet. 3. L'adoration et l'invocation ne peuvent être parfaites sans la connaissance des noms et attributs d'Allah."
+    },
+    {
+      "id": "c4_q13",
+      "numero": 13,
+      "difficulte": "moyenne",
+      "question": "Quelle est la réponse célèbre de Mālik ibn Anas sur l'istiwāʾ d'Allah au-dessus du Trône, et que conclut-il à propos des questions sur ce sujet ?",
+      "options": [
+        "L'istiwāʾ est inconnu, le comment est inconnu, y croire est recommandé, et poser des questions est permis pour les savants",
+        "L'istiwāʾ est connu, le comment en est inconnu, y croire est obligatoire, et poser des questions à son sujet est une innovation",
+        "L'istiwāʾ signifie la domination, le comment est connu des savants, y croire est optionnel, et poser des questions est encouragé",
+        "L'istiwāʾ est à interpréter figurément, le comment est sans importance, y croire est suffisant, et poser des questions est déconseillé"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Mālik ibn Anas a répondu : « Al-Istiwāʾ (l'établissement) est connu, le 'comment' (al-kayf) en est inconnu, y croire est obligatoire, et poser des questions à son sujet est une innovation. » Puis il dit au questionneur : « Je ne te vois que comme un innovateur. » Et il ordonna qu'on le fasse sortir."
+    },
+    {
+      "id": "c4_q14",
+      "numero": 14,
+      "difficulte": "moyenne",
+      "question": "Lorsqu'un Nom d'Allah indique un attribut transitif (ṣifa mutaʿaddiya), combien d'éléments comprend-il, et lesquels ?",
+      "options": [
+        "Deux éléments : l'affirmation du Nom et l'affirmation du qualificatif",
+        "Quatre éléments : le Nom, le qualificatif, le statut, et l'action correspondante",
+        "Trois éléments : l'affirmation du Nom, l'affirmation du qualificatif contenu dans ce nom, et l'affirmation du statut de ce qualificatif et de ce qu'il implique",
+        "Un seul élément : l'affirmation que ce Nom appartient à Allah"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Lorsqu'un Nom d'Allah indique un attribut transitif (ṣifa mutaʿaddiya), il comprend trois éléments : l'affirmation du Nom d'Allah, l'affirmation du qualificatif d'Allah contenu dans ce nom, et l'affirmation du statut de ce qualificatif et de ce qu'il implique."
+    },
+    {
+      "id": "c4_q15",
+      "numero": 15,
+      "difficulte": "moyenne",
+      "question": "En quoi consiste concrètement l'invocation d'adoration (duʿāʾ al-ʿibāda) par les Noms d'Allah ?",
+      "options": [
+        "Répéter les Noms d'Allah à voix haute dans les prières surérogatoires",
+        "Faire précéder chaque demande par un Nom d'Allah en rapport avec l'objet de la demande",
+        "Adorer Allah en fonction du sens du Nom : par exemple, sachant qu'Allah entend tout, faire attention à ses paroles, et ainsi de suite pour chaque Nom",
+        "Mémoriser les quatre-vingt-dix-neuf Noms d'Allah pour entrer au Paradis"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "L'invocation d'adoration consiste à ce que tu adores Allah avec ce qu'implique chacun de Ses Noms : tu te repens à Lui car Il est Celui qui accepte le repentir, tu L'évoque avec ta langue car Il est l'Audient, tu L'adore avec tes membres car Il est le Voyant, tu Le crains dans ton for intérieur car Il est le Subtil, le Très Informé, et ainsi de suite."
+    },
+    {
+      "id": "c4_q16",
+      "numero": 16,
+      "difficulte": "difficile",
+      "question": "Pourquoi les Attributs affirmés (thubūtiyya) sont-ils plus nombreux que les Attributs infirmés (salbiyya), selon la règle 4 sur les Attributs ?",
+      "options": [
+        "Car le Coran mentionne davantage d'affirmations que de négations dans ses versets",
+        "Car les savants ont établi plus d'attributs affirmés que d'attributs niés par consensus",
+        "Car la perfection se montre par l'affirmation et non par l'infirmation : plus les Attributs affirmés sont nombreux et variés, plus la perfection d'Allah est manifeste",
+        "Car les Attributs infirmés appartiennent aux créatures et non à Allah"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Les Attributs affirmés sont tous des attributs de perfection (kamāl). Plus ils sont nombreux et variés, plus la perfection d'Allah est manifeste. C'est pourquoi les Attributs affirmés sont plus nombreux que les attributs infirmés : la perfection se montre par l'affirmation et non l'infirmation."
+    },
+    {
+      "id": "c4_q17",
+      "numero": 17,
+      "difficulte": "difficile",
+      "question": "Selon la 3e règle sur les textes, le sens apparent (ẓāhir) des textes sur les Attributs est-il entièrement connu ou entièrement inconnu ? Quelle est la position correcte ?",
+      "options": [
+        "Il est entièrement connu : les savants peuvent en déduire le comment des attributs",
+        "Il est entièrement inconnu : il faut déléguer le sens à Allah sans chercher à le comprendre",
+        "Il est connu sous un angle (le sens général ou lexical) et inconnu sous un autre (la réalité exacte, kayfiyya, de l'attribut)",
+        "Il est connu uniquement pour les attributs mentionnés dans le Coran, et inconnu pour ceux de la Sunna"
+      ],
+      "reponseCorrecte": 2,
+      "justification": "Le sens apparent (ẓāhir) des textes sur les Attributs est connu sous un angle et inconnu sous un autre : le sens général ou lexical est connu, mais la réalité exacte (kayfiyya) de l'attribut est inconnue. C'est le sens de la réponse de Mālik ibn Anas."
+    },
+    {
+      "id": "c4_q18",
+      "numero": 18,
+      "difficulte": "difficile",
+      "question": "Quel est le lien entre la validité du Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt et les deux autres formes de tawḥīd, selon l'introduction du livre ?",
+      "options": [
+        "Le Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt est indépendant des deux autres formes et peut être étudié séparément",
+        "La foi en l'unicité d'Allah dans Ses noms et attributs ne peut être authentique et valide que si elle est accompagnée du Tawḥīd ar-Rubūbiyya et du Tawḥīd al-Ulūhiyya",
+        "Le Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt est la base des deux autres formes qui en découlent logiquement",
+        "Les trois formes de tawḥīd sont indépendantes et peuvent chacune être pratiquée sans les autres"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "La foi en l'unicité d'Allah dans Ses noms et attributs (Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt) ne peut être authentique et valide que si elle est accompagnée des deux autres formes de tawḥīd : Tawḥīd ar-Rubūbiyya et Tawḥīd al-Ulūhiyya."
+    },
+    {
+      "id": "c4_q19",
+      "numero": 19,
+      "difficulte": "difficile",
+      "question": "De quelle manière les Noms d'Allah fonctionnent-ils à la fois comme dénominatifs communs et comme attributs différents ?",
+      "options": [
+        "Communs car ils désignent tous la même qualité d'Allah, différents car certains sont coraniques et d'autres prophétiques",
+        "Communs car ils désignent tous l'entité d'Allah (dhāt), différents car chacun d'eux implique un sens spécifique",
+        "Communs car ils appartiennent tous à la même langue arabe, différents car leur prononciation varie",
+        "Communs car ils peuvent tous s'invoquer ensemble, différents car leur effet spirituel diffère"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Les Noms d'Allah sont des dénominatifs communs car ils désignent tous l'entité d'Allah (dhāt), et des attributs différents car chacun d'eux implique un sens spécifique."
+    },
+    {
+      "id": "c4_q20",
+      "numero": 20,
+      "difficulte": "difficile",
+      "question": "Quelle raison personnelle Ibn ʿUthaymīn mentionne-t-il pour avoir rédigé le livre Al-Qawāʿid al-Muthlā, et quel objectif exprime-t-il ?",
+      "options": [
+        "En raison d'une demande de ses élèves et dans l'espoir de produire un ouvrage académique reconnu",
+        "En raison de l'importance du sujet et des propos tenus tantôt correctement tantôt faussement par ignorance ou fanatisme, en espérant que son travail soit sincère, agréé auprès d'Allah et bénéfique pour Ses serviteurs",
+        "En raison d'un manque de livres sur les Noms d'Allah et dans le but de réfuter les Muʿtazila",
+        "En raison d'une instruction de ses maîtres et dans l'espoir de compléter les ouvrages d'Ibn Taymiyya"
+      ],
+      "reponseCorrecte": 1,
+      "justification": "Ibn ʿUthaymīn précise : en raison de la place et de l'importance de l'unicité d'Allah dans Ses noms et attributs, et en raison des propos tenus par les gens dans ce domaine tantôt de manière correcte, tantôt de manière fausse, soit par ignorance, soit par fanatisme, il a souhaité rédiger sur ce sujet, en espérant que son travail soit sincère, agréé auprès d'Allah, et bénéfique pour Ses serviteurs."
+    }
+  ]
+}

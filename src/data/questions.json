@@ -1,0 +1,1554 @@
+{
+  "$schema": "Quiz data model for Al-Qawa'id Al-Muthlaa",
+  "meta": {
+    "title": "Quiz Al-Qawā'id Al-Muthlaa",
+    "subtitle": "Les Noms et Attributs d'Allah",
+    "instructor": "Dr. Abdelrahman Abu AbdelWahhab",
+    "totalCours": 21,
+    "questionsPerCours": 20,
+    "questionsPerQuiz": 30,
+    "difficultyDistributionPerQuiz": {
+      "facile": 10,
+      "moyenne": 10,
+      "difficile": 10
+    },
+    "difficultyDistributionPerCours": {
+      "facile": 10,
+      "moyenne": 5,
+      "difficile": 5
+    }
+  },
+  "cours": [
+    {
+      "id": 1,
+      "titre": "Introduction à l'unicité d'Allah (at-Tawḥīd)",
+      "date": "Mercredi 2 juillet 2025 – 7 Muḥarram 1447 H",
+      "questions": [
+        {
+          "id": "c1_q1",
+          "cours": 1,
+          "difficulte": "facile",
+          "question": "Quel est le but de la création des djinns et des hommes selon le Coran ?",
+          "options": [
+            "Peupler la terre",
+            "Adorer Allah",
+            "Accomplir les cinq piliers",
+            "Connaître les savants"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Allah dit dans la sourate adh-Dhāriyāt, verset 56 : « Je n'ai créé les djinns et les hommes que pour qu'ils M'adorent. »"
+        },
+        {
+          "id": "c1_q2",
+          "cours": 1,
+          "difficulte": "facile",
+          "question": "Que signifie le mot « Tawḥīd » dans la langue arabe ?",
+          "options": [
+            "Associer plusieurs êtres à Allah",
+            "Rendre une chose unique, ou le fait qu'une chose soit unique par rapport à d'autres",
+            "Accomplir les actes d'adoration obligatoires",
+            "Croire aux prophètes et aux livres révélés"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "L'unicité dans la langue arabe signifie : rendre une chose unique, ou le fait qu'une chose soit unique par rapport à d'autres."
+        },
+        {
+          "id": "c1_q3",
+          "cours": 1,
+          "difficulte": "facile",
+          "question": "Quel est le contraire du Tawḥīd ?",
+          "options": [
+            "Al-Kufr (la mécréance)",
+            "Al-Chirk (le polythéisme)",
+            "An-Nifāq (l'hypocrisie)",
+            "Al-Bid'a (l'innovation)"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le polythéisme (al-shirk), qui est l'opposé de l'unicité, consiste à associer à Allah d'autres êtres dans ce qui Lui est exclusivement réservé."
+        },
+        {
+          "id": "c1_q4",
+          "cours": 1,
+          "difficulte": "facile",
+          "question": "Combien de catégories comprend le Tawḥīd selon les textes du Coran et de la Sunna ?",
+          "options": [
+            "Deux",
+            "Trois",
+            "Quatre",
+            "Cinq"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les textes du Coran et de la Sunna montrent que l'unicité d'Allah se divise en trois formes : Tawḥīd ar-Rubūbiyya, Tawḥīd al-Ulūhiyya, et Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt."
+        },
+        {
+          "id": "c1_q5",
+          "cours": 1,
+          "difficulte": "facile",
+          "question": "Que désigne le Tawḥīd ar-Rubūbiyya ?",
+          "options": [
+            "Vouer exclusivement à Allah tous les actes d'adoration",
+            "Croire aux noms et attributs d'Allah",
+            "Unifier Allah dans Ses actes tels que la création, la vie et la mort, le pouvoir et l'organisation de l'univers",
+            "Reconnaître les cinq piliers de l'Islam"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Tawḥīd ar-Rubūbiyya : c'est le fait d'unifier Allah dans Ses actes, tels que la création, la vie et la mort, le pouvoir, l'organisation et la gestion de l'univers."
+        },
+        {
+          "id": "c1_q6",
+          "cours": 1,
+          "difficulte": "facile",
+          "question": "Que désigne le Tawḥīd al-Ulūhiyya ?",
+          "options": [
+            "Unifier Allah dans Sa seigneurie uniquement",
+            "Vouer exclusivement à Allah tous les actes d'adoration, apparents ou cachés, par les paroles ou les actes",
+            "Croire aux noms et attributs d'Allah sans les déformer",
+            "Connaître le nombre des noms d'Allah"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Tawḥīd al-Ulūhiyya : c'est vouer exclusivement à Allah tous les actes d'adoration : apparents ou cachés, par les paroles ou les actes. Aucune forme d'adoration ne doit être dirigée vers un autre qu'Allah."
+        },
+        {
+          "id": "c1_q7",
+          "cours": 1,
+          "difficulte": "facile",
+          "question": "Combien de noms Allah possède-t-Il selon le hadith d'Abū Hurayra mentionné dans ce cours ?",
+          "options": [
+            "100 noms",
+            "99 noms (cent moins un)",
+            "1000 noms",
+            "Un seul nom connu"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Dans le hadith rapporté par Abū Hurayra, le Prophète a dit : « Certes, Allah a 99 noms — cent moins un —, celui qui les recense entrera au Paradis. »"
+        },
+        {
+          "id": "c1_q8",
+          "cours": 1,
+          "difficulte": "facile",
+          "question": "Quelle est la première obligation religieuse selon le Prophète envoyant Muʿādh au Yémen ?",
+          "options": [
+            "La prière",
+            "Le jeûne",
+            "Réaliser l'unicité d'Allah",
+            "La zakāt"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le Prophète a dit à Muʿādh : « Tu vas aller à un peuple des Gens du Livre. Informe-les que le premier devoir qui leur incombe est de réaliser l'unicité d'Allah. » Ce qui montre que la connaissance de l'unicité d'Allah est la première obligation religieuse, avant même la prière."
+        },
+        {
+          "id": "c1_q9",
+          "cours": 1,
+          "difficulte": "facile",
+          "question": "Que dit Ibn al-Qayyim à propos de la valeur d'une science ?",
+          "options": [
+            "La valeur d'une science dépend du nombre de ses étudiants",
+            "La valeur d'une science dépend de l'objet qu'elle étudie",
+            "La valeur d'une science dépend de l'ancienneté de ses sources",
+            "La valeur d'une science dépend de la difficulté de ses règles"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Ibn al-Qayyim a dit : « La valeur d'une science dépend de l'objet qu'elle étudie. Or il n'y a pas de sujet plus noble que la connaissance d'Allah, de Ses noms, de Ses attributs, et de Ses actions. »"
+        },
+        {
+          "id": "c1_q10",
+          "cours": 1,
+          "difficulte": "facile",
+          "question": "Qu'est-ce que le Chirk (al-shirk) signifie littéralement ?",
+          "options": [
+            "Nier",
+            "Associer",
+            "Déformer",
+            "Ignorer"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Chirk signifie littéralement : associer. Le polythéisme (al-shirk) consiste à associer à Allah d'autres êtres dans ce qui Lui est exclusivement réservé."
+        },
+        {
+          "id": "c1_q11",
+          "cours": 1,
+          "difficulte": "moyenne",
+          "question": "Quelle est la définition religieuse du Tawḥīd selon le Coran et la Sunna ?",
+          "options": [
+            "Prononcer la shahāda une seule fois dans sa vie",
+            "Unifier Allah dans Ses spécificités et dans les droits qui Lui reviennent exclusivement",
+            "Accomplir les cinq piliers de l'Islam sans faute",
+            "Rejeter toutes les autres religions"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Dans les textes, le Tawḥīd consiste à unifier Allah dans Ses spécificités et dans les droits qui Lui reviennent exclusivement."
+        },
+        {
+          "id": "c1_q12",
+          "cours": 1,
+          "difficulte": "moyenne",
+          "question": "Comment le Tawḥīd al-Ulūhiyya se situe-t-il par rapport aux deux autres catégories ?",
+          "options": [
+            "Il est indépendant des deux autres catégories",
+            "Il est moins important que les deux autres",
+            "Il comprend et englobe les deux autres formes, puisqu'on n'adore qu'Allah en raison de Sa seigneurie et de Ses attributs parfaits",
+            "Il est identique au Tawḥīd ar-Rubūbiyya"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le Tawḥīd al-Ulūhiyya comprend et englobe les deux autres formes, puisqu'on n'adore qu'Allah en raison de Sa seigneurie et de Ses attributs parfaits."
+        },
+        {
+          "id": "c1_q13",
+          "cours": 1,
+          "difficulte": "moyenne",
+          "question": "Quelle sourate affirme l'unicité absolue d'Allah dans Ses noms, attributs et essence, et que le Prophète récitait fréquemment ?",
+          "options": [
+            "Sourate al-Fātiḥa",
+            "Sourate al-Baqara",
+            "Sourate al-Ikhlāṣ",
+            "Sourate al-Mujādila"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Sourate al-Ikhlāṣ affirme l'unicité absolue d'Allah dans Ses noms, attributs et essence. Le Prophète récitait ces deux sourates (al-Ikhlāṣ et al-Kāfirūn) dans les sunnan, les prières de voyage, et avant de dormir."
+        },
+        {
+          "id": "c1_q14",
+          "cours": 1,
+          "difficulte": "moyenne",
+          "question": "Comment ʿĀʾishah a-t-elle réagi lors de la révélation de la sourate al-Mujādilah ?",
+          "options": [
+            "Elle a demandé des précisions sur le sens du verset",
+            "Elle a dit : « Gloire à Celui dont l'ouïe entend tout ! »",
+            "Elle a pleuré en entendant le verset",
+            "Elle n'a pas compris le sens du verset"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "ʿĀʾishah a dit : « Gloire à Celui dont l'ouïe entend tout ! » Elle dit cela en réaction à la descente du verset, car elle-même n'avait pas bien entendu ce qu'avait dit la femme. Mais Allah, Lui, a tout entendu."
+        },
+        {
+          "id": "c1_q15",
+          "cours": 1,
+          "difficulte": "moyenne",
+          "question": "Quelle est la position des pieux prédécesseurs (Salaf aṣ-Ṣāliḥ) concernant les Noms et Attributs d'Allah ?",
+          "options": [
+            "Ils les interprétaient selon la raison et la philosophie",
+            "Ils les acceptaient tels quels, y croyaient et agissaient en conséquence, sans les déformer, les nier, ni en discuter le comment",
+            "Ils en niaient certains pour éviter l'anthropomorphisme",
+            "Ils réservaient leur connaissance aux savants uniquement"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les compagnons acceptaient les Noms et les Attributs d'Allah tels quels, y croyaient et agissaient en conséquence, sans chercher à en déformer le sens, à les nier, ni à en discuter le 'comment' (bi-lā kayf)."
+        },
+        {
+          "id": "c1_q16",
+          "cours": 1,
+          "difficulte": "difficile",
+          "question": "Quelle secte définit l'unicité d'Allah comme « l'affirmation d'une présence absolue, dépourvue d'attributs, de caractéristiques, et au-delà de toute description » ?",
+          "options": [
+            "Les Muʿtazilites",
+            "Les Jahmites",
+            "Les philosophes",
+            "Les partisans de l'ittihād"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les philosophes définissent l'unicité d'Allah comme étant : « L'affirmation d'une présence absolue, dépourvue d'attributs, de caractéristiques, et au-delà de toute description. » Cela mène à la négation des noms et attributs d'Allah."
+        },
+        {
+          "id": "c1_q17",
+          "cours": 1,
+          "difficulte": "difficile",
+          "question": "Quelle est la doctrine des partisans de l'ittihād (panhéistes) concernant Allah ?",
+          "options": [
+            "Ils nient la prédestination divine",
+            "Ils nient les attributs d'Allah tout en affirmant Son existence",
+            "Ils affirment qu'Allah est présent réellement et concrètement dans toutes les choses, faisant de toute chose Allah",
+            "Ils affirment que l'homme n'est l'auteur d'aucune de ses actions"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les partisans de l'ittihād affirment que : « Allah est présent réellement et concrètement dans toutes les choses. » Selon cette croyance, toute chose est Allah, et il n'y aurait donc qu'un seul être existant. Cette doctrine est une forme claire de mécréance (kufr)."
+        },
+        {
+          "id": "c1_q18",
+          "cours": 1,
+          "difficulte": "difficile",
+          "question": "Selon le shaykh Ṣāliḥ al-Fawzān, pourquoi la reconnaissance du Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt par les polythéistes ne les rendait-elle pas monothéistes ?",
+          "options": [
+            "Car ils ne connaissaient pas tous les noms d'Allah",
+            "Car cette reconnaissance ne dépasse pas le cadre d'une reconnaissance de l'unicité dans la seigneurie, et ils commettaient le shirk dans l'adoration",
+            "Car ils rejetaient l'ensemble des attributs d'Allah",
+            "Car ils n'accomplissaient pas la prière"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le shaykh al-Fawzān a répondu : « Le fait de reconnaître l'unicité dans les noms et attributs ne suffit pas, car cela ne dépasse pas le cadre d'une reconnaissance de l'unicité dans la seigneurie. » Les polythéistes commettaient le shirk dans l'adoration (tawḥīd al-ulūhiyyah)."
+        },
+        {
+          "id": "c1_q19",
+          "cours": 1,
+          "difficulte": "difficile",
+          "question": "Comment Ibn al-Qayyim et certains savants résument-ils le Tawḥīd en deux grandes catégories ?",
+          "options": [
+            "Tawḥīd de la seigneurie et Tawḥīd de l'adoration uniquement",
+            "Tawḥīd al-ʿIlmī al-Iʿtiqādī (connaissance et croyance : seigneurie + noms et attributs) et Tawḥīd al-ʿAmalī aṭ-Ṭalabī (actes et adoration)",
+            "Tawḥīd apparent et Tawḥīd caché",
+            "Tawḥīd obligatoire et Tawḥīd recommandé"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Certains savants résument le Tawḥīd en deux grandes catégories : 1. Tawḥīd al-ʿIlmī al-Iʿtiqādī : ce qui relève de la connaissance et de la croyance (seigneurie + noms et attributs). 2. Tawḥīd al-ʿAmalī aṭ-Ṭalabī : ce qui relève des actes et de l'adoration. Cette classification est présente chez des imams comme Ibn al-Qayyim."
+        },
+        {
+          "id": "c1_q20",
+          "cours": 1,
+          "difficulte": "difficile",
+          "question": "Que disent les Jabrites (al-Jabriyya) concernant les actions de l'être humain ?",
+          "options": [
+            "L'homme crée ses propres actions librement sans intervention divine",
+            "L'homme est partiellement libre dans ses actions",
+            "L'homme n'est l'auteur d'aucune de ses actions, il est contraint comme une feuille portée par le vent",
+            "L'homme est responsable de ses actes mais Allah les juge selon Sa volonté"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les Jabrites disent : « L'homme n'est l'auteur d'aucune de ses actions. Il est contraint, comme une feuille portée par le vent. » Ils nient le libre arbitre et la responsabilité de l'homme, ce qui annule la notion même de taklīf (responsabilité religieuse)."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "titre": "L'unicité d'Allah dans ses noms et Attributs et réfutation des sectes déviantes",
+      "date": "Dimanche 6 juillet 2025 – 11 Muḥarram 1447 H",
+      "questions": [
+        {
+          "id": "c2_q1",
+          "cours": 2,
+          "difficulte": "facile",
+          "question": "De quelle racine arabe est issu le mot « Tawḥīd » et quel en est le sens selon l'imām Ibn Fāris ?",
+          "options": [
+            "De la racine (ع-ب-د) dont le sens est l'adoration",
+            "De la racine (و-ح-د) dont le sens est l'unicité et l'isolement",
+            "De la racine (ح-م-د) dont le sens est la louange",
+            "De la racine (ص-د-ق) dont le sens est la véracité"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le tawḥīd est un nom d'action issu du verbe waḥḥada – yuwahḥidu, qui provient de la racine (و-ح-د). Le sens de cette racine, comme l'a rappelé l'imām al-Lughawī Ibn Fāris, est l'unicité et l'isolement (al-infirrād)."
+        },
+        {
+          "id": "c2_q2",
+          "cours": 2,
+          "difficulte": "facile",
+          "question": "Pourquoi dit-on qu'Allah est unique, selon le cours ?",
+          "options": [
+            "Parce que les hommes Lui vouent exclusivement l'adoration",
+            "Parce qu'Il est unique par essence, car Il n'a nul égal ni semblable, et c'est pour cela que le serviteur L'unifie en Lui consacrant toutes les formes d'adoration",
+            "Parce que les savants ont décidé de L'unifier",
+            "Parce que le Coran l'a affirmé sans autre raison"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Il convient de préciser qu'on ne dit pas qu'Allah est unique du fait que le serviteur Lui voue exclusivement l'adoration. En réalité, Il est unique par essence, car Il n'a nul égal ni semblable. Et c'est parce qu'Il est ainsi que le serviteur L'unifie en Lui consacrant exclusivement toutes les formes d'adoration."
+        },
+        {
+          "id": "c2_q3",
+          "cours": 2,
+          "difficulte": "facile",
+          "question": "À partir de quel savant la division du Tawḥīd en trois catégories s'est-elle répandue ?",
+          "options": [
+            "À partir d'al-Bukhārī",
+            "À partir d'Ibn Taymiyyah, Ibn al-Qayyim, puis Shaykh Muḥammad ibn ʿAbd al-Wahhāb",
+            "À partir d'al-Ghazālī",
+            "À partir d'al-Ashʿarī"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "À partir d'Ibn Taymiyyah, Ibn al-Qayyim, puis Shaykh Muḥammad ibn ʿAbd al-Wahhāb et ses élèves, la division en trois catégories s'est répandue. Il n'y a aucune contradiction entre les deux méthodes, même si les termes diffèrent : la différence est de forme, non de fond."
+        },
+        {
+          "id": "c2_q4",
+          "cours": 2,
+          "difficulte": "facile",
+          "question": "Quel est le synonyme du Tawḥīd al-ʿibādah (l'unicité dans l'adoration) mentionné dans le cours ?",
+          "options": [
+            "Al-ʿAdl (la justice)",
+            "Al-Ikhlāṣ (la sincérité, la pureté de l'intention) envers Allah",
+            "Al-Ḥikma (la sagesse)",
+            "Al-Ṣabr (la patience)"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "L'unicité dans l'adoration (Tawḥīd al-ʿibādah) : c'est le fait que le serviteur voue toutes ses formes d'adoration exclusivement à Allah et ne voue aucune adoration à autre que Lui. Cela a pour synonyme al-ikhlāṣ (la sincérité, pureté de l'intention) envers Allah."
+        },
+        {
+          "id": "c2_q5",
+          "cours": 2,
+          "difficulte": "facile",
+          "question": "Que signifie le Tawḥīd al-maʿrifah wa-l-ithbāt (l'unicité dans la connaissance et l'affirmation) ?",
+          "options": [
+            "Accomplir les actes d'adoration avec sincérité",
+            "Croire en Allah, affirmer ce qu'Il nous a ordonné d'affirmer, nier ce qu'Il nous a ordonné de nier, conformément aux textes",
+            "Mémoriser les noms d'Allah et les réciter",
+            "Étudier la philosophie islamique pour comprendre Allah"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "L'unicité dans la connaissance et l'affirmation (Tawḥīd al-maʿrifah wa-l-ithbāt) consiste à croire en Allah, à affirmer ce qu'Il nous a ordonné d'affirmer, et à nier ce qu'Il nous a ordonné de nier. C'est le fait d'avoir foi en tout ce qu'Allah a révélé concernant Lui-même, et d'y croire fermement, conformément aux textes."
+        },
+        {
+          "id": "c2_q6",
+          "cours": 2,
+          "difficulte": "facile",
+          "question": "Qu'est-ce que le taʿṭīl ?",
+          "options": [
+            "Comparer Allah à Ses créatures",
+            "Nier les noms ou attributs d'Allah",
+            "Chercher à connaître le 'comment' des attributs",
+            "Altérer le sens des attributs"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Ne pas faire de taʿṭīl : ne pas nier les noms ou attributs d'Allah. C'est l'une des quatre restrictions à respecter dans le Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt."
+        },
+        {
+          "id": "c2_q7",
+          "cours": 2,
+          "difficulte": "facile",
+          "question": "Qu'est-ce que le tamthīl ?",
+          "options": [
+            "Nier les attributs d'Allah",
+            "Altérer le sens des attributs d'Allah",
+            "Comparer les attributs d'Allah à ceux des créatures (anthropomorphisme)",
+            "Chercher à savoir comment sont les attributs d'Allah"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Ne pas faire de tamthīl : ne pas les comparer à ceux des créatures (anthropomorphisme). C'est la troisième des quatre restrictions à respecter dans le Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt."
+        },
+        {
+          "id": "c2_q8",
+          "cours": 2,
+          "difficulte": "facile",
+          "question": "Sur quoi repose le Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt comme piliers fondamentaux selon le cours ?",
+          "options": [
+            "Sur la croyance, la prière et le jeûne",
+            "Sur al-ʿIʿtiqād (la croyance ferme), al-Īmān (la foi) et al-Ithbāt (l'affirmation) combiné à an-Nafy (la négation)",
+            "Sur la mémorisation du Coran et de la Sunna",
+            "Sur la consultation des savants et le consensus"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "L'unicité d'Allah dans Ses noms et attributs repose sur trois fondements indissociables : 1. al-ʿIʿtiqād : la croyance ferme. 2. al-Īmān : la foi. 3. al-Ithbāt : l'affirmation de tout ce qu'Allah s'est Lui-même attribué ou que Son Prophète a confirmé pour Lui, et an-Nafy : la négation de tout défaut ou imperfection."
+        },
+        {
+          "id": "c2_q9",
+          "cours": 2,
+          "difficulte": "facile",
+          "question": "Combien d'attributs les Ashāʿirah ont-ils affirmés, selon ce cours ?",
+          "options": [
+            "Tous les attributs mentionnés dans le Coran et la Sunna",
+            "Seulement sept attributs, tous les autres étant rejetés, altérés ou interprétés de manière figurée",
+            "Uniquement les noms d'Allah sans attribut correspondant",
+            "Aucun attribut"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les Ashāʿirah ont affirmé seulement sept attributs. Tous les autres attributs ont été rejetés, altérés ou interprétés de manière figurée."
+        },
+        {
+          "id": "c2_q10",
+          "cours": 2,
+          "difficulte": "facile",
+          "question": "Quelles sont les deux grandes catégories du shirk dans les noms et attributs d'Allah ?",
+          "options": [
+            "La mécréance et l'hypocrisie",
+            "At-Taʿṭīl (la négation) et At-Tashbīh (l'anthropomorphisme)",
+            "Le grand shirk et le petit shirk",
+            "La négation partielle et la négation totale uniquement"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le shirk dans les noms et attributs d'Allah se divise en deux grandes catégories : 1. At-Taʿṭīl : la négation — c'est le fait de nier ce qu'Allah a affirmé pour Lui-même. 2. At-Tashbīh : l'anthropomorphisme — c'est le fait d'assimiler Allah à Ses créatures."
+        },
+        {
+          "id": "c2_q11",
+          "cours": 2,
+          "difficulte": "moyenne",
+          "question": "Quel est l'antonyme du Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt selon le cours ?",
+          "options": [
+            "Invoquer les saints et les morts uniquement",
+            "Le rejet des noms et attributs d'Allah, leur altération (taḥrīf), leur négation (taʿṭīl), ou le fait de croire qu'Allah a des attributs comparables à ceux de Ses créatures",
+            "Croire à l'existence de plusieurs dieux",
+            "Ne pas accomplir les actes d'adoration"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "L'antonyme de l'unicité dans les noms et attributs est : soit le rejet des noms et attributs d'Allah, soit leur altération (taḥrīf), soit leur négation (taʿṭīl), soit de croire qu'Allah a des attributs comparables à ceux de Ses créatures."
+        },
+        {
+          "id": "c2_q12",
+          "cours": 2,
+          "difficulte": "moyenne",
+          "question": "Selon la définition du shaykh ʿAbd ar-Raḥmān as-Saʿdī, en quoi consiste le Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt ?",
+          "options": [
+            "Réciter les noms d'Allah dans les prières uniquement",
+            "Croire qu'Allah est seul et unique dans la perfection absolue sous tous ses aspects, en affirmant ce qu'Il S'est affirmé et en Le déclarant exempt de ce qu'Il a nié pour Lui-même",
+            "Comparer les attributs d'Allah à ceux des créatures pour mieux les comprendre",
+            "Accepter uniquement les attributs mentionnés dans le Coran et non dans la Sunna"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Selon as-Saʿdī, c'est croire qu'Allah est seul et unique dans la perfection absolue sous tous ses aspects, en affirmant ce qu'Il S'est affirmé à Lui-même ou ce que Son Prophète a affirmé pour Lui parmi Ses noms et attributs, et en Le déclarant exempt de ce qu'Il a nié pour Lui-même ou que Son Prophète a nié à Son sujet."
+        },
+        {
+          "id": "c2_q13",
+          "cours": 2,
+          "difficulte": "moyenne",
+          "question": "Quelle est la position des Muʿtazilah sur les noms et attributs d'Allah ?",
+          "options": [
+            "Ils ont nié tous les noms et tous les attributs d'Allah",
+            "Ils ont affirmé sept attributs et rejeté les autres",
+            "Ils ont renié les attributs tout en acceptant les noms, considérant ces noms comme de simples désignations abstraites sans attribut correspondant",
+            "Ils ont comparé Allah à Ses créatures"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les Muʿtazilah ont renié les attributs, tout en acceptant les noms. Selon eux, les noms d'Allah ne désignent pas de qualités réelles, mais sont de simples désignations abstraites, sans attribut correspondant."
+        },
+        {
+          "id": "c2_q14",
+          "cours": 2,
+          "difficulte": "moyenne",
+          "question": "Quels sont les trois principes fondamentaux dans l'affirmation des noms et attributs d'Allah rappelés par l'Imām ash-Shinqīṭī ?",
+          "options": [
+            "La mémorisation, la récitation et la mise en pratique",
+            "La foi en tout ce qu'Allah a affirmé de Lui-même, sanctifier Allah de toute ressemblance avec les créatures, et désespérer totalement d'accéder à la réalité du 'comment' des attributs",
+            "L'affirmation, la négation et l'interprétation figurée",
+            "La lecture du Coran, la lecture de la Sunna et la consultation des savants"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "L'Imām ash-Shinqīṭī rappelle trois fondements essentiels : 1. La foi en tout ce qu'Allah a affirmé de Lui-même dans le Coran ou la Sunnah authentique. 2. Sanctifier Allah de toute ressemblance avec les créatures dans Ses noms, Ses attributs ou Ses actes. 3. Le désespoir total d'accéder à la réalité du 'comment' (al-kayfiyyah) des attributs d'Allah."
+        },
+        {
+          "id": "c2_q15",
+          "cours": 2,
+          "difficulte": "moyenne",
+          "question": "Quelle est la voie des pieux prédécesseurs (Salaf) concernant les noms et attributs d'Allah, telle que formulée dans ce cours ?",
+          "options": [
+            "L'affirmation totale avec comparaison aux créatures pour faciliter la compréhension",
+            "La négation de tout ce qui pourrait ressembler aux créatures",
+            "L'affirmation (al-ithbāt) sans ressemblance (tashbīh), et la négation (an-nafī) sans annulation (taʿṭīl)",
+            "L'interprétation figurée (taʾwīl) de tous les attributs littéraux"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les pieux prédécesseurs ont toujours affirmé une voie entre l'affirmation et la négation : l'affirmation (al-ithbāt) sans ressemblance (tashbīh), et la négation (an-nafī) sans annulation (taʿṭīl)."
+        },
+        {
+          "id": "c2_q16",
+          "cours": 2,
+          "difficulte": "difficile",
+          "question": "Pourquoi est-il impossible, selon l'argument du cours, qu'une entité existe sans attributs ? Et comment cet argument réfute-t-il les Jahmiyyah ?",
+          "options": [
+            "Car les savants l'ont décidé par consensus, et les Jahmiyyah n'ont pas suivi les savants",
+            "Car toute chose présente possède nécessairement une entité réelle, et toute entité implique des attributs ; affirmer qu'Allah est présent mais sans attributs revient en réalité à nier Son existence véritable",
+            "Car la philosophie grecque prouve l'impossibilité d'une entité sans attributs",
+            "Car le Coran l'interdit explicitement dans un verset précis sur les Jahmiyyah"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Toute chose présente (mawjūdah) possède nécessairement une entité réelle (dhāt). Et toute entité implique des attributs. Ces groupes sont donc confrontés à deux issues : soit ils reconnaissent qu'Allah est présent et doivent reconnaître qu'Il a des attributs réels, soit ils nient Son existence réelle, ce qui est une mécréance manifeste. Dire : 'Allah est présent mais sans attributs' revient en réalité à nier Son existence véritable."
+        },
+        {
+          "id": "c2_q17",
+          "cours": 2,
+          "difficulte": "difficile",
+          "question": "Quel est le lien entre les Kullābiyyah et les Ashāʿirah selon ce cours ?",
+          "options": [
+            "Les Ashāʿirah sont les fondateurs des Kullābiyyah",
+            "Les Kullābiyyah ont accepté certains attributs mais ont nié les attributs liés aux actions d'Allah, et ce courant est le précurseur direct de l'Ashʿarisme",
+            "Les deux groupes sont identiques avec des noms différents",
+            "Les Kullābiyyah ont réfuté les Ashāʿirah sur tous les points"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les Kullābiyyah ont accepté certains attributs mais ont nié les attributs liés aux actions d'Allah. Ce courant est le précurseur direct de l'Ashʿarisme."
+        },
+        {
+          "id": "c2_q18",
+          "cours": 2,
+          "difficulte": "difficile",
+          "question": "Selon le cours, pourquoi est-il interdit d'affirmer un 'comment' (takyīf) pour les attributs d'Allah ?",
+          "options": [
+            "Car les anciens savants ne l'ont pas fait",
+            "Car la compréhension du kayf d'un attribut est liée à la vision de l'Être qui en est porteur, et nous ne voyons pas Allah dans cette vie, rendant impossible la perception de la réalité de Ses attributs",
+            "Car le takyīf est une forme de mécréance explicitement mentionnée dans le Coran",
+            "Car cela mènerait obligatoirement à l'anthropomorphisme"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La compréhension du kayf (le comment ou la réalité) d'un attribut est liée à la vision de l'Être qui en est porteur. Or, nous ne voyons pas Allah dans cette vie, et donc il est impossible de cerner ou de percevoir la réalité de Ses attributs. Affirmer un 'comment' pour les attributs d'Allah est un mensonge sur Allah, interdit, et Allah est bien au-dessus de ce que l'on imagine ou décrit."
+        },
+        {
+          "id": "c2_q19",
+          "cours": 2,
+          "difficulte": "difficile",
+          "question": "Que dit la parole du Salaf Nuʿaym ibn Ḥammād sur ceux qui assimilent Allah à Ses créatures et ceux qui nient Ses attributs ?",
+          "options": [
+            "Qu'ils sont dans l'erreur mais pas dans la mécréance",
+            "Que celui qui assimile Allah à Ses créatures a mécru, et que celui qui nie ce qu'Allah a affirmé de Lui-même a aussi mécru, et que ce qu'Allah S'est attribué ne comporte aucune ressemblance",
+            "Que seuls ceux qui nient tous les attributs ont mécru",
+            "Qu'ils doivent être rééduqués par les savants avant d'être jugés"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Nuʿaym ibn Ḥammād a dit : « Celui qui assimile Allah à Ses créatures a mécru. Et celui qui nie ce qu'Allah a affirmé de Lui-même, ou que Son Prophète a affirmé, a aussi mécru. Et ce qu'Allah S'est attribué à Lui-même ou ce que Son Prophète Lui a attribué ne comporte aucune ressemblance. »"
+        },
+        {
+          "id": "c2_q20",
+          "cours": 2,
+          "difficulte": "difficile",
+          "question": "Comment l'argument « affirmer certains attributs tout en en niant d'autres » est-il réfuté dans le cours par un verset coranique ?",
+          "options": [
+            "Par le verset de la sourate al-Ikhlāṣ sur l'unicité d'Allah",
+            "Par le verset de la sourate al-Baqarah : « Croyez-vous donc en une partie des Écritures pour renier l'autre ? » montrant que cela revient à croire en une partie du Livre et à rejeter une autre",
+            "Par le verset de la sourate al-Isrāʾ sur l'interdiction d'affirmer ce dont on n'est pas certain",
+            "Par le verset de la sourate ash-Shūrā : « Rien ne Lui est comparable »"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Affirmer certains attributs tout en niant d'autres revient à croire en une partie du Livre et à rejeter une autre. Allah a mis en garde contre cette attitude dans le Coran : « Croyez-vous donc en une partie des Écritures pour renier l'autre ? » [Sourate al-Baqarah, v.85]."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "titre": "Approfondissement de la définition du Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt",
+      "date": "Mercredi 9 juillet 2025 – 14 Muḥarram 1447 H",
+      "questions": [
+        {
+          "id": "c3_q1",
+          "cours": 3,
+          "difficulte": "facile",
+          "question": "Sur quels deux fondements repose le Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt ?",
+          "options": [
+            "La mémorisation des noms d'Allah et leur récitation dans les prières",
+            "L'affirmation (al-ithbāt) de ce qu'Allah S'est attribué, et la négation (an-nafī) de ce qu'Il a nié pour Lui-même",
+            "La croyance aux anges et aux livres révélés",
+            "L'étude de la philosophie islamique et le consensus des savants"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt repose sur deux fondements : 1. L'Affirmation (al-ithbāt) : affirmer ce qu'Allah S'est attribué dans le Coran ou ce que Son Messager a affirmé de Lui dans la Sunnah. 2. La Négation (an-nafī) : nier ce qu'Allah a nié de Lui-même ou ce que Son Messager a nié à Son sujet."
+        },
+        {
+          "id": "c3_q2",
+          "cours": 3,
+          "difficulte": "facile",
+          "question": "Dans quel ouvrage Ibn Taymiyyah a-t-il résumé la voie du Tawḥīd dans les noms et attributs, combinant affirmation et négation ?",
+          "options": [
+            "Al-ʿAqīda al-Wāsiṭiyya uniquement",
+            "Al-ʿAqīda al-Ḥamawiyya al-Kubrā",
+            "Al-Qawl al-Mufīd ʿalā Kitāb at-Tawḥīd",
+            "Aʿlām as-Sunna al-Manshūra"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Shaykh al-Islām Ibn Taymiyyah a résumé cette voie dans son livre al-ʿAqīda al-Ḥamawiyya al-Kubrā, en soulignant que le fondement du Tawḥīd dans les noms et attributs est la combinaison entre affirmation (ithbāt) et négation (nafī)."
+        },
+        {
+          "id": "c3_q3",
+          "cours": 3,
+          "difficulte": "facile",
+          "question": "Qu'est-ce que l'affirmation générale (al-ithbāt al-mujmal) ?",
+          "options": [
+            "Affirmer de manière précise et explicite chaque nom et attribut d'Allah mentionnés dans le Coran",
+            "Affirmer la perfection absolue d'Allah de manière globale, sans mentionner des attributs spécifiques",
+            "Affirmer uniquement les attributs confirmés par le consensus des savants",
+            "Affirmer les attributs d'Allah en les comparant à ceux des créatures pour faciliter la compréhension"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "L'affirmation générale (al-ithbāt al-mujmal) consiste à affirmer la perfection absolue d'Allah de manière globale, sans mentionner des attributs spécifiques. Exemple : « Louange à Allah, Seigneur de la Création », ce qui implique Sa perfection dans tous Ses attributs."
+        },
+        {
+          "id": "c3_q4",
+          "cours": 3,
+          "difficulte": "facile",
+          "question": "Qu'est-ce que la négation détaillée (an-nafī al-mufaṣṣal) ?",
+          "options": [
+            "Nier de manière globale tout ce qui contredit la perfection absolue d'Allah",
+            "Sanctifier Allah en niant explicitement ce qu'Il a Lui-même nié dans le Coran ou ce que Son Prophète a nié dans la Sunna, comme les attributs d'imperfection ou de défaut",
+            "Nier l'existence de toute ressemblance entre Allah et Ses créatures en termes généraux",
+            "Nier les interprétations des sectes déviantes concernant les attributs d'Allah"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La négation détaillée (an-nafī al-mufaṣṣal) consiste à sanctifier (tanzīh) Allah en niant explicitement ce qu'Il a Lui-même nié dans le Coran, ou ce que Son Prophète a nié à Son sujet dans la Sunnah, comme les attributs d'imperfection (naqṣ) ou de défaut (ʿayb). Exemple : « Il n'a pas engendré, ni été Lui-même engendré. »"
+        },
+        {
+          "id": "c3_q5",
+          "cours": 3,
+          "difficulte": "facile",
+          "question": "Quelle est la définition linguistique du taʿṭīl ?",
+          "options": [
+            "Comparer Allah à Ses créatures",
+            "Altérer le sens d'un attribut d'Allah",
+            "L'abandon, ou le fait de laisser quelque chose sans usage",
+            "Chercher à connaître le comment des attributs d'Allah"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le taʿṭīl, d'un point de vue linguistique, signifie l'abandon, ou le fait de laisser quelque chose sans usage. Exemple dans le Coran : le terme muʿaṭṭala désigne un puits abandonné, c'est-à-dire laissé sans être utilisé ni entretenu (Sourate al-Ḥajj, verset 45)."
+        },
+        {
+          "id": "c3_q6",
+          "cours": 3,
+          "difficulte": "facile",
+          "question": "Qui est considéré comme le premier à avoir introduit la croyance du taʿṭīl (la négation des attributs d'Allah) ?",
+          "options": [
+            "Jahm ibn Ṣafwān",
+            "Al-Jaʿd ibn Dirham",
+            "Bishr ibn Ghiyāth al-Marīsī",
+            "Hishām ibn al-Ḥakam"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Al-Jaʿd ibn Dirham est considéré comme le premier à avoir exposé la croyance du taʿṭīl. Il a été influencé par les Juifs, les polythéistes et la secte des Ṣābiʾah dans la ville de Haran."
+        },
+        {
+          "id": "c3_q7",
+          "cours": 3,
+          "difficulte": "facile",
+          "question": "En quelle année al-Jaʿd ibn Dirham a-t-il été exécuté, et par qui ?",
+          "options": [
+            "En 126 H par le prince Salm ibn Aḥwaz al-Tamīmī",
+            "En 115 H par Khalīd ibn ʿAbd Allāh al-Qasrī",
+            "En 128 H par le calife de l'époque",
+            "En 100 H par les savants de Médine"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Al-Jaʿd ibn Dirham a été exécuté en l'an 115 H par Khalīd ibn ʿAbd Allāh al-Qasrī, le jour du Aïd, qui dit : « Ô gens ! Sacrifiez (vos bêtes) pour Allah, et moi je sacrifie al-Jaʿd ibn Dirham, car il a prétendu qu'Allah n'a pas pris Ibrāhīm pour ami très aimé, ni parlé à Mūsā. »"
+        },
+        {
+          "id": "c3_q8",
+          "cours": 3,
+          "difficulte": "facile",
+          "question": "Quelle est la définition linguistique du taḥrīf ?",
+          "options": [
+            "Laisser quelque chose sans usage",
+            "Comparer Allah à Ses créatures",
+            "Déformer ou changer une chose de sa place, issu de la racine (ح-ر-ف)",
+            "Chercher à connaître la réalité des attributs d'Allah"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Taḥrīf vient de la racine (ح-ر-ف), qui signifie : déformer, changer une chose de sa place."
+        },
+        {
+          "id": "c3_q9",
+          "cours": 3,
+          "difficulte": "facile",
+          "question": "Combien de types de falsification (taḥrīf) existe-t-il selon ce cours ?",
+          "options": [
+            "Un seul type : la falsification dans le sens",
+            "Trois types : dans les mots, dans le sens et dans la grammaire",
+            "Deux types : la falsification dans les mots (taḥrīf lafẓī) et la falsification dans le sens (taḥrīf maʿnawī)",
+            "Quatre types selon les quatre écoles juridiques"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les deux catégories de falsification sont : 1. Falsification dans les mots (taḥrīf lafẓī) : altérer la prononciation ou la structure grammaticale d'un mot pour changer le sujet ou le sens voulu. 2. Falsification dans le sens (taḥrīf maʿnawī) : interpréter un sens clair dans un sens tordu, contraire à ce qu'indiquent les textes."
+        },
+        {
+          "id": "c3_q10",
+          "cours": 3,
+          "difficulte": "facile",
+          "question": "Quelle est la définition du at-takyīf dans le domaine des attributs d'Allah ?",
+          "options": [
+            "Nier totalement un attribut qu'Allah S'est affirmé",
+            "Comparer les attributs d'Allah à ceux des créatures de manière totale",
+            "Décrire le comment d'un ou plusieurs attributs d'Allah, ou demander le comment (al-kayfiyyah)",
+            "Altérer le sens d'un attribut sans modifier les mots"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "At-takyīf : c'est le fait de décrire le comment d'un ou plusieurs attributs d'Allah ou de demander le comment (al-kayfiyyah), soit en décrivant l'attribut (ex. : dire que la main d'Allah est comme ceci ou comme cela), soit en interrogeant sur le comment (ex. : demander « Comment est la main d'Allah ? »)."
+        },
+        {
+          "id": "c3_q11",
+          "cours": 3,
+          "difficulte": "moyenne",
+          "question": "Quelle est la différence entre l'at-tashbīh et l'at-tamthīl selon ce cours ?",
+          "options": [
+            "Le tashbīh concerne uniquement les noms d'Allah, et le tamthīl concerne uniquement les attributs",
+            "Le tashbīh est une ressemblance partielle en attribuant à Allah des attributs semblables à ceux des créatures, tandis que le tamthīl est une ressemblance totale en donnant un équivalent exact à un attribut d'Allah",
+            "Le tashbīh est permis dans certains cas, tandis que le tamthīl est toujours interdit",
+            "Le tashbīh concerne les sectes anciennes et le tamthīl les sectes modernes"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "At-tashbīh : attribuer à Allah des attributs semblables à ceux des créatures (ressemblance partielle). At-tamthīl : c'est ce que le Coran a explicitement réfuté. Cela consiste à donner un équivalent exact, un modèle ou une image à un attribut d'Allah (ressemblance totale)."
+        },
+        {
+          "id": "c3_q12",
+          "cours": 3,
+          "difficulte": "moyenne",
+          "question": "Qu'implique la négation (an-nafī) dans les textes du Coran et de la Sunna, au-delà d'une simple absence ?",
+          "options": [
+            "Elle implique uniquement l'absence de l'attribut nié, sans autre signification",
+            "Elle implique l'affirmation implicite de l'attribut contraire dans sa forme parfaite",
+            "Elle implique que cet attribut appartient aux créatures et non à Allah",
+            "Elle implique que les savants doivent interpréter le sens selon leur raison"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Lorsqu'on parle de négation dans les textes du Coran et de la Sunnah, il ne s'agit pas d'une simple absence, mais plutôt d'une affirmation implicite de l'attribut contraire, dans sa forme parfaite. Exemple : la négation du sommeil et de la somnolence signifie l'affirmation de la perfection d'Allah dans la préservation et la vigilance absolue, sans aucune faiblesse ni lassitude."
+        },
+        {
+          "id": "c3_q13",
+          "cours": 3,
+          "difficulte": "moyenne",
+          "question": "Quelle est la chaîne de transmission des idées du taʿṭīl depuis son origine jusqu'à Jahm ibn Ṣafwān ?",
+          "options": [
+            "Labīd ibn al-Aʿṣam → Bayān ibn Samʿān → al-Jaʿd ibn Dirham → Jahm ibn Ṣafwān",
+            "Labīd ibn al-Aʿṣam → Ṭālūt ibn Ukhtā → Bayān ibn Samʿān → al-Jaʿd ibn Dirham → Jahm ibn Ṣafwān",
+            "Hishām ibn al-Ḥakam → al-Jaʿd ibn Dirham → Jahm ibn Ṣafwān",
+            "Les philosophes grecs → al-Jaʿd ibn Dirham → Jahm ibn Ṣafwān → Bishr al-Marīsī"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Jaʿd ibn Dirham a pris ses idées de Bayān ibn Samʿān, qui lui-même les a pris de Ṭālūt ibn Ukhtā, et ce Ṭālūt les aurait pris de Labīd ibn al-Aʿṣam (le juif accusé d'avoir empoisonné le Prophète). Puis Jaʿd ibn Dirham a transmis ces idées à Jahm ibn Ṣafwān."
+        },
+        {
+          "id": "c3_q14",
+          "cours": 3,
+          "difficulte": "moyenne",
+          "question": "Quelle règle importante est énoncée concernant le lien entre taḥrīf lafẓī et taḥrīf maʿnawī ?",
+          "options": [
+            "La falsification dans le sens entraîne toujours une falsification dans les mots",
+            "Les deux types de falsification sont indépendants l'un de l'autre",
+            "Toute falsification dans les mots (taḥrīf lafẓī) entraîne une falsification dans le sens (taḥrīf maʿnawī), car le but est de nier ce qu'Allah S'est affirmé",
+            "La falsification dans les mots est permise si elle n'altère pas le sens"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Règle importante : Toute falsification dans les mots (taḥrīf lafẓī) entraîne une falsification dans le sens (taḥrīf maʿnawī), car le but est de nier ce qu'Allah S'est affirmé."
+        },
+        {
+          "id": "c3_q15",
+          "cours": 3,
+          "difficulte": "moyenne",
+          "question": "Pourquoi est-il incorrect de qualifier Allah de « pas sourd » sans autre précision, selon le cours ?",
+          "options": [
+            "Car cette expression contredit les textes du Coran",
+            "Car dans la négation absolue il n'y a pas d'éloge direct sauf lorsqu'elle implique l'affirmation de son contraire ; dire qu'Allah n'est pas sourd n'est un éloge que si cela implique qu'Il entend parfaitement",
+            "Car les savants ont interdit d'utiliser des négations pour décrire Allah",
+            "Car cela mènerait à l'anthropomorphisme"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Dans la négation absolue, il n'y a pas d'éloge direct (madḥ), sauf lorsqu'elle implique l'affirmation de son contraire, ce qui devient alors un éloge implicite. Ainsi, dire qu'Allah « n'est pas sourd » n'est en soi pas un éloge, sauf si cela implique qu'Il entend parfaitement (as-Samīʿ). C'est pourquoi l'éloge provient principalement de l'affirmation des attributs."
+        },
+        {
+          "id": "c3_q16",
+          "cours": 3,
+          "difficulte": "difficile",
+          "question": "Quelle est la différence entre la négation (an-nafī) et la falsification (at-taḥrīf), et quelle règle logique découle de leur rapport ?",
+          "options": [
+            "Ils sont synonymes : toute négation est une falsification et toute falsification est une négation",
+            "An-nafī nie totalement un attribut, tandis qu'at-taḥrīf altère le sens apparent en apparence tout en conservant le mot ; toute falsification est une forme de négation, mais toute négation n'est pas nécessairement une falsification",
+            "An-nafī concerne les attributs d'action et at-taḥrīf concerne les attributs d'essence",
+            "La négation est permise dans certains cas, contrairement à la falsification qui est toujours interdite"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "An-nafī : c'est le fait de nier totalement un attribut qu'Allah S'est affirmé. At-taḥrīf : c'est d'altérer le sens apparent d'un nom ou d'un attribut, soit en modifiant le mot, soit en interprétant son sens dans une direction qui contredit la langue arabe claire. Règle importante : Toute falsification est une forme de négation, mais toute négation n'est pas nécessairement une falsification."
+        },
+        {
+          "id": "c3_q17",
+          "cours": 3,
+          "difficulte": "difficile",
+          "question": "Comment les négationnistes (muʿaṭṭilah) sont-ils, selon le cours, d'abord tombés dans l'anthropomorphisme avant de basculer dans le négationnisme ?",
+          "options": [
+            "Ils ont commencé par étudier les textes du Coran, puis les ont mal interprétés",
+            "En affirmant les attributs, puis en les comparant à ceux des créatures par erreur",
+            "Ils ont comparé Allah à la création, puis ont nié les attributs pour éviter cette ressemblance imaginée ; ainsi tout négationniste est en réalité d'abord tombé dans l'anthropomorphisme puis l'a nié",
+            "Ils ont suivi les philosophes grecs qui combinaient les deux erreurs simultanément"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "En réalité, les négationnistes sont tombés dans la négation parce qu'ils ont d'abord sombré dans l'anthropomorphisme. Ils se sont dit : « Si nous affirmons tel ou tel attribut, cela revient à faire de l'anthropomorphisme », alors ils ont décidé de le rejeter et de verser dans le négationnisme. Ainsi, tout négationniste est en réalité d'abord tombé dans l'anthropomorphisme, puis l'a nié."
+        },
+        {
+          "id": "c3_q18",
+          "cours": 3,
+          "difficulte": "difficile",
+          "question": "Quel exemple de falsification dans les mots (taḥrīf lafẓī) est donné concernant le verset sur la parole d'Allah à Mūsā ?",
+          "options": [
+            "Ils ont remplacé le mot « Allāh » par le mot « Mūsā » dans le verset",
+            "Ils ont modifié la voyelle sur « Allāh » de dammah (ḍamma) en fatḥah pour faire croire que Mūsā est celui qui a parlé à Allah, ce qui est une altération grammaticale flagrante",
+            "Ils ont supprimé le verset de certaines copies du Coran",
+            "Ils ont interprété « parler » comme signifiant « inspirer » sans modifier les mots"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Certains négationnistes ont voulu éviter l'attribution de la parole à Allah. Ils ont modifié la voyelle sur « Allāh » : dammah (ḍamma) → fatḥah, pour faire croire que Mūsā est celui qui a parlé à Allah, ce qui est une altération grammaticale flagrante. (Sourate an-Nisāʾ, v.164 : « Allah a bel et bien parlé à Moïse. »)"
+        },
+        {
+          "id": "c3_q19",
+          "cours": 3,
+          "difficulte": "difficile",
+          "question": "Quelle est la différence entre at-tashbīh et at-takyīf, et quelle règle logique découle de leur rapport ?",
+          "options": [
+            "Ils sont identiques : tout tashbīh est un takyīf et tout takyīf est un tashbīh",
+            "At-tashbīh compare directement un attribut d'Allah à la créature, tandis qu'at-takyīf décrit ou interroge sur le comment d'un attribut sans forcément le comparer à quelque chose de connu ; toute adaptation (takyīf) est une assimilation (tashbīh), mais toute assimilation n'est pas forcément une adaptation",
+            "At-tashbīh concerne les attributs d'essence et at-takyīf concerne les attributs d'action",
+            "Le takyīf est une forme légère de tashbīh, permise dans certaines circonstances pédagogiques"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "At-tashbīh consiste à attribuer à Allah un attribut en le comparant directement à la créature. At-takyīf consiste à décrire ou interroger sur le comment d'un attribut sans forcément le comparer à quelque chose de connu. Règle : Toute adaptation (takyīf) est une assimilation (tashbīh), mais toute assimilation n'est pas forcément une adaptation."
+        },
+        {
+          "id": "c3_q20",
+          "cours": 3,
+          "difficulte": "difficile",
+          "question": "Quel exemple de falsification dans le sens (taḥrīf maʿnawī) est donné à propos du terme istawā (s'est élevé) dans la sourate Ṭā-Hā, et pourquoi est-il invalide ?",
+          "options": [
+            "Certains ont remplacé istawā par istaqarra (s'est installé), mais ce mot ne figure pas dans le Coran",
+            "Certains ont interprété istawā par istawlā (s'est emparé), mais ce mot n'a jamais signifié cela dans le langage clair des Arabes et n'est pas fondé dans les textes",
+            "Certains ont nié totalement le verset en prétendant qu'il était abrogé",
+            "Certains ont remplacé istawā par istaqarr (s'est fixé) pour nier la transcendance d'Allah"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les gens de la falsification ont remplacé le terme clair istawā (s'est élevé) par istawlā (s'est emparé), pour éviter d'affirmer l'istiwāʾ d'Allah au-dessus de Son Trône, bien que ce mot n'ait jamais signifié cela dans le langage clair des Arabes. (Sourate Ṭā-Hā, v.5 : « Le Tout Miséricordieux, qui s'est élevé sur le Trône en toute majesté. »)"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "titre": "Introduction du livre Al-Qawaid Al-Muthlaa et ouvrages de références",
+      "date": "13/07/2025",
+      "questions": [
+        {
+          "id": "c4_q1",
+          "cours": 4,
+          "difficulte": "facile",
+          "question": "Quel est le titre complet du livre étudié dans cette série de cours, et quel en est l'auteur ?",
+          "options": [
+            "Al-Ḥamawiyya al-Kubrā, d'Ibn Taymiyya",
+            "Al-Qawāʿid al-Muthlā fī Ṣifāt Allāh wa-Asmāʾihi al-Ḥusnā, d'Ibn ʿUthaymīn",
+            "Aṣ-Ṣawāʿiq al-Mursalā, d'Ibn al-Qayyim",
+            "Darʾ Taʿāruḍ al-ʿAql wa-n-Naql, d'Ibn Taymiyya"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le livre étudié s'intitule Al-Qawāʿid al-Muthlā fī Ṣifāt Allāh wa-Asmāʾihi al-Ḥusnā (Les règles exemplaires concernant les Attributs d'Allah et Ses Noms), de Shaykh Muḥammad Ṣāliḥ Ibn ʿUthaymīn."
+        },
+        {
+          "id": "c4_q2",
+          "cours": 4,
+          "difficulte": "facile",
+          "question": "En combien de grandes parties le livre Al-Qawāʿid al-Muthlā est-il divisé ?",
+          "options": [
+            "Trois grandes parties",
+            "Quatre grandes parties",
+            "Cinq grandes parties auxquelles s'ajoute une conclusion réfutative",
+            "Sept grandes parties correspondant aux sept règles sur les Noms"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Ce livre est divisé en cinq grandes parties, auxquelles s'ajoute une conclusion réfutative : une introduction, les règles relatives aux Noms (7 règles), les règles relatives aux Attributs (7 règles), les règles concernant les textes scripturaires (4 règles), et les réfutations aux interprètes."
+        },
+        {
+          "id": "c4_q3",
+          "cours": 4,
+          "difficulte": "facile",
+          "question": "Combien de règles fondamentales le livre Al-Qawāʿid al-Muthlā consacre-t-il respectivement aux Noms et aux Attributs d'Allah ?",
+          "options": [
+            "5 règles pour les Noms et 5 règles pour les Attributs",
+            "7 règles pour les Noms et 4 règles pour les Attributs",
+            "7 règles pour les Noms et 7 règles pour les Attributs",
+            "4 règles pour les Noms et 7 règles pour les Attributs"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le livre contient 7 règles fondamentales relatives aux Noms d'Allah et 7 règles relatives aux Attributs d'Allah."
+        },
+        {
+          "id": "c4_q4",
+          "cours": 4,
+          "difficulte": "facile",
+          "question": "Quels sont les quatre piliers de la foi en Allah mentionnés dans l'introduction du livre ?",
+          "options": [
+            "Croire en Allah, aux anges, aux livres et aux prophètes",
+            "Croire en l'existence d'Allah, en Sa seigneurie, en Sa divinité exclusive et en Ses Noms et Attributs",
+            "Croire en l'unicité, en la prophétie, en le Jugement Dernier et en la prédestination",
+            "Croire en la prière, le jeûne, le pèlerinage et l'aumône"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les piliers de la foi en Allah sont : 1. Croire en l'existence d'Allah et en Sa présence, 2. Croire en Sa seigneurie (rubūbiyya), 3. Croire en Sa divinité exclusive (ulūhiyya), 4. Croire en Ses Noms et Attributs (al-Asmāʾ wa-ṣ-Ṣifāt)."
+        },
+        {
+          "id": "c4_q5",
+          "cours": 4,
+          "difficulte": "facile",
+          "question": "Quelle est la première règle concernant les Noms d'Allah énoncée dans le livre Al-Qawāʿid al-Muthlā ?",
+          "options": [
+            "Les Noms d'Allah sont limités à quatre-vingt-dix-neuf",
+            "Les Noms d'Allah sont d'institution divine (tawqīfiyya)",
+            "Tous les Noms d'Allah sont beaux (ḥusnā)",
+            "Les Noms d'Allah s'affirment uniquement par le Coran"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "La première règle dans les Noms d'Allah est : tous les Noms d'Allah sont bons/beaux (ḥusnā)."
+        },
+        {
+          "id": "c4_q6",
+          "cours": 4,
+          "difficulte": "facile",
+          "question": "Selon quelle règle les Noms d'Allah ne peuvent-ils être établis que par le Coran et la Sunna, sans que la raison humaine ait sa place dans ce domaine ?",
+          "options": [
+            "Les Noms d'Allah sont limitatifs",
+            "Les Noms d'Allah sont d'institution divine (tawqīfiyya)",
+            "Les Noms d'Allah sont à la fois des dénominatifs et des attributs",
+            "Les Noms d'Allah indiquent Son entité de trois manières"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La règle 5 sur les Noms stipule que les Noms d'Allah sont d'institution divine (tawqīfiyya) : la raison humaine n'a pas sa place dans ce domaine. La base dans l'affirmation des noms et des attributs d'Allah est le Coran et la Sunna."
+        },
+        {
+          "id": "c4_q7",
+          "cours": 4,
+          "difficulte": "facile",
+          "question": "Qu'est-ce que l'ilḥād (abjuration ou profanation) dans les Noms d'Allah ?",
+          "options": [
+            "Mémoriser les Noms d'Allah sans les comprendre",
+            "Se détourner de ce qu'implique leur bon usage et leurs droits",
+            "Invoquer Allah par des Noms non mentionnés dans le Coran",
+            "Comparer les Noms d'Allah à ceux des créatures"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La 7e règle sur les Noms précise que l'ilḥād (abjuration ou profanation) dans les Noms d'Allah, c'est se détourner de ce qu'implique leur bon usage et leurs droits."
+        },
+        {
+          "id": "c4_q8",
+          "cours": 4,
+          "difficulte": "facile",
+          "question": "Quelles sont les deux catégories des Attributs affirmés (thubūtiyya) d'Allah ?",
+          "options": [
+            "Attributs généraux et attributs spécifiques",
+            "Attributs anciens et attributs nouveaux",
+            "Attributs liés à l'entité (ṣifāt dhātiyya) et attributs liés aux actions (ṣifāt fiʿliyya)",
+            "Attributs connus et attributs inconnus"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les Attributs affirmés se divisent en deux catégories : les Attributs liés à l'entité (ṣifāt dhātiyya) et les Attributs liés aux actions (ṣifāt fiʿliyya)."
+        },
+        {
+          "id": "c4_q9",
+          "cours": 4,
+          "difficulte": "facile",
+          "question": "Quels sont les deux types d'invocation inclus dans le verset « Invoquez-Le donc par ces noms » selon l'explication du shaykh Ibn ʿUthaymīn ?",
+          "options": [
+            "L'invocation publique et l'invocation secrète",
+            "L'invocation d'adoration (duʿāʾ al-ʿibāda) et l'invocation de demande (duʿāʾ al-masʾala)",
+            "L'invocation collective et l'invocation individuelle",
+            "L'invocation obligatoire et l'invocation recommandée"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Dans le verset de la sourate al-Aʿrāf (v. 180), le terme « invoquez-Le » inclut : l'invocation d'adoration (duʿāʾ al-ʿibāda) et l'invocation de demande (duʿāʾ al-masʾala)."
+        },
+        {
+          "id": "c4_q10",
+          "cours": 4,
+          "difficulte": "facile",
+          "question": "Quel ouvrage d'Ibn Taymiyya est décrit comme destiné au niveau avancé, portant sur la réfutation des rationalistes et étant très technique ?",
+          "options": [
+            "Al-Ḥamawiyya al-Kubrā",
+            "At-Tadmuriyya",
+            "Darʾ Taʿāruḍ al-ʿAql wa-n-Naql",
+            "Naqḍ at-Taʾsīs"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Darʾ Taʿāruḍ al-ʿAql wa-n-Naql d'Ibn Taymiyya est classé au niveau avancé : c'est une réfutation majeure des rationalistes, très technique, qui nécessite un bon niveau."
+        },
+        {
+          "id": "c4_q11",
+          "cours": 4,
+          "difficulte": "moyenne",
+          "question": "Pourquoi le domaine des Attributs d'Allah est-il dit plus vaste que celui des Noms ?",
+          "options": [
+            "Car les Attributs ont été mentionnés plus souvent dans le Coran que les Noms",
+            "Car tout Nom implique un attribut, mais tout attribut n'est pas forcément un Nom",
+            "Car les Attributs peuvent être établis par la raison contrairement aux Noms",
+            "Car les Attributs sont en nombre illimité alors que les Noms sont fixés à quatre-vingt-dix-neuf"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La règle 2 sur les Attributs précise : le domaine des Attributs est plus vaste que celui des Noms, car tout Nom implique un attribut, mais tout attribut n'est pas forcément un Nom."
+        },
+        {
+          "id": "c4_q12",
+          "cours": 4,
+          "difficulte": "moyenne",
+          "question": "Quels sont les trois points essentiels par lesquels l'imām Ibn ʿUthaymīn souligne l'importance du Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt dans son introduction ?",
+          "options": [
+            "Cette science est obligatoire, ancienne et unique en son genre",
+            "Cette science fait partie intégrante de la foi en Allah, elle est l'une des trois catégories de l'unicité, et l'adoration ne peut être parfaite sans la connaissance des Noms et Attributs",
+            "Cette science réfute les sectes, complète la foi et protège des innovations",
+            "Cette science est la plus noble, la plus ancienne et la plus difficile des sciences islamiques"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Ibn ʿUthaymīn a voulu souligner trois points essentiels : 1. Cette science fait partie intégrante de la foi en Allah. 2. Elle constitue l'une des trois catégories de l'unicité d'Allah ; sans elle, le tawḥīd reste incomplet. 3. L'adoration et l'invocation ne peuvent être parfaites sans la connaissance des noms et attributs d'Allah."
+        },
+        {
+          "id": "c4_q13",
+          "cours": 4,
+          "difficulte": "moyenne",
+          "question": "Quelle est la réponse célèbre de Mālik ibn Anas sur l'istiwāʾ d'Allah au-dessus du Trône, et que conclut-il à propos des questions sur ce sujet ?",
+          "options": [
+            "L'istiwāʾ est inconnu, le comment est inconnu, y croire est recommandé, et poser des questions est permis pour les savants",
+            "L'istiwāʾ est connu, le comment en est inconnu, y croire est obligatoire, et poser des questions à son sujet est une innovation",
+            "L'istiwāʾ signifie la domination, le comment est connu des savants, y croire est optionnel, et poser des questions est encouragé",
+            "L'istiwāʾ est à interpréter figurément, le comment est sans importance, y croire est suffisant, et poser des questions est déconseillé"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Mālik ibn Anas a répondu : « Al-Istiwāʾ (l'établissement) est connu, le 'comment' (al-kayf) en est inconnu, y croire est obligatoire, et poser des questions à son sujet est une innovation. » Puis il dit au questionneur : « Je ne te vois que comme un innovateur. » Et il ordonna qu'on le fasse sortir."
+        },
+        {
+          "id": "c4_q14",
+          "cours": 4,
+          "difficulte": "moyenne",
+          "question": "Lorsqu'un Nom d'Allah indique un attribut transitif (ṣifa mutaʿaddiya), combien d'éléments comprend-il, et lesquels ?",
+          "options": [
+            "Deux éléments : l'affirmation du Nom et l'affirmation du qualificatif",
+            "Quatre éléments : le Nom, le qualificatif, le statut, et l'action correspondante",
+            "Trois éléments : l'affirmation du Nom, l'affirmation du qualificatif contenu dans ce nom, et l'affirmation du statut de ce qualificatif et de ce qu'il implique",
+            "Un seul élément : l'affirmation que ce Nom appartient à Allah"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Lorsqu'un Nom d'Allah indique un attribut transitif (ṣifa mutaʿaddiya), il comprend trois éléments : l'affirmation du Nom d'Allah, l'affirmation du qualificatif d'Allah contenu dans ce nom, et l'affirmation du statut de ce qualificatif et de ce qu'il implique."
+        },
+        {
+          "id": "c4_q15",
+          "cours": 4,
+          "difficulte": "moyenne",
+          "question": "En quoi consiste concrètement l'invocation d'adoration (duʿāʾ al-ʿibāda) par les Noms d'Allah ?",
+          "options": [
+            "Répéter les Noms d'Allah à voix haute dans les prières surérogatoires",
+            "Faire précéder chaque demande par un Nom d'Allah en rapport avec l'objet de la demande",
+            "Adorer Allah en fonction du sens du Nom : par exemple, sachant qu'Allah entend tout, faire attention à ses paroles, et ainsi de suite pour chaque Nom",
+            "Mémoriser les quatre-vingt-dix-neuf Noms d'Allah pour entrer au Paradis"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "L'invocation d'adoration consiste à ce que tu adores Allah avec ce qu'implique chacun de Ses Noms : tu te repens à Lui car Il est Celui qui accepte le repentir, tu L'évoque avec ta langue car Il est l'Audient, tu L'adore avec tes membres car Il est le Voyant, tu Le crains dans ton for intérieur car Il est le Subtil, le Très Informé, et ainsi de suite."
+        },
+        {
+          "id": "c4_q16",
+          "cours": 4,
+          "difficulte": "difficile",
+          "question": "Pourquoi les Attributs affirmés (thubūtiyya) sont-ils plus nombreux que les Attributs infirmés (salbiyya), selon la règle 4 sur les Attributs ?",
+          "options": [
+            "Car le Coran mentionne davantage d'affirmations que de négations dans ses versets",
+            "Car les savants ont établi plus d'attributs affirmés que d'attributs niés par consensus",
+            "Car la perfection se montre par l'affirmation et non par l'infirmation : plus les Attributs affirmés sont nombreux et variés, plus la perfection d'Allah est manifeste",
+            "Car les Attributs infirmés appartiennent aux créatures et non à Allah"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les Attributs affirmés sont tous des attributs de perfection (kamāl). Plus ils sont nombreux et variés, plus la perfection d'Allah est manifeste. C'est pourquoi les Attributs affirmés sont plus nombreux que les attributs infirmés : la perfection se montre par l'affirmation et non l'infirmation."
+        },
+        {
+          "id": "c4_q17",
+          "cours": 4,
+          "difficulte": "difficile",
+          "question": "Selon la 3e règle sur les textes, le sens apparent (ẓāhir) des textes sur les Attributs est-il entièrement connu ou entièrement inconnu ? Quelle est la position correcte ?",
+          "options": [
+            "Il est entièrement connu : les savants peuvent en déduire le comment des attributs",
+            "Il est entièrement inconnu : il faut déléguer le sens à Allah sans chercher à le comprendre",
+            "Il est connu sous un angle (le sens général ou lexical) et inconnu sous un autre (la réalité exacte, kayfiyya, de l'attribut)",
+            "Il est connu uniquement pour les attributs mentionnés dans le Coran, et inconnu pour ceux de la Sunna"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le sens apparent (ẓāhir) des textes sur les Attributs est connu sous un angle et inconnu sous un autre : le sens général ou lexical est connu, mais la réalité exacte (kayfiyya) de l'attribut est inconnue. C'est le sens de la réponse de Mālik ibn Anas."
+        },
+        {
+          "id": "c4_q18",
+          "cours": 4,
+          "difficulte": "difficile",
+          "question": "Quel est le lien entre la validité du Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt et les deux autres formes de tawḥīd, selon l'introduction du livre ?",
+          "options": [
+            "Le Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt est indépendant des deux autres formes et peut être étudié séparément",
+            "La foi en l'unicité d'Allah dans Ses noms et attributs ne peut être authentique et valide que si elle est accompagnée du Tawḥīd ar-Rubūbiyya et du Tawḥīd al-Ulūhiyya",
+            "Le Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt est la base des deux autres formes qui en découlent logiquement",
+            "Les trois formes de tawḥīd sont indépendantes et peuvent chacune être pratiquée sans les autres"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La foi en l'unicité d'Allah dans Ses noms et attributs (Tawḥīd al-Asmāʾ wa-ṣ-Ṣifāt) ne peut être authentique et valide que si elle est accompagnée des deux autres formes de tawḥīd : Tawḥīd ar-Rubūbiyya et Tawḥīd al-Ulūhiyya."
+        },
+        {
+          "id": "c4_q19",
+          "cours": 4,
+          "difficulte": "difficile",
+          "question": "De quelle manière les Noms d'Allah fonctionnent-ils à la fois comme dénominatifs communs et comme attributs différents ?",
+          "options": [
+            "Communs car ils désignent tous la même qualité d'Allah, différents car certains sont coraniques et d'autres prophétiques",
+            "Communs car ils désignent tous l'entité d'Allah (dhāt), différents car chacun d'eux implique un sens spécifique",
+            "Communs car ils appartiennent tous à la même langue arabe, différents car leur prononciation varie",
+            "Communs car ils peuvent tous s'invoquer ensemble, différents car leur effet spirituel diffère"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les Noms d'Allah sont des dénominatifs communs car ils désignent tous l'entité d'Allah (dhāt), et des attributs différents car chacun d'eux implique un sens spécifique."
+        },
+        {
+          "id": "c4_q20",
+          "cours": 4,
+          "difficulte": "difficile",
+          "question": "Quelle raison personnelle Ibn ʿUthaymīn mentionne-t-il pour avoir rédigé le livre Al-Qawāʿid al-Muthlā, et quel objectif exprime-t-il ?",
+          "options": [
+            "En raison d'une demande de ses élèves et dans l'espoir de produire un ouvrage académique reconnu",
+            "En raison de l'importance du sujet et des propos tenus tantôt correctement tantôt faussement par ignorance ou fanatisme, en espérant que son travail soit sincère, agréé auprès d'Allah et bénéfique pour Ses serviteurs",
+            "En raison d'un manque de livres sur les Noms d'Allah et dans le but de réfuter les Muʿtazila",
+            "En raison d'une instruction de ses maîtres et dans l'espoir de compléter les ouvrages d'Ibn Taymiyya"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Ibn ʿUthaymīn précise : en raison de la place et de l'importance de l'unicité d'Allah dans Ses noms et attributs, et en raison des propos tenus par les gens dans ce domaine tantôt de manière correcte, tantôt de manière fausse, soit par ignorance, soit par fanatisme, il a souhaité rédiger sur ce sujet, en espérant que son travail soit sincère, agréé auprès d'Allah, et bénéfique pour Ses serviteurs."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "titre": "Première règle : Tous les Noms d'Allah sont extrêmement beaux et bons",
+      "date": "18/07/2025",
+      "questions": [
+        {
+          "id": "c5_q1",
+          "cours": 5,
+          "difficulte": "facile",
+          "question": "Dans combien de versets du Coran Allah affirme-t-il explicitement que Lui appartiennent les noms extrêmement beaux (al-asmāʾ al-ḥusnā) ?",
+          "options": [
+            "Deux versets",
+            "Trois versets",
+            "Quatre versets",
+            "Sept versets"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Dans quatre versets du Coran, Allah affirme clairement qu'à Lui appartiennent les noms extrêmement beaux et bons (al-asmāʾ al-ḥusnā) : sourate al-Aʿrāf (7:180), sourate al-Isrāʾ (17:110), sourate Ṭā-Hā (20:8) et sourate al-Ḥashr (59:24)."
+        },
+        {
+          "id": "c5_q2",
+          "cours": 5,
+          "difficulte": "facile",
+          "question": "Que signifie le mot « al-ḥusnā » grammaticalement dans l'expression al-asmāʾ al-ḥusnā ?",
+          "options": [
+            "Un pluriel masculin signifiant « beaux »",
+            "La forme féminine du superlatif « aḥsan », signifiant « extrêmement beau et bon »",
+            "Un adjectif relatif signifiant « bons par rapport à d'autres »",
+            "Un nom d'action signifiant « embellissement »"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le mot « al-ḥusnā » est la forme féminine du superlatif « aḥsan », qui signifie « extrêmement beau et bon ». Il s'agit d'un superlatif absolu et non relatif."
+        },
+        {
+          "id": "c5_q3",
+          "cours": 5,
+          "difficulte": "facile",
+          "question": "Parmi les quatre catégories de significations des noms selon Ibn ʿUthaymīn, laquelle est la seule qui convient à être attribuée à Allah ?",
+          "options": [
+            "Ce qui désigne le mal ou l'imperfection en soi",
+            "Ce qui désigne un sens positif seulement dans un contexte particulier",
+            "Ce qui désigne quelque chose de bon mais sans perfection assurée",
+            "Ce qui désigne quelque chose de bon de manière parfaite et absolue"
+          ],
+          "reponseCorrecte": 3,
+          "justification": "Seule la quatrième catégorie correspond aux noms d'Allah : ce qui désigne quelque chose de bon de manière parfaite et absolue. Par exemple, as-Samīʿ (L'Audient parfait) et al-Baṣīr (Le Clairvoyant parfait). Les autres catégories ne peuvent en aucun cas être attribuées à Allah."
+        },
+        {
+          "id": "c5_q4",
+          "cours": 5,
+          "difficulte": "facile",
+          "question": "Quelle est la différence fondamentale entre les noms d'Allah et les noms des créatures ?",
+          "options": [
+            "Les noms d'Allah sont en arabe uniquement, contrairement aux noms des créatures",
+            "Les noms d'Allah sont limités en nombre, contrairement aux noms des créatures",
+            "Les noms d'Allah sont fondés sur des attributs réels et parfaits, tandis que les noms des créatures sont des noms propres figés sans lien nécessaire avec le sens",
+            "Les noms d'Allah ne peuvent être prononcés qu'en prière, contrairement aux noms des créatures"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les noms d'Allah ne sont pas de simples appellations sans signification. Ils sont fondés sur des attributs réels et parfaits qu'Allah possède véritablement. En revanche, les noms des créatures sont des noms propres, figés, sans lien nécessaire avec la réalité de leur être : une personne peut s'appeler « Ḥakīm » sans pour autant avoir la sagesse."
+        },
+        {
+          "id": "c5_q5",
+          "cours": 5,
+          "difficulte": "facile",
+          "question": "Combien de fois le nom « al-Ḥayy » (Le Vivant) revient-il dans le Coran, et avec quel autre nom est-il toujours associé ?",
+          "options": [
+            "Une seule fois, associé à al-Raḥmān",
+            "Deux fois, associé à al-ʿAlīm",
+            "Trois fois, associé à al-Qayyūm",
+            "Quatre fois, associé à al-Qahhar"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le nom al-Ḥayy (Le Vivant) revient à trois reprises dans le Coran, toujours associé à al-Qayyūm (Celui qui subsiste par Lui-même et qui fait subsister toute chose) : sourate al-Baqara (2:255), sourate Āl ʿImrān (3:2), et sourate Ṭā-Hā (20:111)."
+        },
+        {
+          "id": "c5_q6",
+          "cours": 5,
+          "difficulte": "facile",
+          "question": "Quelle est la particularité de la vie d'Allah (al-ḥayāt) par rapport à la vie des créatures ?",
+          "options": [
+            "Elle est plus longue que la vie des créatures mais a tout de même un début",
+            "Elle n'est pas précédée de néant et n'est pas suivie de disparition, et n'est touchée par aucune faiblesse ni défaut",
+            "Elle est identique à la vie des créatures dans son essence mais supérieure dans sa durée",
+            "Elle existe uniquement dans l'au-delà et non dans ce bas monde"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La vie d'Allah est parfaite : elle n'est pas précédée de néant, n'est pas suivie de disparition, et n'est touchée par aucune faiblesse, ni défaut, ni manquement. C'est une vie éternelle et absolue, contrairement à celle des créatures qui est imparfaite et limitée."
+        },
+        {
+          "id": "c5_q7",
+          "cours": 5,
+          "difficulte": "facile",
+          "question": "Quel exemple illustre le cas d'un nom qui ne peut s'utiliser pour Allah que dans un contexte restreint (et non comme nom autonome) ?",
+          "options": [
+            "Al-Mutakallim (Celui qui parle)",
+            "Al-Mākir (Celui qui ruse/complote)",
+            "Al-Qahhār (Le Dominateur)",
+            "Al-Jabbār (Le Tout-Puissant)"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Al-Mākir désigne un sens positif seulement dans un contexte particulier : on peut informer qu'Allah complote contre ceux qui complotent, comme dans le verset de la sourate Āl ʿImrān, mais ce n'est pas une chose qu'on Lui attribue directement de façon totale et absolue comme nom."
+        },
+        {
+          "id": "c5_q8",
+          "cours": 5,
+          "difficulte": "facile",
+          "question": "Quelle est la différence entre le superlatif absolu et le superlatif relatif dans la description des noms d'Allah ?",
+          "options": [
+            "Le superlatif absolu implique une comparaison avec les créatures, le relatif n'en implique pas",
+            "Le superlatif absolu indique la perfection sans comparaison ni égal, tandis que le superlatif relatif implique une comparaison avec un autre élément",
+            "Le superlatif absolu s'applique aux attributs d'action, le relatif aux attributs d'essence",
+            "Les deux types sont équivalents et s'appliquent tous deux aux noms d'Allah"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le superlatif relatif implique une comparaison (exemple : Muḥammad est plus intelligent que Zayd). Le superlatif absolu indique la perfection sans comparaison, sans égal ni associé (exemple : les noms d'Allah sont extrêmement beaux, sans que cela soit relatif à d'autres). Dire que les noms d'Allah atteignent la perfection suprême ne veut pas dire qu'ils ont une limite ou une fin."
+        },
+        {
+          "id": "c5_q9",
+          "cours": 5,
+          "difficulte": "facile",
+          "question": "Que précise Ibn al-Qayyim sur la raison pour laquelle tous les noms d'Allah sont extrêmement beaux ?",
+          "options": [
+            "Parce qu'ils sont mentionnés dans le Coran et la Sunna uniquement",
+            "Parce qu'ils expriment tous la louange, l'éloge et la glorification",
+            "Parce qu'ils sont en nombre limité et bien connus des savants",
+            "Parce qu'ils sont prononcés en arabe classique"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Ibn al-Qayyim a dit : « Tous les noms d'Allah sont extrêmement beaux, car ils expriment tous la louange, l'éloge et la glorification. » Il est impossible de louer une entité parfaite avec des noms péjoratifs ou imparfaits."
+        },
+        {
+          "id": "c5_q10",
+          "cours": 5,
+          "difficulte": "facile",
+          "question": "Pourquoi le nom al-Mutakallim (Celui qui parle) ne peut-il pas être attribué à Allah en tant que nom autonome ?",
+          "options": [
+            "Parce qu'Allah ne parle pas selon les textes du Coran",
+            "Parce que la parole peut être bonne, mais aussi mauvaise ; ce nom est ambigu et ne convient pas à Allah",
+            "Parce que ce nom est réservé aux prophètes dans le Coran",
+            "Parce que ce nom implique une ressemblance avec les créatures"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Al-Mutakallim (celui qui parle) désigne quelque chose de bon, mais sans perfection assurée : la parole peut être bonne, mais aussi mauvaise. Ce type de nom est ambigu et ne convient pas à Allah en tant que nom autonome."
+        },
+        {
+          "id": "c5_q11",
+          "cours": 5,
+          "difficulte": "moyenne",
+          "question": "Quelle est la règle concernant les noms d'Allah qui ne se mentionnent qu'en duo (al-ism al-mzdawaj), et quel exemple en est donné ?",
+          "options": [
+            "Ces noms peuvent se mentionner seuls car chacun contient un sens complet ; exemple : al-Awwal et al-Ākhir",
+            "Ces noms ne s'utilisent qu'en paire pour exprimer la perfection globale, car les mentionner séparément créerait une ambiguïté ; exemple : al-Nāfiʿ et al-Ḍārr",
+            "Ces noms sont toujours associés à al-Ḥayy et al-Qayyūm pour renforcer leur sens",
+            "Ces noms sont limités à deux paires dans tout le Coran"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Certains noms ne s'utilisent qu'en paire pour exprimer la perfection globale. Exemple : al-Nāfiʿ (Celui qui accorde le profit) et al-Ḍārr (Celui qui inflige le mal). On ne dit pas simplement al-Nāfiʿ seul, car on ne peut attribuer ce nom sans son pendant al-Ḍārr, pour ne pas créer d'ambiguïté. Ensemble, ils expriment que seul Allah détient le pouvoir de nuire et de bénéficier."
+        },
+        {
+          "id": "c5_q12",
+          "cours": 5,
+          "difficulte": "moyenne",
+          "question": "Comment la combinaison des noms al-ʿAzīz et al-Ḥakīm produit-elle une perfection supérieure à celle de chacun pris séparément ?",
+          "options": [
+            "Car leur réunion double simplement la perfection de chaque nom sans ajouter de nouveau sens",
+            "Car la puissance d'Allah est toujours accompagnée de sagesse, ce qui exclut toute injustice, et Sa sagesse est soutenue par une puissance parfaite qui ne subit aucune pression",
+            "Car ces deux noms ensemble désignent la même réalité que le nom al-Qahhar",
+            "Car leur association est mentionnée dans la sourate al-Fātiḥa"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Al-ʿAzīz implique la puissance parfaite, al-Ḥakīm implique la sagesse parfaite. Pris ensemble, ils indiquent que la puissance d'Allah est toujours accompagnée de sagesse — Il n'est jamais injuste dans l'usage de Sa puissance — et que Son jugement est appuyé par Sa puissance, car Il ne craint personne et ne subit aucune pression. C'est un niveau de perfection supérieur que les créatures puissantes ne possèdent pas."
+        },
+        {
+          "id": "c5_q13",
+          "cours": 5,
+          "difficulte": "moyenne",
+          "question": "Quelle est la spécificité qui distingue le nom al-Khāliq du nom al-Bāriʾ selon le cours ?",
+          "options": [
+            "Al-Khāliq désigne la création à partir du néant uniquement, tandis qu'al-Bāriʾ désigne la création à partir d'une matière existante",
+            "Al-Khāliq est Celui qui a créé toute chose avec mesure et précision, tandis qu'al-Bāriʾ est Celui qui donne forme aux créatures à partir du néant",
+            "Al-Khāliq concerne les créatures visibles et al-Bāriʾ concerne les créatures invisibles",
+            "Al-Khāliq et al-Bāriʾ sont des synonymes parfaits qui peuvent s'interchanger librement"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Ces noms ne sont pas interchangeables : al-Khāliq est Celui qui a créé toute chose avec mesure et précision, tandis qu'al-Bāriʾ est Celui qui donne forme aux créatures à partir du néant. Ils renvoient à des aspects différents et complémentaires de la perfection divine."
+        },
+        {
+          "id": "c5_q14",
+          "cours": 5,
+          "difficulte": "moyenne",
+          "question": "Quelle est la science de la miséricorde d'Allah décrite dans le hadith du Prophète concernant ar-Raḥmān, et quel verset coranique en confirme la vastitude ?",
+          "options": [
+            "Allah est plus miséricordieux envers Ses serviteurs qu'un père envers son fils ; confirmé par la sourate al-Fātiḥa",
+            "Allah est plus miséricordieux envers Ses serviteurs que cette mère envers son enfant ; confirmé par : « Ma miséricorde s'étend à toutes choses » (al-Aʿrāf, 7:156)",
+            "Allah réserve Sa miséricorde aux croyants uniquement ; confirmé par la sourate al-Bayyina",
+            "Allah distribue Sa miséricorde selon la piété de chacun ; confirmé par la sourate az-Zumar"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le Prophète a dit : « Allah est plus miséricordieux envers Ses serviteurs que cette mère envers son enfant. » Ce hadith a été prononcé en voyant une mère retrouver son enfant égaré et le serrer contre elle. Allah confirme dans le Coran : « Ma miséricorde s'étend à toutes choses. » (Sourate al-Aʿrāf, 7:156)."
+        },
+        {
+          "id": "c5_q15",
+          "cours": 5,
+          "difficulte": "moyenne",
+          "question": "Quelle est la signification linguistique du nom « Allah » selon le tafsīr d'Ibn ʿAbbās ?",
+          "options": [
+            "Celui qui est présent partout et en tout temps",
+            "Celui qui possède la divinité et l'adoration sur toute la création",
+            "Celui dont le nom est inconnaissable et indicible",
+            "Celui qui a créé toute chose à partir du néant"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Selon le tafsīr d'Ibn ʿAbbās : « Allah est Celui qui possède la divinité et l'adoration sur toute la création. » Cela signifie qu'Allah est Celui qui mérite l'adoration exclusive et que l'adoration sincère, l'amour, l'espérance et la crainte Lui sont dus uniquement."
+        },
+        {
+          "id": "c5_q16",
+          "cours": 5,
+          "difficulte": "difficile",
+          "question": "Pourquoi la structure linguistique du verset « wa-li-Llāhi al-asmāʾ al-ḥusnā » exprime-t-elle une exclusivité et une restriction, et comment s'appelle ce procédé rhétorique ?",
+          "options": [
+            "Car le pluriel « al-asmāʾ » indique une multitude ; ce procédé s'appelle at-takthīr",
+            "Car la particule lām précédée de wa indique l'appartenance exclusive et le fait de mettre ce qui est possédé en tête exprime la restriction (ḥaṣr) ; ce procédé s'appelle taqdīm mā ḥaqquhu at-taʾkhīr",
+            "Car le nom d'Allah est placé après ses attributs, ce qui en rhétorique s'appelle at-taʾkhīr al-maqṣūd",
+            "Car la conjonction wa au début du verset lie ce verset au précédent pour renforcer l'exclusivité ; ce procédé s'appelle al-waṣl"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La particule lām indique ici l'appartenance exclusive. En rhétorique arabe (balāgha), mettre en tête ce qui devrait normalement venir après s'appelle taqdīm mā ḥaqquhu at-taʾkhīr, et cela exprime la restriction (ḥaṣr). De même que dire « à toi ce stylo » signifie qu'il est uniquement à toi, le verset signifie que ces noms appartiennent exclusivement à Allah."
+        },
+        {
+          "id": "c5_q17",
+          "cours": 5,
+          "difficulte": "difficile",
+          "question": "La science d'Allah (al-ʿIlm) contenue dans le nom al-ʿAlīm couvre quatre dimensions. Laquelle parmi les propositions suivantes les énumère correctement ?",
+          "options": [
+            "Ce qui est passé, ce qui est présent, ce qui est futur, et ce qui est caché aux anges",
+            "Ce qui est (mā yakūn), ce qui était (mā kāna), ce qui sera (mā sayakūn), et ce qui ne s'est pas produit et comment cela aurait été s'il s'était produit (mā lam yakun law kāna kayfa yakūn)",
+            "Ce qui est dans les cieux, ce qui est sur la terre, ce qui est dans les mers, et ce qui est dans les cœurs",
+            "La science de la prédestination, la science des livres révélés, la science des créatures et la science du Jour Dernier"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La science d'Allah couvre : ce qui est (mā yakūn), ce qui était (mā kāna), ce qui sera (mā sayakūn), et ce qui ne s'est pas produit et comment cela aurait été s'il s'était produit (mā lam yakun law kāna kayfa yakūn). Cette science n'est précédée d'aucune ignorance et n'est sujette à aucun oubli."
+        },
+        {
+          "id": "c5_q18",
+          "cours": 5,
+          "difficulte": "difficile",
+          "question": "Pourquoi est-il incorrect d'affirmer que les noms d'Allah atteignent une « extrême limite » dans le sens d'une limite ou d'une fin de leur nombre ou de leur signification ?",
+          "options": [
+            "Car le Coran a explicitement dit que leurs nombres sont infinis, ce qui contredit l'idée de limite",
+            "Car « atteindre l'extrême limite » signifie qu'ils sont d'une perfection absolue sans fin dans leur sens, non qu'ils ont une limite quantitative ; rien ne Lui est comparable et nul ne Lui est semblable ni comparable",
+            "Car les savants ont établi un nombre fixe de noms et cette limite est un consensus",
+            "Car l'idée d'une limite implique nécessairement une imperfection, que les savants ont réfutée par consensus"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Dire que les noms d'Allah atteignent la perfection suprême et leur extrême limite signifie qu'ils sont absolument parfaits dans leurs sens, sans aucun défaut. Cela ne veut pas dire qu'ils ont une limite ou une fin, ni dans leur nombre ni dans leur signification. Rien de Lui ne ressemble, nul ne Lui est semblable ni comparable."
+        },
+        {
+          "id": "c5_q19",
+          "cours": 5,
+          "difficulte": "difficile",
+          "question": "Pourquoi le mal existe-t-il dans la création d'Allah sans qu'il entre pour autant dans Ses noms ou Ses attributs, et quel exemple coranique l'illustre ?",
+          "options": [
+            "Car Allah délègue la création du mal aux anges déchus ; illustré par la sourate al-Baqara sur Iblīs",
+            "Car le mal est une notion relative qui dépend du point de vue humain et non d'une réalité objective dans la création",
+            "Car le mal existe dans la création mais pas dans les noms, les attributs ni les actions d'Allah ; illustré par le verset al-Fātiḥa où Allah ne S'attribue pas directement la colère et l'égarement mais les mentionne de manière implicite",
+            "Car Allah a interdit l'attribution du mal aux noms divins par un verset explicite de la sourate al-Aʿrāf"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le mal existe dans la création, mais pas dans les noms, les attributs ni les actions d'Allah. Un exemple coranique : dans la sourate al-Fātiḥa (1:7), Allah n'attribue pas directement la colère et l'égarement à Lui-même, mais les mentionne de manière implicite : « le chemin de ceux que Tu as comblés de faveurs, non pas de ceux qui ont encouru Ta colère, ni des égarés. »"
+        },
+        {
+          "id": "c5_q20",
+          "cours": 5,
+          "difficulte": "difficile",
+          "question": "Quel est le Nom Suprême d'Allah (al-ism al-aʿẓam) selon la majorité des savants, et sur quelle base l'établissent-ils ?",
+          "options": [
+            "Le nom ar-Raḥmān, car il n'est attribué qu'à Allah seul dans le Coran",
+            "Le nom al-Ḥayy al-Qayyūm, car ils sont toujours associés dans les passages les plus importants du Coran",
+            "Le nom « Allah », car tous les autres noms lui sont rattachés, il englobe les significations des autres noms, et il est le seul retrouvé dans tous les hadiths mentionnant le Nom Suprême",
+            "Le nom al-Aḥad, car la sourate al-Ikhlāṣ l'établit comme unique et indivisible"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "La majorité des savants dit que le Nom Suprême est « Allah », pour plusieurs raisons : tous les autres noms lui sont rattachés, il englobe les significations des autres noms, il est le nom propre d'Allah, et il est le seul retrouvé dans tous les hadiths mentionnant le Nom Suprême. Il est aussi le plus mentionné dans le Coran, plus de 2000 fois."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "titre": "Cours 6 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 7,
+      "titre": "Cours 7 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 8,
+      "titre": "Cours 8 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 9,
+      "titre": "Cours 9 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 10,
+      "titre": "Cours 10 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 11,
+      "titre": "Cours 11 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 12,
+      "titre": "Cours 12 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 13,
+      "titre": "Cours 13 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 14,
+      "titre": "Cours 14 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 15,
+      "titre": "Cours 15 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 16,
+      "titre": "Cours 16 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 17,
+      "titre": "Cours 17 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 18,
+      "titre": "Cours 18 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 19,
+      "titre": "Cours 19 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 20,
+      "titre": "Cours 20 — À venir",
+      "date": "",
+      "questions": []
+    },
+    {
+      "id": 21,
+      "titre": "Cours 21 — À venir",
+      "date": "",
+      "questions": []
+    }
+  ]
+}
