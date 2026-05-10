@@ -20,6 +20,7 @@ html,
 body,
 #root {
   height: 100%;
+  height: 100svh; /* Small viewport height fallback */
 }
 
 body {
@@ -28,6 +29,9 @@ body {
   color: var(--color-text);
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
+  min-height: 100dvh; /* Dynamic viewport height */
+  display: flex;
+  flex-direction: column;
   
   /* Islamic Pattern Background */
   background-image: 
