@@ -1456,33 +1456,1446 @@
     },
     {
       "id": 6,
-      "titre": "Cours 6 — À venir",
+      "titre": "Deuxième règle : Les Noms d'Allah sont à la fois des dénominatifs et des qualificatifs",
       "date": "",
-      "questions": []
+      "questions": [
+        {
+          "id": "c6_q1",
+          "numero": 1,
+          "difficulte": "facile",
+          "question": "La deuxième règle affirme que les Noms d'Allah sont à la fois des dénominatifs et des qualificatifs. En tant que dénominatifs, que désignent-ils ?",
+          "options": [
+            "Ils désignent tous la même et unique entité, qui est Allah",
+            "Ils désignent chacun un attribut distinct et parfait qu'Allah possède",
+            "Ils désignent les actes d'Allah dans la création et dans le gouvernement de l'univers",
+            "Ils désignent les prières et invocations qui Lui sont adressées par Ses serviteurs"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Les Noms d'Allah sont des dénominatifs par considération d'indication de l'entité : ils désignent tous la même entité, à savoir Allah. Du point de vue de l'entité désignée, ils sont donc comme des synonymes."
+        },
+        {
+          "id": "c6_q2",
+          "numero": 2,
+          "difficulte": "facile",
+          "question": "La deuxième règle affirme que les Noms d'Allah sont à la fois des dénominatifs et des qualificatifs. En tant que qualificatifs, que désignent-ils ?",
+          "options": [
+            "Ils renvoient tous au même Être unique sans aucune distinction de sens entre eux",
+            "Ils indiquent chacun un sens et un attribut propre d'Allah",
+            "Ils désignent les actes d'adoration que les serviteurs doivent accomplir envers Allah",
+            "Ils désignent les créatures qu'Allah a formées selon Sa sagesse absolue"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les Noms d'Allah sont des qualificatifs par considération d'indication des sens : chaque Nom indique un attribut particulier d'Allah. Le sens du Vivant est différent de l'Omniscient, qui lui-même est différent du Capable, et ainsi de suite."
+        },
+        {
+          "id": "c6_q3",
+          "numero": 3,
+          "difficulte": "facile",
+          "question": "Du point de vue de l'entité désignée, les Noms d'Allah sont-ils synonymes ou distincts ? Du point de vue des significations, sont-ils synonymes ou distincts ?",
+          "options": [
+            "Synonymes sous les deux angles à la fois",
+            "Distincts du point de vue de l'entité ; synonymes du point de vue des significations",
+            "Distincts sous les deux angles à la fois",
+            "Synonymes du point de vue de l'entité ; distincts du point de vue des significations"
+          ],
+          "reponseCorrecte": 3,
+          "justification": "En fonction de la première considération (l'entité désignée), les Noms sont synonymes car tous indiquent le même dénominatif qui est Allah. En fonction de la deuxième considération (les sens), ils sont différents car chacun a un sens propre : le sens du Vivant est différent de l'Omniscient, qui lui-même est différent du Capable."
+        },
+        {
+          "id": "c6_q4",
+          "numero": 4,
+          "difficulte": "facile",
+          "question": "Quel exemple illustre qu'un nom humain peut ne pas refléter la réalité de son porteur ?",
+          "options": [
+            "Appeler quelqu'un al-Amīn alors qu'il est malhonnête dans ses transactions",
+            "Appeler quelqu'un Karīm (généreux) alors qu'il ne l'est pas, ou al-Ghanī (riche) alors qu'il ne l'est pas",
+            "Appeler quelqu'un al-Ḥakīm (sage) alors qu'il n'a reçu aucune formation religieuse",
+            "Appeler quelqu'un al-Qawī (fort) alors qu'il est physiquement très faible"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Lorsqu'on appelle une personne al-Ghanī (le riche), cela ne signifie pas forcément qu'il est riche. De même, si on appelle quelqu'un Karīm, cela ne garantit pas qu'il est réellement généreux. Ce ne sont que des noms propres, sans que leurs significations soient toujours applicables."
+        },
+        {
+          "id": "c6_q5",
+          "numero": 5,
+          "difficulte": "facile",
+          "question": "Quelle est la différence entre les noms humains et les Noms d'Allah quant à leur lien avec les attributs ?",
+          "options": [
+            "Les noms humains sont toujours liés à un attribut réel, contrairement aux Noms divins qui sont purement formels",
+            "Les deux catégories de noms ne sont jamais nécessairement liées à l'attribut réel de leur porteur",
+            "Les noms humains ne sont pas forcément liés à un attribut réel, tandis que les Noms d'Allah désignent toujours des attributs qu'Il possède en perfection absolue",
+            "Les deux catégories sont nécessairement liées à un attribut réel et parfait de leur porteur respectif"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les noms des hommes ne sont pas nécessairement liés à un attribut et ne peuvent être que de simples noms propres, sans lien avec les caractéristiques de la personne. En revanche, lorsqu'Allah Se nomme al-Karīm ou al-Ghanī, ces Noms désignent véritablement des attributs qu'Il possède en perfection absolue."
+        },
+        {
+          "id": "c6_q6",
+          "numero": 6,
+          "difficulte": "facile",
+          "question": "Quelle est la position des Jahmiyyah concernant les Noms et attributs d'Allah ?",
+          "options": [
+            "Ils nient tous les Noms et tous les attributs d'Allah",
+            "Ils acceptent les Noms d'Allah mais nient les attributs que ces Noms contiennent",
+            "Ils affirment les attributs mais nient que les Noms leur correspondent directement",
+            "Ils acceptent sept attributs fondamentaux et rejettent tous les autres comme relevant de l'anthropomorphisme"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Les Jahmiyyah nient tous les Noms et les attributs d'Allah. Cette position contredit le Coran et le bon sens."
+        },
+        {
+          "id": "c6_q7",
+          "numero": 7,
+          "difficulte": "facile",
+          "question": "Quelle est la position des Muʿtazila concernant les Noms et attributs d'Allah ?",
+          "options": [
+            "Ils nient les Noms d'Allah tout en acceptant les attributs qui y correspondent",
+            "Ils nient à la fois tous les Noms et tous les attributs, comme le font les Jahmiyyah",
+            "Ils acceptent les Noms d'Allah mais nient les attributs que ces Noms contiennent",
+            "Ils acceptent intégralement les Noms et les attributs sans aucune restriction ni interprétation"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les Muʿtazila acceptent les Noms d'Allah mais nient les attributs qu'ils contiennent. Cela est incohérent : comment un Nom pourrait-il ne pas contenir ce qu'il désigne ?"
+        },
+        {
+          "id": "c6_q8",
+          "numero": 8,
+          "difficulte": "facile",
+          "question": "Quel argument les négationnistes des attributs avancent-ils pour justifier leur rejet ?",
+          "options": [
+            "Que les attributs divins sont totalement inconnaissables et ne peuvent donc être affirmés par les humains",
+            "Que l'affirmation de plusieurs attributs implique une multiplicité d'entités anciennes, contredisant le Tawḥīd",
+            "Que les attributs ne sont mentionnés que dans des hadiths de chaîne transmissive affaiblie",
+            "Que les attributs sont une propriété exclusive aux créatures et ne peuvent s'appliquer à Allah"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les négationnistes justifient leur position en prétendant que l'affirmation des attributs implique une multiplicité d'entités anciennes. En réalité, cette raison est erronée ou plutôt caduque, et son invalidité est démontrée par les textes scripturaires et la raison."
+        },
+        {
+          "id": "c6_q9",
+          "numero": 9,
+          "difficulte": "facile",
+          "question": "Que signifie le fait que les Noms d'Allah sont tawqīfiyya ?",
+          "options": [
+            "Qu'ils sont fixés par le consensus des savants à travers les siècles",
+            "Qu'ils ne peuvent être prononcés qu'en arabe classique dans les invocations",
+            "Qu'ils ne peuvent provenir que du Coran et de la Sunna authentique ; il est illicite de nommer Allah sans preuve révélée",
+            "Qu'ils doivent être traduits avec précision dans toutes les langues pour être valides"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les Noms d'Allah sont tawqīfiyya : seuls les textes révélés peuvent établir un Nom d'Allah. Ils ne peuvent être inventés ni ajoutés par la raison, et doivent nécessairement provenir du Coran et de la Sunna authentique, car nul ne connaît ce qui revient à Allah si ce n'est Lui-même."
+        },
+        {
+          "id": "c6_q10",
+          "numero": 10,
+          "difficulte": "facile",
+          "question": "Pourquoi ad-dahr (le temps) n'est-il pas l'un des Noms d'Allah ?",
+          "options": [
+            "Parce que les savants l'ont exclu par consensus explicite de la liste des Noms divins",
+            "Parce qu'il s'agit d'un mot emprunté à d'autres langues et non purement arabe",
+            "Parce qu'il n'apparaît que dans des hadiths dont l'authenticité est fortement contestée",
+            "Parce que c'est un nom figé et non dérivé, sans sens de perfection, désignant simplement un laps de temps sans impliquer aucun attribut réel"
+          ],
+          "reponseCorrecte": 3,
+          "justification": "Ad-dahr est un nom figé (ism jāmid) et non dérivé. Il ne contient pas un sens de perfection, désigne simplement un laps de temps ou une période, et n'implique aucun attribut réel tel que la puissance, la connaissance ou la sagesse. Contrairement aux noms divins parfaits, ce nom ne peut être attribué à Allah comme nom tawqīfī."
+        },
+        {
+          "id": "c6_q11",
+          "numero": 11,
+          "difficulte": "moyenne",
+          "question": "La preuve linguistique de la deuxième règle s'appuie sur le consensus des linguistes. En quoi consiste ce consensus ?",
+          "options": [
+            "On ne dit d'une personne qu'elle est ʿAlīm que si elle a la science, Samīʿ que si elle entend, Baṣīr que si elle voit — dire audient sans ouïe est donc incohérent",
+            "Les linguistes admettent que les noms arabes peuvent désigner des qualités sans que leur porteur les possède nécessairement dans les faits",
+            "Le consensus stipule que seuls les noms dérivés d'un attribut actif peuvent être attribués à Allah dans les textes révélés",
+            "Les linguistes ont établi la liste exhaustive des Noms pouvant légitimement désigner Allah dans le Coran et la Sunna"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Selon le consensus des linguistes, on ne dit d'une personne qu'elle est ʿAlīm que si elle possède la science, Samīʿ que si elle entend, Baṣīr que si elle voit, Qawī que si elle a la force. Il est incohérent de dire d'un être qu'il est audient sans ouïe ou voyant sans vision, car cela contredit le sens même du mot."
+        },
+        {
+          "id": "c6_q12",
+          "numero": 12,
+          "difficulte": "moyenne",
+          "question": "Dans la deuxième règle, les versets de la sourate al-Aḥqāf (v.8) et de la sourate al-Kahf (v.58) sont mis en parallèle. Comment s'interprètent-ils mutuellement ?",
+          "options": [
+            "Le premier établit l'unicité d'Allah et le second confirme que Sa miséricorde est réservée aux seuls croyants",
+            "Ils affirment strictement la même chose sans apport interprétatif l'un pour l'autre",
+            "Le premier nomme Allah ar-Raḥīm ; le second précise qu'Il est dhū ar-raḥma, montrant que le Nom exprime un attribut réel et n'est pas une appellation figée",
+            "Le premier concerne toute la création dans ce monde et le second les croyants dans l'au-delà uniquement"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Ces deux versets s'interprètent l'un par l'autre : quand Allah se nomme ar-Raḥīm, la sourate al-Kahf précise qu'Il est dhū ar-raḥma (le Dieu de miséricorde), montrant qu'Il est qualifié par l'attribut de raḥma. Ainsi, le Nom n'est pas figé, mais il exprime l'attribut correspondant."
+        },
+        {
+          "id": "c6_q13",
+          "numero": 13,
+          "difficulte": "moyenne",
+          "question": "La distinction dhāt (entité) / ṣifah (qualificatif), illustrée par l'exemple de la montre, permet d'établir une règle fondamentale sur les attributs d'Allah. Laquelle ?",
+          "options": [
+            "Les attributs d'Allah sont des entités indépendantes qui subsistent seules sans avoir besoin d'une essence",
+            "Affirmer plusieurs attributs à Allah implique nécessairement plusieurs essences distinctes et anciennes",
+            "Les attributs ne peuvent exister seuls ; affirmer plusieurs attributs à Allah n'implique donc aucune pluralité d'essences",
+            "Les attributs d'Allah et des créatures existent de manière identique, rattachés chacun à leur entité respective"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le qualificatif/attribut est ce qui n'existe que rattaché à une entité et ne peut exister seul. Il est impossible de trouver dans la réalité une présence se baladant seule ou une couleur flottant sans support. Les attributs d'Allah n'impliquent donc aucune pluralité d'entités : c'est une seule essence possédant plusieurs attributs parfaits."
+        },
+        {
+          "id": "c6_q14",
+          "numero": 14,
+          "difficulte": "moyenne",
+          "question": "La deuxième règle distingue ar-Raḥmān et ar-Raḥīm. Quelle différence de portée existe entre ces deux Noms ?",
+          "options": [
+            "Ar-Raḥmān désigne la miséricorde pour les croyants dans l'au-delà ; ar-Raḥīm désigne celle pour toute la création dans ce monde",
+            "Ar-Raḥmān désigne Celui dont la miséricorde englobe toute chose dans ce monde ; ar-Raḥīm renvoie à une miséricorde particulière accordée à qui Il veut parmi Ses serviteurs",
+            "Ar-Raḥmān et ar-Raḥīm sont de parfaits synonymes désignant rigoureusement la même réalité sans distinction possible",
+            "Ar-Raḥmān désigne la miséricorde dans l'au-delà uniquement ; ar-Raḥīm désigne la miséricorde spéciale dans ce monde"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Ar-Raḥmān désigne Celui dont la Miséricorde englobe toute chose : croyants et non-croyants, dans ce monde. Tandis qu'ar-Raḥīm renvoie à une miséricorde particulière qu'Allah accorde à qui Il veut parmi Ses serviteurs, comme quand Il dit : « Il est Très Miséricordieux envers les croyants » (Sourate Al-Ahzâb, v.43)."
+        },
+        {
+          "id": "c6_q15",
+          "numero": 15,
+          "difficulte": "moyenne",
+          "question": "La preuve rationnelle (ʿaqlī) de la deuxième règle établit que toute chose existante possède au minimum trois qualificatifs fondamentaux. Lesquels ?",
+          "options": [
+            "La puissance, la connaissance et la volonté, qui sont les trois attributs premiers de toute existence",
+            "La création à partir du néant, la subsistance dans le temps, et la disparition à un terme fixé",
+            "L'attribut de présence, le type de présence (nécessaire ou possible), et la nature de l'existence (entité ou attribut rattaché à autre chose)",
+            "Le nom propre qui identifie, le qualificatif qui décrit, et l'acte qui se manifeste dans la réalité"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Toute chose existante a au minimum trois qualificatifs : 1. L'attribut de présence (tout ce qui existe est présent). 2. Le type de présence : soit wājib al-wujūd (existence nécessaire, seul Allah), soit mumkin al-wujūd (existence possible, tout le reste). 3. La nature de l'existence : entité subsistant par elle-même, ou attribut subsistant dans une autre entité."
+        },
+        {
+          "id": "c6_q16",
+          "numero": 16,
+          "difficulte": "difficile",
+          "question": "Les négationnistes soutiennent qu'affirmer plusieurs attributs divins impliquerait une multiplicité d'entités anciennes. Comment la preuve rationnelle de la deuxième règle invalide-t-elle cet argument ?",
+          "options": [
+            "En montrant que le Coran interdit d'interpréter l'affirmation des attributs comme impliquant une quelconque multiplicité d'entités indépendantes",
+            "En invoquant le consensus des savants qui ont unanimement affirmé les attributs sans que cela porte atteinte à l'unicité d'Allah",
+            "En établissant que les attributs ne sont pas des entités indépendantes mais des qualificatifs subsistant dans le qualifié, de même qu'un homme peut être savant, courageux et patient sans être plusieurs personnes",
+            "En démontrant que la philosophie islamique rend logiquement incompatible toute notion d'entité ancienne avec un monothéisme pur et authentique"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les attributs ne sont pas des entités pour que leur affirmation nécessite la pluralité des entités : ils sont des qualificatifs du qualifié et présents chez lui. Il est logiquement admis qu'une seule entité peut être décrite par plusieurs attributs — un homme peut être savant, généreux, courageux, patient sans être plusieurs personnes. Les attributs d'Allah n'impliquent donc aucune pluralité d'entités."
+        },
+        {
+          "id": "c6_q17",
+          "numero": 17,
+          "difficulte": "difficile",
+          "question": "La sourate al-Burūj (85:12-16) et la sourate al-Aʿlā sont citées dans la deuxième règle. En quoi réfutent-elles la thèse des négationnistes des attributs ?",
+          "options": [
+            "Ces versets affirment la transcendance absolue d'Allah qui dépasse toute description, invalidant toute attribution d'attributs ressemblant à ceux des créatures",
+            "Ces versets mentionnent un seul qualifié (Allah) auquel sont attribués de nombreux Noms et qualificatifs dans un même passage, prouvant que la multiplicité des attributs ne contredit pas l'unicité de l'essence",
+            "Ces versets interdisent explicitement de nier les attributs d'Allah en qualifiant cette négation d'acte de mécréance grave et manifeste",
+            "Ces versets établissent que seuls sept attributs fondamentaux peuvent être affirmés, invalidant l'idée d'une multiplicité illimitée d'attributs divins"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Allah s'est décrit Lui-même avec de nombreux qualificatifs malgré qu'Il soit l'Unique : dans la sourate al-Burūj, Il est le Pardonneur, le Tout-Affectueux, le Maître du Trône, le Tout-Glorieux. Dans ces nobles versets, il y a de nombreux qualificatifs d'un seul et unique qualifié, or cela n'implique pas la duplicité d'entités anciennes."
+        },
+        {
+          "id": "c6_q18",
+          "numero": 18,
+          "difficulte": "difficile",
+          "question": "La deuxième règle précise que l'ambiguïté des négationnistes repose sur une confusion entre deux réalités. Lesquelles ?",
+          "options": [
+            "Ils confondent les attributs d'essence avec les attributs d'action en les traitant de manière strictement identique sans distinction aucune",
+            "Ils confondent les preuves textuelles et les preuves rationnelles en accordant une priorité excessive à la philosophie sur le Coran",
+            "Ils confondent la négation légitime des imperfections avec la négation illégitime des attributs positifs, tombant dans le taʿṭīl pur",
+            "Ils confondent l'existence d'un attribut rattaché à une essence avec une existence indépendante, sans distinguer entre l'essence et l'attribut"
+          ],
+          "reponseCorrecte": 3,
+          "justification": "Cette ambiguïté est fausse, car elle ne distingue pas l'essence de l'attribut, et confond l'existence de l'attribut dans une essence avec l'existence indépendante. Les attributs sont bien réels, mais ils n'existent pas indépendamment d'Allah. Ce sont des qualificatifs du Qualifié (ṣifāt li-l-mawṣūf) et ils subsistent en Lui."
+        },
+        {
+          "id": "c6_q19",
+          "numero": 19,
+          "difficulte": "difficile",
+          "question": "La règle tawqīfiyya des Noms d'Allah interdit de nommer Allah sans preuve révélée. Sur quel verset cette interdiction s'appuie-t-elle et quelle en est la raison fondamentale ?",
+          "options": [
+            "Sur la sourate al-Ikhlāṣ, car elle définit l'unicité d'Allah de manière exhaustive et constitue une liste limitative des attributs essentiels",
+            "Sur la sourate al-Fātiḥa, car elle contient l'ensemble des attributs indispensables à la connaissance d'Allah et forme un cadre complet",
+            "Sur la sourate al-Isrāʾ (17:36) : nul ne connaît ce qui revient à Allah si ce n'est Lui-même, et nommer Allah sans preuve revient à affirmer ce dont on n'est pas certain",
+            "Sur la sourate al-Aʿrāf (7:180), car elle interdit expressément toutes les formes de profanation dans les Noms d'Allah"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les Noms d'Allah ne peuvent être inventés ni ajoutés par la raison, car nul ne connaît ce qui revient à Allah si ce n'est Lui-même. La preuve : « N'affirme rien dont tu ne sois certain. De l'ouïe, de la vue et du cœur, de tout cela, chacun devra répondre. » (Sourate al-Isrāʾ, 17:36). Il est donc interdit de donner à Allah un nom sans preuve claire du Coran ou de la Sunna."
+        },
+        {
+          "id": "c6_q20",
+          "numero": 20,
+          "difficulte": "difficile",
+          "question": "Si l'on acceptait la thèse muʿtazilite — Allah serait « audient sans ouïe, voyant sans vue, fort sans force » — quelle contradiction logique produirait-elle selon la deuxième règle ?",
+          "options": [
+            "Cela rendrait la règle tawqīfiyya inapplicable, puisque des Noms sans sens propre ne pourraient plus servir de référence",
+            "Cela impliquerait que tous les Noms d'Allah sont de parfaits synonymes sans aucune distinction de sens entre eux",
+            "Cela contredirait la règle tawqīfiyya en introduisant des Noms non mentionnés dans le Coran ni la Sunna",
+            "Cela reviendrait à traiter les Noms d'Allah comme les noms humains — appeler Karīm celui qui n'est pas généreux —, ce que réfute le consensus des linguistes : on n'appelle audient que celui qui entend"
+          ],
+          "reponseCorrecte": 3,
+          "justification": "Dire qu'Allah est audient sans ouïe ou voyant sans vue contredit le sens même du mot selon le consensus des linguistes : on n'appelle audient que celui qui entend, voyant que celui qui voit. Cela reviendrait à traiter les Noms d'Allah comme les noms des humains — appeler Karīm quelqu'un qui n'est pas généreux. C'est pourquoi on comprend l'égarement des négationnistes des sens des Noms d'Allah."
+        }
+      ]
     },
     {
       "id": 7,
-      "titre": "Cours 7 — À venir",
-      "date": "",
-      "questions": []
+      "titre": "Les preuves que les Noms d'Allah sont à la fois dénominatifs et qualificatifs",
+      "date": "23/07/2025",
+      "questions": [
+        {
+          "id": "c7_q1",
+          "numero": 1,
+          "difficulte": "facile",
+          "question": "Selon la deuxième règle, que montrent les Noms d'Allah par considération d'indication de l'entité ?",
+          "options": [
+            "Ils sont synonymes car tous indiquent le même dénominatif qui est Allah",
+            "Ils sont opposés car chacun désigne une créature différente",
+            "Ils sont des verbes sans sens qualificatif",
+            "Ils ne renvoient à aucune réalité"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la deuxième règle, il est dit qu'ils sont des dénominatifs par considération d'indication de l'entité et qu'en fonction de cette considération ils sont synonymes car tous indiquent le même dénominatif qui est Allah."
+        },
+        {
+          "id": "c7_q2",
+          "numero": 2,
+          "difficulte": "facile",
+          "question": "Selon la deuxième règle, que montrent les Noms d'Allah par considération d'indication des sens ?",
+          "options": [
+            "Ils sont différents car chacun a un sens",
+            "Ils sont identiques car tous ont exactement la même signification",
+            "Ils sont vides de sens mais utiles pour la récitation",
+            "Ils désignent seulement des actes humains"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la deuxième règle, il est dit qu'ils sont des qualificatifs par considération d'indication des sens et qu'en fonction de cette considération ils sont différents car chacun a un sens."
+        },
+        {
+          "id": "c7_q3",
+          "numero": 3,
+          "difficulte": "facile",
+          "question": "Dans Sourate Ach-Choura, v. 19, « Et Il est le Fort, le Tout-Puissant », quel Nom est présenté comme un nom qui est en même temps une qualité ?",
+          "options": [
+            "Al-Qawiyy",
+            "Ad-Dahr",
+            "Al-Insān",
+            "Al-Qalam"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la partie sur les preuves du Coran et de la Sunna, le passage de Sourate Ach-Choura, v. 19 dit qu'Allah s'est nommé par al-Qawiyy, un nom qui est en même temps une qualité."
+        },
+        {
+          "id": "c7_q4",
+          "numero": 4,
+          "difficulte": "facile",
+          "question": "Dans Sourate al-Kahf, v. 58, « Ton Seigneur est le Pardonneur, le détenteur de la miséricorde », que montre l'expression « le détenteur de la miséricorde » ?",
+          "options": [
+            "Que le Très Miséricordieux est qualifié de la miséricorde",
+            "Que la miséricorde n'est qu'un nom sans signification",
+            "Que la miséricorde appartient aux créatures seulement",
+            "Que le pardon annule tous les autres attributs"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans l'explication de Sourate al-Kahf, v. 58, il est dit que ce verset montre que le Très Miséricordieux est qualifié de la miséricorde."
+        },
+        {
+          "id": "c7_q5",
+          "numero": 5,
+          "difficulte": "facile",
+          "question": "Dans Sourate Al-Aʿrāf, v. 180, « C'est Allah qui possède les noms les plus sublimes. Invoquez-Le donc par ces noms », que signifie al-asmāʾ al-ḥusnā ?",
+          "options": [
+            "Les noms les plus beaux et parfaits",
+            "Les noms les plus rares parmi les hommes",
+            "Les noms qui n'ont pas de sens qualificatif",
+            "Les noms réservés au temps et aux créatures"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans le sous-chapitre sur les noms extrêmement beaux et bons, le terme al-asmāʾ al-ḥusnā est expliqué comme signifiant « les noms les plus beaux et parfaits »."
+        },
+        {
+          "id": "c7_q6",
+          "numero": 6,
+          "difficulte": "facile",
+          "question": "Quel groupe est présenté comme affirmant les noms d'Allah tout en n'acceptant pas Ses attributs ?",
+          "options": [
+            "Les Muʿtazila",
+            "Les linguistes",
+            "Les pieux prédécesseurs",
+            "Les traditionnistes du hadith"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la section « Argumentation des négationnistes et réfutations », il est dit que les Muʿtazila affirment les noms d'Allah mais n'acceptent pas Ses attributs."
+        },
+        {
+          "id": "c7_q7",
+          "numero": 7,
+          "difficulte": "facile",
+          "question": "Dans la première réfutation des négationnistes, quelle voie est attribuée aux pieux prédécesseurs ?",
+          "options": [
+            "Affirmer les noms et attributs d'Allah",
+            "Affirmer les noms mais renier les attributs",
+            "Renier tous les noms et attributs",
+            "Employer le mot corps sans réserve"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la première réfutation, il est écrit : « Affirmer les noms et attributs d'Allah, voie des pieux prédécesseurs »."
+        },
+        {
+          "id": "c7_q8",
+          "numero": 8,
+          "difficulte": "facile",
+          "question": "Que montrent les invocations prophétiques « Je cherche protection auprès de la puissance d'Allah » et « Je cherche protection auprès de la miséricorde d'Allah » ?",
+          "options": [
+            "Que Ses noms et attributs possèdent un sens réel et intemporel",
+            "Que les invocations se limitent aux créatures",
+            "Que les attributs n'ont aucune signification",
+            "Que seuls les verbes peuvent décrire Allah"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans les exemples tirés des invocations prophétiques, il est dit que l'usage des maṣādir montre que Ses noms et attributs possèdent un sens réel et intemporel."
+        },
+        {
+          "id": "c7_q9",
+          "numero": 9,
+          "difficulte": "facile",
+          "question": "Quel principe est rappelé dans la partie sur le consensus des linguistes ?",
+          "options": [
+            "On ne peut pas qualifier quelqu'un de savant s'il n'a pas de savoir",
+            "Tout nom qualifie une entité même sans réalité",
+            "Les noms n'ont aucun lien avec les attributs",
+            "Un audient peut être qualifié sans ouïe"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la section sur le consensus, il est rappelé qu'on ne peut pas qualifier quelqu'un de savant s'il n'a pas de savoir, ni quelqu'un d'audient s'il n'a pas d'ouïe."
+        },
+        {
+          "id": "c7_q10",
+          "numero": 10,
+          "difficulte": "facile",
+          "question": "Selon le sous-chapitre sur le statut linguistique du mot ad-Dahr, quel est ce mot ?",
+          "options": [
+            "Un nom figé non dérivé",
+            "Un nom dérivé renvoyant à la miséricorde",
+            "Un attribut de perfection",
+            "Un des noms les plus sublimes"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans le sous-chapitre sur le statut linguistique du mot ad-Dahr, il est dit que le mot ad-Dahr est un nom figé et non un nom dérivé."
+        },
+        {
+          "id": "c7_q11",
+          "numero": 11,
+          "difficulte": "moyenne",
+          "question": "Dans Sourate Adh-Dhâriyât, v. 58, « C'est Allah, en vérité, qui est le Dispensateur de toute grâce et le Détenteur de la force et de la toute-puissance », pourquoi l'expression « le Détenteur de la force » sert-elle de preuve ?",
+          "options": [
+            "Parce qu'elle montre que le Nom al-Qawiyy renferme réellement la qualité de force",
+            "Parce qu'elle prouve que la force est une créature séparée",
+            "Parce qu'elle montre que les noms divins sont dépourvus de sens",
+            "Parce qu'elle limite la force au monde visible"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la partie sur les maṣādir, il est dit que l'emploi de « le Détenteur de la force » montre que le Nom al-Qawiyy renferme réellement la qualité de force."
+        },
+        {
+          "id": "c7_q12",
+          "numero": 12,
+          "difficulte": "moyenne",
+          "question": "Dans Sourate Al-Kahf, v. 1, « Louange à Allah qui a révélé à Son serviteur le Coran, Livre qui par Sa grâce ne s'écarte jamais de la vérité », pourquoi ce passage est-il mentionné ?",
+          "options": [
+            "Pour montrer que le Coran est exempt de futilité ou d'erreur",
+            "Pour montrer que les noms divins changent selon les lecteurs",
+            "Pour prouver que les attributs sont de simples métaphores",
+            "Pour établir que les lois n'ont pas de sagesse"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans le sous-chapitre sur la justification des législations et des actions par des noms appropriés, ce passage est cité pour montrer que le Coran est exempt de futilité ou d'erreur."
+        },
+        {
+          "id": "c7_q13",
+          "numero": 13,
+          "difficulte": "moyenne",
+          "question": "Dans l'anecdote rapportée par Ibn al-Qayyim, pourquoi le bédouin rejette-t-il la lecture « Allah est Pardonneur, Miséricordieux » à la place de « Allah est Fort et Sage » dans le verset sur le voleur ?",
+          "options": [
+            "Parce que l'inversion des Noms change le sens du jugement et de la législation",
+            "Parce que les deux formulations ont exactement le même sens",
+            "Parce que le bédouin refusait toute récitation",
+            "Parce que le passage parlait de miséricorde et non de châtiment"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans l'anecdote rapportée par Ibn al-Qayyim, il est dit que l'inversion des Noms change le sens du jugement et de la législation."
+        },
+        {
+          "id": "c7_q14",
+          "numero": 14,
+          "difficulte": "moyenne",
+          "question": "Dans la section « Les catégories de mots et les noms d'Allah », comment les Noms d'Allah sont-ils considérés lorsqu'ils sont dénominatifs ?",
+          "options": [
+            "Comme des synonymes car tous renvoient à la même entité divine",
+            "Comme des mots associés dont le sens change selon le contexte",
+            "Comme des mots globaux sans membre précis",
+            "Comme des noms humains renvoyant à des entités multiples"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la section sur les catégories de mots, il est dit que les noms d'Allah, lorsqu'ils sont dénominatifs, sont considérés comme des synonymes car tous renvoient à la même entité divine."
+        },
+        {
+          "id": "c7_q15",
+          "numero": 15,
+          "difficulte": "moyenne",
+          "question": "Selon le sous-chapitre sur le statut linguistique du mot ad-Dahr, pourquoi ad-Dahr ne peut-il pas être un Nom d'Allah ?",
+          "options": [
+            "Parce qu'il est figé, non dérivé, et ne renvoie pas à un attribut de perfection",
+            "Parce qu'il est le plus beau de tous les noms",
+            "Parce qu'il est un verbe d'action intemporel",
+            "Parce qu'il est cité comme attribut essentiel de miséricorde"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans le sous-chapitre sur le statut linguistique du mot ad-Dahr, il est précisé qu'il est figé, non dérivé, et qu'il ne répond à aucune des conditions des Noms d'Allah."
+        },
+        {
+          "id": "c7_q16",
+          "numero": 16,
+          "difficulte": "difficile",
+          "question": "Dans Sourate Ach-Choura, v. 11, « Rien ne Lui est comparable, et Il entend tout et voit tout », quelle réfutation est apportée à ceux qui nient les attributs par peur de l'assimilation ?",
+          "options": [
+            "Affirmer les attributs n'implique pas de ressemblance avec les créatures",
+            "Toute affirmation d'attribut implique nécessairement un corps",
+            "Il faut nier l'ouïe et la vue pour éviter l'anthropomorphisme",
+            "La négation des attributs est la seule manière d'affirmer l'unicité"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la réfutation par le Coran et la Sunnah, ce passage de Sourate Ach-Choura, v. 11 montre qu'Allah est l'Audient et le Voyant alors que rien ne Lui est comparable."
+        },
+        {
+          "id": "c7_q17",
+          "numero": 17,
+          "difficulte": "difficile",
+          "question": "Dans la réfutation de l'argument sur les corps, quel exemple est donné pour montrer que tout ce qui est qualifié n'est pas forcément corporel ?",
+          "options": [
+            "La nuit peut être qualifiée de froide, bien qu'elle ne soit pas un corps",
+            "Le soleil peut être qualifié de lumineux parce qu'il est un corps",
+            "L'homme peut être qualifié de vivant parce qu'il a un corps",
+            "L'ange peut être qualifié de fort parce qu'il ressemble à l'homme"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la septième réfutation, l'exemple donné est que la nuit peut être qualifiée de froide, bien qu'elle ne soit pas un corps."
+        },
+        {
+          "id": "c7_q18",
+          "numero": 18,
+          "difficulte": "difficile",
+          "question": "Pourquoi la prétention selon laquelle tous les corps sont identiques est-elle rejetée ?",
+          "options": [
+            "Parce que le corps humain diffère de celui des djinns, des anges ou des animaux",
+            "Parce que tous les corps possèdent exactement les mêmes qualités",
+            "Parce que les corps sont une illusion linguistique",
+            "Parce que seul le corps humain existe réellement"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la huitième réfutation, il est dit que cette prétention est fausse, car le corps humain diffère de celui des djinns, des anges ou des animaux."
+        },
+        {
+          "id": "c7_q19",
+          "numero": 19,
+          "difficulte": "difficile",
+          "question": "Dans le hadith rapporté par Al-Boukhari, n°7491, et Muslim, n°2246, « Le fils d'Adam m'offense : il insulte le temps, alors que Je suis le temps. Dans Ma Main est le commandement, et c'est Moi qui fais tourner la nuit et le jour », pourquoi ad-Dahr n'est-il pas un Nom d'Allah ?",
+          "options": [
+            "Parce qu'Allah est le Créateur du temps et de ce qu'il contient, et l'intervertisseur ne peut pas être confondu avec ce qui est interverti",
+            "Parce que le hadith affirme explicitement qu'ad-Dahr est un des noms les plus sublimes",
+            "Parce que le temps est un attribut de perfection au même titre que la science",
+            "Parce que le temps désigne directement l'essence divine sans aucune précision"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans le sous-chapitre sur le sens réel du hadith « Je suis le temps », il est expliqué qu'Allah est le Créateur du temps et de ce qu'il contient, et qu'il est impossible que l'intervertisseur soit interverti."
+        },
+        {
+          "id": "c7_q20",
+          "numero": 20,
+          "difficulte": "difficile",
+          "question": "Dans Sourate al-Jāthiyah, v. 24, « Il n'y a rien après la mort. Une génération disparaît, remplacée par une autre. Le temps passe et nous emporte », quelle conclusion est tirée de l'attribution de l'action au temps ?",
+          "options": [
+            "Croire que le temps agit de lui-même constitue un shirk majeur",
+            "Le temps est une divinité secondaire",
+            "Le temps est un attribut indépendant d'Allah",
+            "Cette parole est une simple description autorisée du temps"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Dans la réfutation de ceux qui attribuent l'action au temps, il est dit que croire que le temps agit de lui-même constitue un shirk majeur, car cela attribue à la création une action qui revient exclusivement au Créateur."
+        }
+      ]
     },
     {
       "id": 8,
-      "titre": "Cours 8 — À venir",
-      "date": "",
-      "questions": []
+      "titre": "Troisième et Quatrième règle sur les Noms d'Allah : attributs transitifs/intransitifs et modes de désignation",
+      "date": "27/07/2025",
+      "instructeur": "Dr. Abdelrahman Abu AbdelWahhab",
+      "questions": [
+        {
+          "id": "c8_q1",
+          "numero": 1,
+          "difficulte": "facile",
+          "question": "Selon la troisième règle, combien d'éléments comprend un Nom d'Allah dont l'attribut est transitif (ṣifah mutaʿaddiya) ?",
+          "options": [
+            "Un seul : l'affirmation du Nom suffit à tout englober",
+            "Deux : le Nom et l'attribut qu'il contient",
+            "Trois : le Nom, l'attribut, et l'effet de l'attribut sur la création",
+            "Quatre : le Nom, l'attribut, l'effet sur la création et la jurisprudence"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "La troisième règle stipule que si un Nom d'Allah indique un attribut transitif, il comprend trois éléments : l'affirmation de ce Nom, l'affirmation du qualificatif d'Allah contenu dans ce Nom, et l'affirmation du statut de ce qualificatif et de ce qu'il implique."
+        },
+        {
+          "id": "c8_q2",
+          "numero": 2,
+          "difficulte": "facile",
+          "question": "Selon la troisième règle, combien d'éléments comprend un Nom d'Allah dont l'attribut est intransitif (ṣifah lāzim) ?",
+          "options": [
+            "Deux : l'affirmation du Nom et l'affirmation de l'attribut contenu dans ce Nom",
+            "Trois : l'affirmation du Nom, de l'attribut et de son effet sur la création",
+            "Un seul : l'affirmation du Nom d'Allah suffit à tout englober logiquement",
+            "Quatre : le Nom, l'attribut, l'effet et la jurisprudence correspondante"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Si le Nom indique un attribut intransitif, il comprend deux éléments seulement : l'affirmation de ce Nom d'Allah et l'affirmation du qualificatif d'Allah contenu dans ce Nom."
+        },
+        {
+          "id": "c8_q3",
+          "numero": 3,
+          "difficulte": "facile",
+          "question": "Quel Nom d'Allah est donné comme exemple d'attribut transitif dans la troisième règle ?",
+          "options": [
+            "Al-Ḥayy (Le Vivant), dont la vie est un attribut essentiel propre à l'Être divin",
+            "Al-ʿAẓīm (L'Immense), dont la grandeur n'a aucun lien avec la création",
+            "As-Samīʿ (L'Audient), dont l'ouïe a un effet sur la création",
+            "Al-Qayyūm (Le Subsistant), dont l'attribut ne produit pas d'effet observable"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "L'exemple donné pour un attribut transitif est as-Samīʿ (L'Audient) : il contient l'affirmation de l'Audient comme Nom d'Allah, l'affirmation de l'ouïe comme qualificatif, et l'affirmation de ce qu'il implique — qu'Allah entend le secret et la confidence."
+        },
+        {
+          "id": "c8_q4",
+          "numero": 4,
+          "difficulte": "facile",
+          "question": "Quel Nom d'Allah est donné comme exemple d'attribut intransitif dans la troisième règle ?",
+          "options": [
+            "As-Samīʿ (L'Audient), dont l'ouïe est liée à ce qui se passe chez les créatures",
+            "Al-Ghafūr (Le Pardonneur), dont le pardon a un effet réel sur les individus repentants",
+            "Al-Ḥayy (Le Vivant), dont l'attribut de vie n'a pas d'effet apparent dans la création",
+            "Ar-Razzāq (Celui qui pourvoit), dont l'action se manifeste dans l'univers créé"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "L'exemple donné pour un attribut intransitif est al-Ḥayy (Le Vivant) : on affirme le Nom al-Ḥayy et l'attribut de la vie comme qualificatif d'Allah, sans qu'il y ait d'effet direct sur les créatures."
+        },
+        {
+          "id": "c8_q5",
+          "numero": 5,
+          "difficulte": "facile",
+          "question": "Quelle est la définition d'un attribut transitif selon la troisième règle ?",
+          "options": [
+            "Un attribut qui a un lien, un impact ou un effet sur autre qu'Allah, c'est-à-dire sur la création",
+            "Un attribut propre à Allah Lui-même qui n'a aucune trace ni effet dans l'univers que nous connaissons",
+            "Un attribut dont l'affirmation nécessite d'invoquer un Nom complémentaire pour exprimer la perfection globale",
+            "Un attribut mentionné uniquement dans le Coran et absent de la Sunna du Prophète"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Les attributs transitifs sont ceux qui ont un lien, un impact, une influence, un effet ou une trace sur autre qu'Allah, c'est-à-dire sur la création."
+        },
+        {
+          "id": "c8_q6",
+          "numero": 6,
+          "difficulte": "facile",
+          "question": "Quelle est la définition d'un attribut intransitif selon la troisième règle ?",
+          "options": [
+            "Un attribut qui produit un effet observable sur les créatures selon la volonté d'Allah dans la création",
+            "Un attribut propre à Allah Lui-même, sans aucune trace ni effet dans l'univers que nous connaissons",
+            "Un attribut qui ne peut être affirmé qu'en le jumelant avec son Nom complémentaire correspondant",
+            "Un attribut établi uniquement par des versets coraniques, sans preuve dans la Sunna prophétique"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les attributs intransitifs sont les qualificatifs propres à Allah Lui-même, qui n'ont aucune trace ni effet dans l'univers que nous connaissons."
+        },
+        {
+          "id": "c8_q7",
+          "numero": 7,
+          "difficulte": "facile",
+          "question": "La quatrième règle énonce que les Noms d'Allah désignent Son Être et Ses attributs de trois façons. Lesquelles ?",
+          "options": [
+            "Par affirmation globale, par négation détaillée et par implication logique nécessaire",
+            "Par le Coran exclusivement, par la Sunna exclusivement et par les deux réunis",
+            "Par correspondance (al-muṭābaqa), par inclusion (at-taḍammun) et par implication (al-iltizām)",
+            "Par les savants anciens, par les savants modernes et par le consensus de l'ensemble des juristes"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "La quatrième règle établit que l'indication des Noms d'Allah de Son entité et de Ses attributs est soit par correspondance (al-muṭābaqa), soit par inclusion (at-taḍammun), soit par implication (al-iltizām)."
+        },
+        {
+          "id": "c8_q8",
+          "numero": 8,
+          "difficulte": "facile",
+          "question": "Dans la quatrième règle, qu'est-ce que la correspondance complète (al-muṭābaqa) ?",
+          "options": [
+            "Le mot implique une chose extérieure logiquement liée à lui, non mentionnée explicitement dans le texte",
+            "Le mot désigne uniquement une partie de ce qu'il représente, en laissant de côté les autres parties",
+            "Le mot désigne l'ensemble complet de ce qu'il représente, entité et attribut réunis",
+            "Le mot désigne uniquement l'Essence d'Allah sans l'attribut correspondant qui lui est lié"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "La correspondance (al-muṭābaqa) est lorsque le mot désigne l'ensemble complet de ce qu'il représente. Par exemple, le mot « maison » désigne toute la structure : murs, toiture, tuyauterie, etc."
+        },
+        {
+          "id": "c8_q9",
+          "numero": 9,
+          "difficulte": "facile",
+          "question": "Dans la quatrième règle, qu'est-ce que l'inclusion partielle (at-taḍammun) ?",
+          "options": [
+            "Le mot désigne l'ensemble complet de ce qu'il représente, entité et attribut ensemble",
+            "Le mot implique un sens extérieur logiquement lié, non mentionné explicitement",
+            "Le mot désigne uniquement une partie de ce qu'il représente",
+            "Le mot désigne l'implication jurisprudentielle d'un attribut sans en citer la source"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "L'inclusion (at-taḍammun) : le mot est utilisé pour désigner une partie de ce qu'il représente. Par exemple, « maison » pour désigner uniquement le mur ou la toiture."
+        },
+        {
+          "id": "c8_q10",
+          "numero": 10,
+          "difficulte": "facile",
+          "question": "Dans la quatrième règle, qu'est-ce que l'implication nécessaire (al-iltizām) ?",
+          "options": [
+            "Le mot désigne l'ensemble complet de son contenu, entité et attribut réunis dans leur totalité",
+            "On déduit un sens indirectement impliqué par le mot, extérieur mais logiquement lié à lui",
+            "Le mot désigne uniquement l'entité divine pure sans aucun attribut qui lui soit associé",
+            "Le mot désigne une seule partie de ce qu'il représente en excluant les autres parties du concept"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "L'implication (al-iltizām) : c'est lorsqu'on déduit un sens indirectement impliqué par le mot. Par exemple, lorsque tu entends « maison », tu comprends par implication qu'il y a eu des bâtisseurs, un architecte, etc."
+        },
+        {
+          "id": "c8_q11",
+          "numero": 11,
+          "difficulte": "moyenne",
+          "question": "La troisième règle stipule que ne pas reconnaître l'effet d'un attribut transitif constitue un manquement dans la croyance. Quel exemple jurisprudentiel illustre l'importance concrète de cet effet ?",
+          "options": [
+            "Les savants ont établi que la prière reste valide même si le croyant ignore le sens du Nom as-Samīʿ et ses implications concrètes",
+            "Les savants ont fondé la suspension de la peine des brigands repentants sur al-Ghafūr et ar-Raḥīm, qui impliquent que le pardon et la miséricorde ont eu un effet réel sur eux",
+            "Les savants ont décidé que l'invocation n'est valablement exaucée que si le suppliant connaît l'intégralité des attributs dans leur détail",
+            "Les savants ont limité les effets des Noms transitifs aux seuls actes d'adoration surérogatoires accomplis avec une intention parfaitement pure"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les érudits suspendent la peine des brigands en cas de repentance et justifient cela par le verset de la sourate Al-Māʾidah (v.34) : « sachez qu'Allah est Pardonneur et Miséricordieux ». Ces deux Noms impliquent qu'Allah a pardonné leurs péchés et leur a fait miséricorde en suspendant leur peine."
+        },
+        {
+          "id": "c8_q12",
+          "numero": 12,
+          "difficulte": "moyenne",
+          "question": "Selon la troisième règle, quelle distinction fondamentale existe entre l'ouïe (as-Samʿ) et la vie (al-Ḥayāt) d'Allah ?",
+          "options": [
+            "L'ouïe est un attribut intransitif qui n'a aucun lien avec la création et la vie est un attribut transitif ayant un effet direct sur les créatures",
+            "L'ouïe est liée à ce qui se passe chez les créatures (attribut transitif) ; la vie est un attribut essentiel propre à l'Être divin (attribut intransitif)",
+            "L'ouïe et la vie sont toutes deux des attributs intransitifs, propres à l'Être divin, sans aucun effet observable sur la création",
+            "L'ouïe et la vie sont toutes deux des attributs transitifs ayant un impact direct et observable sur les créatures d'Allah"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "L'ouïe (as-Samʿ) est liée à ce qui se passe chez les créatures — c'est un attribut transitif. La vie (al-Ḥayāt) est un attribut essentiel propre à l'Être divin, qui n'a pas d'effet apparent ou connu dans l'univers ou la création — c'est un attribut intransitif."
+        },
+        {
+          "id": "c8_q13",
+          "numero": 13,
+          "difficulte": "moyenne",
+          "question": "Dans la quatrième règle, quel verset coranique est cité pour illustrer que le Nom al-Khāliq implique, par al-iltizām, la science et la puissance d'Allah ?",
+          "options": [
+            "Sourate al-Ikhlāṣ : « Dis : Il est Allah, Unique, Allah l'Absolu »",
+            "Sourate Ṭalāq, v.12 : « Vous saurez ainsi que le pouvoir d'Allah est absolu et que Sa science embrasse toute chose »",
+            "Sourate al-Baqara, v.255 : « Allah ! Point de divinité à part Lui. Il est le Vivant, le Subsistant »",
+            "Sourate al-Fātiḥa : « Louange à Allah, Seigneur de la Création, le Tout Miséricordieux, le Très Miséricordieux »"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La quatrième règle cite la sourate Ṭalāq (v.12) : « Vous saurez ainsi que le pouvoir d'Allah est absolu et que Sa science embrasse toute chose. » Ce verset illustre que le Nom al-Khāliq implique, par al-iltizām, la science et la puissance d'Allah."
+        },
+        {
+          "id": "c8_q14",
+          "numero": 14,
+          "difficulte": "moyenne",
+          "question": "Selon le statut des implications (luzūm), quel est le statut de ce qu'impliquent les paroles d'Allah et de Son Messager ?",
+          "options": [
+            "Leurs implications sont vraies uniquement si elles sont corroborées par le consensus unanime des savants de l'Islam",
+            "Leurs implications sont nécessairement vraies, car la parole d'Allah et du Prophète est vérité, et ce qui en découle logiquement est aussi vérité",
+            "Leurs implications restent incertaines jusqu'à leur vérification, car les humains peuvent les mal interpréter et se tromper dans leur déduction",
+            "Leurs implications sont vraies uniquement lorsqu'elles concernent la jurisprudence pratique et non les questions de croyance et de doctrine"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Si l'implication vient d'Allah ou de Son Messager, elle est nécessairement vraie, car la parole d'Allah et du Prophète est vérité, et ce qui en découle logiquement est aussi vérité. De plus, Allah sait parfaitement ce que Ses paroles impliquent."
+        },
+        {
+          "id": "c8_q15",
+          "numero": 15,
+          "difficulte": "moyenne",
+          "question": "Selon le statut des implications, lorsqu'on rappelle à un locuteur humain l'implication de sa parole et qu'il la rejette clairement, quel est le statut de cette implication ?",
+          "options": [
+            "Elle lui est attribuée car il a prononcé la parole initiale qui l'engendre nécessairement",
+            "Elle lui est attribuée uniquement si son rejet intervient après un débat formellement constitué",
+            "Elle ne lui est pas attribuée, car il ne croit pas que cette conséquence fasse partie de sa parole",
+            "Elle lui est attribuée par défaut jusqu'à ce que les savants compétents statuent autrement sur la question"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Lorsqu'on rappelle au locuteur l'implication de sa parole et qu'il l'exclut clairement, cette implication ne lui est pas attribuée, car il ne croit pas que cette conséquence fasse partie de sa parole."
+        },
+        {
+          "id": "c8_q16",
+          "numero": 16,
+          "difficulte": "difficile",
+          "question": "Dans la troisième règle, pourquoi la croyance de celui qui reconnaît le Nom as-Samīʿ et l'attribut d'ouïe mais refuse de croire à leur manifestation dans la création est-elle qualifiée de déficiente, voire déviante ?",
+          "options": [
+            "Parce que les attributs transitifs n'ont de valeur que s'ils sont accompagnés des attributs intransitifs correspondants et ne peuvent être affirmés séparément",
+            "Parce que les Noms d'Allah comportent des effets réels ; nier l'effet d'un attribut transitif tout en reconnaissant le Nom et l'attribut constitue une croyance incomplète et déviante",
+            "Parce que la langue arabe impose que tout Nom soit suivi de la mention explicite et formelle de son effet sur la création pour être considéré comme valide",
+            "Parce que le consensus des savants exige que les attributs transitifs soient connus dans leur intégralité pour que la foi de la personne soit correcte"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Affirmer qu'Allah entend les sons et les voix implique de croire à cet effet réel. Si quelqu'un reconnaît le Nom et l'attribut mais refuse de croire à leur manifestation dans la création, sa croyance dans ce Nom est déficiente, voire déviante. L'auteur insiste sur ce point pour montrer que les Noms d'Allah comportent des effets et des conséquences réels."
+        },
+        {
+          "id": "c8_q17",
+          "numero": 17,
+          "difficulte": "difficile",
+          "question": "Dans la quatrième règle, comment al-Khāliq (Le Créateur) illustre-t-il les trois modes de désignation simultanément ?",
+          "options": [
+            "Al-muṭābaqa : il désigne uniquement l'Essence divine ; at-taḍammun : il désigne uniquement l'attribut de création ; al-iltizām : il réunit les deux ensemble dans un sens complet",
+            "Al-muṭābaqa : il désigne Allah et Son acte de création ensemble ; at-taḍammun : il désigne soit l'Essence seule soit l'attribut seul ; al-iltizām : il implique logiquement la science et la puissance",
+            "Al-muṭābaqa : il implique la science et la puissance ; at-taḍammun : il désigne Allah et la création ensemble ; al-iltizām : il désigne une partie seulement du concept",
+            "Les trois modes sont identiques pour al-Khāliq et ne permettent aucune distinction sémantique significative ni utile pour l'étudiant"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Al-Khāliq désigne Son entité et le qualificatif de création par correspondance (al-muṭābaqa) ; il indique uniquement Son entité ou Son qualificatif par inclusion (at-taḍammun) ; enfin, il indique les qualificatifs d'omniscience et de puissance par implication (al-iltizām), comme le confirme la sourate Ṭalāq, v.12."
+        },
+        {
+          "id": "c8_q18",
+          "numero": 18,
+          "difficulte": "difficile",
+          "question": "Le négationniste des attributs d'action objecte que les confirmer implique que certaines des actions d'Allah sont survenues dans le temps. Comment celui qui affirme les attributs d'action répond-il à cette objection ?",
+          "options": [
+            "En admettant entièrement l'objection mais en précisant que toutes les actions d'Allah sont anciennes et n'ont donc pas réellement eu lieu dans le temps créé",
+            "En répondant que oui, certaines actions d'Allah surviennent dans le temps, mais cela ne constitue pas une imperfection, car Ses paroles et Ses actions sont inépuisables et Il agit constamment selon Sa volonté",
+            "En répondant que cette objection est valide et que les attributs d'action doivent donc être interprétés figurément pour préserver l'unicité divine contre toute limitation temporelle",
+            "En renvoyant la question aux savants car cela dépasse la portée des règles fondamentales de la doctrine islamique standard"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Celui qui affirme les attributs d'action répond : « Oui, et je maintiens cela, car Allah n'a cessé et ne cessera de faire ce qu'Il veut. Ses paroles et Ses actions sont inépuisables. Et la survenance de certaines de Ses actions n'implique pas Son imperfection. » Cela est confirmé par les sourates al-Kahf (v.109) et Luqmān (v.27)."
+        },
+        {
+          "id": "c8_q19",
+          "numero": 19,
+          "difficulte": "difficile",
+          "question": "Le négationniste des attributs objecte : « Affirmer les qualificatifs d'Allah implique que Ses attributs sont semblables à ceux des êtres. » Quelle réponse est donnée dans le cours ?",
+          "options": [
+            "Que cette implication est correcte et qu'il faut donc nier les attributs pour éviter toute forme d'anthropomorphisme condamnable",
+            "Que cela ne l'implique pas car les attributs du Créateur sont spécifiques à Lui ; de plus, le négationniste affirme lui-même une entité pour Allah sans assimilation — quelle différence avec les attributs ?",
+            "Que cette implication est valide pour les attributs d'essence mais fausse pour les attributs d'action d'Allah",
+            "Que la ressemblance est inévitable dans tout langage humain et que seule la négation totale de tous les attributs préserve un Tawḥīd authentiquement pur"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Celui qui confirme les attributs répond : non, cela ne l'implique pas, car les attributs du Créateur sont annexés à Lui et spécifiques à Lui et dignes de Lui. Il ajoute : « Tu confirmes qu'Allah a une entité tout en excluant son assimilation aux entités des êtres — quelle différence y a-t-il entre l'entité et les attributs ? »"
+        },
+        {
+          "id": "c8_q20",
+          "numero": 20,
+          "difficulte": "difficile",
+          "question": "Selon le statut des implications, pourquoi ne peut-on pas attribuer à un locuteur humain l'implication de sa parole lorsqu'il ne s'est pas prononcé sur elle ?",
+          "options": [
+            "Parce que la parole humaine est dépourvue de valeur sémantique en matière de doctrine et de croyance islamique",
+            "Parce qu'on ne peut pas lui imputer cette croyance : il peut être distrait, inattentif ou avoir parlé sans réfléchir aux implications ; lui prêter une position non formulée serait injuste",
+            "Parce que les implications non exprimées sont automatiquement réfutées par le consensus collectif des savants de l'Islam",
+            "Parce que seules les paroles d'Allah et du Prophète ont des implications juridiquement opposables et contraignantes en matière de croyance"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Si le locuteur ne s'est jamais prononcé sur l'implication de sa parole, on ne peut pas lui imputer cette croyance par défaut, car l'homme est un être qui passe par des états psychologiques variables ; il peut être inattentif, distrait, ou avoir prononcé une parole lors d'un débat sans réfléchir à ses implications. Il serait injuste de lui prêter une croyance ou une position qu'il n'a pas formulée elle-même."
+        }
+      ]
     },
     {
       "id": 9,
-      "titre": "Cours 9 — À venir",
-      "date": "",
-      "questions": []
+      "titre": "Approfondissement de la définition du Tawhid Asma’i Wa Siffat",
+      "date": "30/07/2025",
+      "instructeur": "Dr. Abdelrahman Abu AbdelWahhab",
+      "repartition": {
+        "facile": 10,
+        "moyenne": 5,
+        "difficile": 5
+      },
+      "questions": [
+        {
+          "id": "c9_q1",
+          "numero": 1,
+          "difficulte": "facile",
+          "question": "Que signifie le caractère tawqīfī des Noms d'Allah ?",
+          "options": [
+            "Ils peuvent être déduits librement par la raison",
+            "Ils sont d'institution divine et limités aux textes révélés",
+            "Ils sont choisis selon les usages linguistiques",
+            "Ils sont réservés aux invocations longues"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les Noms d'Allah sont d'institution divine et il faut se limiter à ce qui est mentionné dans le Coran et la Sunna sans rien ajouter."
+        },
+        {
+          "id": "c9_q2",
+          "numero": 2,
+          "difficulte": "facile",
+          "question": "Quel comportement contredit la règle concernant les Noms d'Allah ?",
+          "options": [
+            "Ajouter des noms sans preuve révélée",
+            "Invoquer Allah par Ses Noms authentiques",
+            "Apprendre les Noms rapportés",
+            "Reconnaître les Noms établis dans la révélation"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Il faut se contenter de ce qui est mentionné dans le Coran et la Sunna, sans ajouter ni diminuer."
+        },
+        {
+          "id": "c9_q3",
+          "numero": 3,
+          "difficulte": "facile",
+          "question": "Quelle interdiction est mentionnée dans Sourate al-Isrâ’, v. 36 ?",
+          "options": [
+            "Délaisser les invocations",
+            "Parler sur Allah sans science",
+            "Multiplier les invocations",
+            "Apprendre les Noms d'Allah"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le verset interdit de dire sur Allah ce que l'on ne sait pas, ce qui inclut l'attribution de noms non établis."
+        },
+        {
+          "id": "c9_q4",
+          "numero": 4,
+          "difficulte": "facile",
+          "question": "Quel péché est mentionné parmi les plus graves dans Sourate al-Aʿrâf, v. 33 ?",
+          "options": [
+            "Parler sur Allah sans science",
+            "Oublier certaines invocations",
+            "Ignorer les divergences linguistiques",
+            "Multiplier les noms composés"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Parmi les interdictions les plus graves figure le fait de dire sur Allah ce que l'on ignore."
+        },
+        {
+          "id": "c9_q5",
+          "numero": 5,
+          "difficulte": "facile",
+          "question": "Quelle parole authentique exprime l'incapacité du serviteur à louer Allah parfaitement ?",
+          "options": [
+            "Je connais tous Tes Noms",
+            "Je Te loue par ma raison",
+            "Je ne peux Te louer comme il se doit",
+            "Je T'invoque uniquement par les noms composés"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le hadith contient la parole : « Je ne peux Te louer comme il se doit. Tu es tel que Tu T'es loué Toi-même. »"
+        },
+        {
+          "id": "c9_q6",
+          "numero": 6,
+          "difficulte": "facile",
+          "question": "Laquelle de ces invocations emploie un Nom authentique d'Allah ?",
+          "options": [
+            "Yā Cause première !",
+            "Yā Créateur des causes !",
+            "Yā Samīʿ !",
+            "Yā Père généreux !"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "L'invocation « Yā Samīʿ ! » est citée comme exemple d'usage d'un Nom authentique."
+        },
+        {
+          "id": "c9_q7",
+          "numero": 7,
+          "difficulte": "facile",
+          "question": "Que ne peut pas faire la raison seule concernant les Noms et Attributs d'Allah ?",
+          "options": [
+            "Connaître les Noms d'Allah sans révélation",
+            "Comprendre un nom révélé",
+            "Reconnaître un texte authentique",
+            "Apprendre les invocations rapportées"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "La raison ne peut pas connaître par elle-même les Noms et Attributs d'Allah ; seule la Révélation nous les fait connaître."
+        },
+        {
+          "id": "c9_q8",
+          "numero": 8,
+          "difficulte": "facile",
+          "question": "Pourquoi des appellations comme « le père de la générosité » sont-elles rejetées pour Allah ?",
+          "options": [
+            "Parce qu'elles sont réservées aux anges",
+            "Parce qu'elles limitent les Noms à 99",
+            "Parce qu'elles sont des noms composés",
+            "Parce qu'elles ne reposent sur aucune preuve révélée"
+          ],
+          "reponseCorrecte": 3,
+          "justification": "Ces exemples montrent qu'il est interdit d'inventer des noms pour Allah sans texte authentique."
+        },
+        {
+          "id": "c9_q9",
+          "numero": 9,
+          "difficulte": "facile",
+          "question": "Que signifie aḥṣāhā dans le hadith des 99 Noms d'Allah ?",
+          "options": [
+            "Inventer des noms mélioratifs",
+            "Cerner, apprendre et maîtriser",
+            "Limiter les noms à une seule invocation",
+            "Abandonner les noms difficiles"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le mot aḥṣāhā est expliqué comme pouvant signifier « cerner », « dénombrer » ou « maîtriser »."
+        },
+        {
+          "id": "c9_q10",
+          "numero": 10,
+          "difficulte": "facile",
+          "question": "Quel est le statut de la liste des 99 noms souvent ajoutée après le hadith ?",
+          "options": [
+            "Elle fait partie du texte coranique",
+            "Elle est authentiquement rapportée par tous les transmetteurs",
+            "Elle provient d'une interpolation de certains rapporteurs",
+            "Elle limite définitivement tous les Noms d'Allah"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "La liste souvent mentionnée n'est pas authentiquement attribuée au Prophète et résulte d'une interpolation de certains rapporteurs."
+        },
+        {
+          "id": "c9_q11",
+          "numero": 11,
+          "difficulte": "moyenne",
+          "question": "Que désigne la profanation des Noms d'Allah mentionnée dans Sourate al-Aʿrâf, v. 180 ?",
+          "options": [
+            "Le fait de réserver les invocations à certaines langues",
+            "Toute déviation concernant les Noms d'Allah",
+            "L'apprentissage incomplet des Noms",
+            "Le fait de mémoriser moins de 99 noms"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Le verset interdit toute déviation dans les Noms d'Allah, que ce soit en les niant, en les falsifiant ou en en inventant."
+        },
+        {
+          "id": "c9_q12",
+          "numero": 12,
+          "difficulte": "moyenne",
+          "question": "Que déduit-on de l'invocation : « ou que Tu as gardé auprès de Toi dans la science de l'invisible » ?",
+          "options": [
+            "Tous les Noms d'Allah sont connus des hommes",
+            "Les Noms d'Allah sont exactement 99",
+            "Certains Noms sont gardés dans la science de l'invisible auprès d'Allah",
+            "Les Noms d'Allah peuvent être inventés par analogie"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Cette formulation indique qu'Allah s'est réservé la connaissance de certains Noms dans l'invisible auprès de Lui."
+        },
+        {
+          "id": "c9_q13",
+          "numero": 13,
+          "difficulte": "moyenne",
+          "question": "Pourquoi le hadith « Allah a 99 noms » ne limite-t-il pas les Noms d'Allah à ce nombre ?",
+          "options": [
+            "Parce qu'il nie l'existence d'autres Noms",
+            "Parce qu'il concerne uniquement les invocations nocturnes",
+            "Parce qu'il précise seulement un mérite lié à ces noms",
+            "Parce qu'il interdit les noms composés"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le hadith mentionne un mérite particulier lié à ces noms sans limiter le nombre total des Noms d'Allah."
+        },
+        {
+          "id": "c9_q14",
+          "numero": 14,
+          "difficulte": "moyenne",
+          "question": "Que comprend le fait de faire aḥṣā des Noms d'Allah ?",
+          "options": [
+            "Les remplacer par des synonymes",
+            "Les apprendre, les mémoriser et les comprendre",
+            "Limiter leur usage aux savants",
+            "Créer de nouveaux noms par raisonnement"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "L'explication de aḥṣāhā inclut le fait de les apprendre par cœur, de les connaître et de les maîtriser."
+        },
+        {
+          "id": "c9_q15",
+          "numero": 15,
+          "difficulte": "moyenne",
+          "question": "Pourquoi le Nom al-Jamīl est-il retenu parmi les Noms d'Allah ?",
+          "options": [
+            "Parce qu'il est établi dans un hadith authentique",
+            "Parce qu'il apparaît dans chaque sourate",
+            "Parce qu'il est unanimement déduit par analogie",
+            "Parce qu'il est le plus utilisé dans les invocations"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Le hadith : « Certes, Allah est Magnifique et Il aime la magnificence » établit le Nom al-Jamīl."
+        },
+        {
+          "id": "c9_q16",
+          "numero": 16,
+          "difficulte": "difficile",
+          "question": "Que démontre l'expression « Il n'y a aucune divinité digne d'adoration en dehors de Toi » dans les invocations prophétiques ?",
+          "options": [
+            "L'exclusivité de l'adoration et de la louange pour Allah",
+            "La possibilité d'ajouter des noms par raisonnement",
+            "La limitation des Noms d'Allah à certaines invocations",
+            "L'abandon des textes au profit de l'opinion"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Cette formule accompagne l'adoration et la louange exclusive à Allah seul."
+        },
+        {
+          "id": "c9_q17",
+          "numero": 17,
+          "difficulte": "difficile",
+          "question": "Pourquoi l'attribution à Allah d'un nom non révélé entre-t-elle dans l'interdiction de parler sans science ?",
+          "options": [
+            "Parce qu'aucun nom ne peut être affirmé sans preuve révélée",
+            "Parce que tous les noms mélioratifs sont équivalents",
+            "Parce que les noms d'Allah sont fondés sur la langue uniquement",
+            "Parce que les invocations remplacent les preuves"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Attribuer à Allah un nom qu'Il ne S'est pas donné relève de la parole sur Allah sans science."
+        },
+        {
+          "id": "c9_q18",
+          "numero": 18,
+          "difficulte": "difficile",
+          "question": "Pourquoi les divergences des pieux prédécesseurs concernant les listes des 99 noms sont-elles significatives ?",
+          "options": [
+            "Parce qu'elles montrent l'absence d'une transmission prophétique unique et fixe",
+            "Parce qu'elles prouvent que chaque liste est obligatoire",
+            "Parce qu'elles annulent l'authenticité du hadith",
+            "Parce qu'elles limitent les Noms aux noms composés"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Si une liste prophétique fixe avait été rapportée, elle aurait été transmise de manière précise, continue et identique."
+        },
+        {
+          "id": "c9_q19",
+          "numero": 19,
+          "difficulte": "difficile",
+          "question": "Que montre l'exemple où un Nom est remplacé par un autre dans le verset sur la coupe de la main ?",
+          "options": [
+            "Tous les Noms d'Allah sont interchangeables",
+            "Une erreur de récitation reste sans conséquence",
+            "Changer un Nom modifie le sens du jugement",
+            "Les Noms liés au pardon conviennent à chaque contexte"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Le remplacement de ʿAzīz par Ghāfūr modifie le sens du jugement et de la législation."
+        },
+        {
+          "id": "c9_q20",
+          "numero": 20,
+          "difficulte": "difficile",
+          "question": "Quelle conséquence pratique découle du fait que les Noms d'Allah ne sont pas limités à un nombre défini ?",
+          "options": [
+            "Choisir librement des noms mélioratifs",
+            "Éviter toute recherche concernant les Noms",
+            "Se limiter à une liste fermée transmise par les narrateurs",
+            "Rechercher les Noms authentiques dans le Coran et la Sunna"
+          ],
+          "reponseCorrecte": 3,
+          "justification": "Les Noms d'Allah doivent être tirés du Coran et de la Sunna sans se restreindre à une liste fermée."
+        }
+      ]
     },
     {
       "id": 10,
-      "titre": "Cours 10 — À venir",
-      "date": "",
-      "questions": []
+      "titre": "Approfondissement de la définition du Tawhid Asma’i Wa Siffat",
+      "date": "03/08/2025",
+      "instructeur": "Dr. Abdelrahman Abu AbdelWahhab",
+      "questions": [
+        {
+          "id": "c10_q1",
+          "numero": 1,
+          "difficulte": "facile",
+          "question": "En combien de grandes catégories les formes d'al-ilḥād dans les Noms d'Allah sont-elles regroupées ?",
+          "options": [
+            "Trois",
+            "Deux",
+            "Cinq",
+            "Quatre"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les formes d'al-ilḥād dans les Noms d'Allah peuvent être regroupées en deux grandes catégories."
+        },
+        {
+          "id": "c10_q2",
+          "numero": 2,
+          "difficulte": "facile",
+          "question": "Que désigne at-tashbīh dans les Noms et Attributs d'Allah ?",
+          "options": [
+            "L'invocation d'Allah par Ses plus beaux Noms",
+            "L'affirmation des attributs sans leurs effets",
+            "L'assimilation des attributs d'Allah à ceux des créatures",
+            "Le fait de nier tous les attributs d'action"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "At-tashbīh consiste à attribuer aux Noms et Attributs d'Allah des significations semblables à celles de la création."
+        },
+        {
+          "id": "c10_q3",
+          "numero": 3,
+          "difficulte": "facile",
+          "question": "Que désigne at-taʿṭīl ?",
+          "options": [
+            "Le négationnisme consistant à nier un Nom ou un attribut d'Allah",
+            "Le fait de dériver les noms des idoles à partir des Noms d'Allah",
+            "L'affirmation des effets sans les attributs",
+            "L'assimilation des créatures au Créateur"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "At-taʿṭīl consiste à nier totalement ou partiellement un Nom d'Allah ou l'attribut qu'il implique."
+        },
+        {
+          "id": "c10_q4",
+          "numero": 4,
+          "difficulte": "facile",
+          "question": "Quels éléments sont affirmés dans un Nom transitif d'Allah ?",
+          "options": [
+            "Le Nom, sa langue d'origine et son contexte",
+            "Le Nom, l'attribut qu'il implique et son effet",
+            "Le Nom, son contraire et son équivalent humain",
+            "Le Nom, sa récitation et son écriture"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Un Nom transitif comprend le Nom lui-même, l'attribut qu'il implique et l'effet qui se manifeste dans la création."
+        },
+        {
+          "id": "c10_q5",
+          "numero": 5,
+          "difficulte": "facile",
+          "question": "Quel effet doit être affirmé avec le Nom As-Samīʿ ?",
+          "options": [
+            "Allah entend toutes les voix, cachées ou manifestes",
+            "Allah entend uniquement les invocations nocturnes",
+            "Allah entend seulement les croyants",
+            "Allah entend uniquement les anges"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "L'effet de l'ouïe est qu'Allah entend toutes les voix et tous les sons, qu'ils soient cachés ou manifestes."
+        },
+        {
+          "id": "c10_q6",
+          "numero": 6,
+          "difficulte": "facile",
+          "question": "Quelle était la position des Jahmiyyah concernant les Noms d'Allah ?",
+          "options": [
+            "Ils niaient tous les Noms sans exception",
+            "Ils affirmaient les attributs sans les noms",
+            "Ils reconnaissaient les Noms mais niaient leurs significations réelles",
+            "Ils dérivaient les Noms d'Allah pour les donner aux prophètes"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les Jahmiyyah reconnaissaient les Noms d'Allah mais prétendaient qu'ils n'avaient aucun sens réel et n'impliquaient aucun attribut."
+        },
+        {
+          "id": "c10_q7",
+          "numero": 7,
+          "difficulte": "facile",
+          "question": "Quelle forme d'al-ilḥād consiste à appeler Allah par un nom non révélé ?",
+          "options": [
+            "La négation des effets uniquement",
+            "L'invention de noms qu'Allah ne S'est pas donnés",
+            "L'affirmation des attributs d'action",
+            "L'assimilation des croyants aux anges"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Une des formes d'al-ilḥād est d'appeler Allah par un nom qu'Il ne S'est pas donné Lui-même."
+        },
+        {
+          "id": "c10_q8",
+          "numero": 8,
+          "difficulte": "facile",
+          "question": "Pourquoi des noms comme al-ʿUzzā et al-Lāt sont-ils mentionnés parmi les formes d'al-ilḥād ?",
+          "options": [
+            "Parce qu'ils désignent des anges rapprochés",
+            "Parce qu'ils sont des noms révélés puis abrogés",
+            "Parce qu'ils sont dérivés des Noms d'Allah pour nommer des idoles",
+            "Parce qu'ils représentent des attributs d'action"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les polythéistes dérivaient les noms de leurs idoles à partir des Noms d'Allah, comme al-ʿUzzā dérivé de al-ʿAzīz."
+        },
+        {
+          "id": "c10_q9",
+          "numero": 9,
+          "difficulte": "facile",
+          "question": "Quelle règle fondamentale concerne tous les attributs d'Allah ?",
+          "options": [
+            "Ils sont tous des qualificatifs de perfection exempts d'imperfection",
+            "Ils sont tous des attributs d'action uniquement",
+            "Ils ressemblent aux attributs des créatures",
+            "Ils sont limités aux invocations prophétiques"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Tous les attributs d'Allah sont des qualificatifs de perfection, exempts de toute imperfection."
+        },
+        {
+          "id": "c10_q10",
+          "numero": 10,
+          "difficulte": "facile",
+          "question": "Lequel de ces ensembles contient uniquement des attributs de perfection ?",
+          "options": [
+            "Ignorance, oubli, faiblesse",
+            "Vie, science, sagesse",
+            "Fatigue, sommeil, pauvreté",
+            "Cécité, injustice, incapacité"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Parmi les attributs de perfection sont cités la vie, la science, l'ouïe, la vue, la miséricorde et la sagesse."
+        },
+        {
+          "id": "c10_q11",
+          "numero": 11,
+          "difficulte": "moyenne",
+          "question": "Quelle déviation est réfutée par le verset : « Rien ne Lui est comparable, et Il entend tout et voit tout » ?",
+          "options": [
+            "L'assimilation des attributs d'Allah à ceux des créatures",
+            "L'affirmation des attributs de perfection",
+            "L'invocation par les Noms d'Allah",
+            "La reconnaissance des effets des attributs"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Ce verset réfute l'assimilation et affirme qu'Allah entend et voit sans qu'aucune chose ne Lui soit comparable."
+        },
+        {
+          "id": "c10_q12",
+          "numero": 12,
+          "difficulte": "moyenne",
+          "question": "Pourquoi l'appellation « le père » est-elle rejetée pour Allah ?",
+          "options": [
+            "Parce qu'elle désigne un attribut d'action",
+            "Parce qu'elle n'est pas révélée et qu'Allah ne Se l'est pas attribuée",
+            "Parce qu'elle est réservée aux prophètes",
+            "Parce qu'elle exprime une qualité de faiblesse humaine seulement"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Les Noms d'Allah sont d'institution divine et il est interdit de Lui attribuer un nom qu'Il n'a pas mentionné."
+        },
+        {
+          "id": "c10_q13",
+          "numero": 13,
+          "difficulte": "moyenne",
+          "question": "Que montre l'invocation : « Je T'implore par tout Nom qui est Tien, par lequel Tu T'es nommé Toi-même » ?",
+          "options": [
+            "Les hommes peuvent créer des noms par analogie",
+            "Les Noms d'Allah sont connus uniquement par révélation",
+            "Chaque peuple possède ses propres Noms divins",
+            "Les Noms d'Allah sont limités aux noms composés"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Cette invocation montre que nous ne connaissons d'Allah que les Noms qu'Il a révélés."
+        },
+        {
+          "id": "c10_q14",
+          "numero": 14,
+          "difficulte": "moyenne",
+          "question": "Quelle appellation est invalidée par le verset : « Il n'a pas engendré, ni été Lui-même engendré » ?",
+          "options": [
+            "Le Vivant",
+            "Le Sage",
+            "Le Père",
+            "L'Audient"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Cette appellation est rejetée car Allah dit : « Il n'a pas engendré, ni été Lui-même engendré »."
+        },
+        {
+          "id": "c10_q15",
+          "numero": 15,
+          "difficulte": "moyenne",
+          "question": "Pourquoi dériver les noms des idoles à partir des Noms d'Allah constitue-t-il une déviation ?",
+          "options": [
+            "Parce que cela attribue aux idoles des noms dérivés des Noms divins",
+            "Parce que cela limite les Noms d'Allah à quatre seulement",
+            "Parce que cela remplace les attributs d'action",
+            "Parce que cela annule les invocations prophétiques"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Les polythéistes dérivaient les noms de leurs idoles à partir des Noms d'Allah, comme al-Lāt dérivé de al-Ilāh."
+        },
+        {
+          "id": "c10_q16",
+          "numero": 16,
+          "difficulte": "difficile",
+          "question": "Pourquoi nier uniquement les effets d'un attribut transitif reste-t-il une forme d'al-ilḥād ?",
+          "options": [
+            "Parce qu'il suffit d'affirmer le Nom seul",
+            "Parce qu'un Nom transitif implique aussi l'affirmation de son effet",
+            "Parce que les effets sont indépendants des attributs",
+            "Parce que les attributs transitifs ne concernent pas la création"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "La croyance correcte comporte l'affirmation du Nom, de l'attribut qu'il implique et de son effet dans la création."
+        },
+        {
+          "id": "c10_q17",
+          "numero": 17,
+          "difficulte": "difficile",
+          "question": "Pourquoi l'assimilation des attributs d'Allah à ceux des créatures est-elle une déviation grave ?",
+          "options": [
+            "Parce qu'elle facilite la compréhension des attributs",
+            "Parce qu'elle est une simple erreur linguistique",
+            "Parce qu'Allah est sans semblable dans Ses Noms et attributs",
+            "Parce qu'elle concerne uniquement les noms des idoles"
+          ],
+          "reponseCorrecte": 2,
+          "justification": "Les textes réfutent totalement cette assimilation et affirment qu'Allah est unique sans semblable."
+        },
+        {
+          "id": "c10_q18",
+          "numero": 18,
+          "difficulte": "difficile",
+          "question": "Pourquoi l'exemption d'un défaut peut-elle constituer un éloge pour Allah ?",
+          "options": [
+            "Parce qu'elle affirme implicitement la perfection opposée",
+            "Parce qu'elle remplace tous les attributs affirmés",
+            "Parce qu'elle annule la nécessité des preuves textuelles",
+            "Parce qu'elle prouve une ressemblance avec les créatures"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "Cette exemption affirme le contraire du défaut et souligne ainsi les qualités parfaites d'Allah."
+        },
+        {
+          "id": "c10_q19",
+          "numero": 19,
+          "difficulte": "difficile",
+          "question": "Pourquoi des termes comme la ruse ou le stratagème ne sont-ils pas attribués à Allah de manière absolue ?",
+          "options": [
+            "Parce qu'ils sont toujours des qualificatifs de perfection absolue",
+            "Parce qu'ils ne sont parfaits que dans certains contextes précis",
+            "Parce qu'ils ne figurent jamais dans les textes",
+            "Parce qu'ils désignent uniquement les actes humains"
+          ],
+          "reponseCorrecte": 1,
+          "justification": "Ces qualificatifs sont parfaits dans un contexte de confrontation des agresseurs, mais deviennent des imperfections en dehors de ce cadre."
+        },
+        {
+          "id": "c10_q20",
+          "numero": 20,
+          "difficulte": "difficile",
+          "question": "Pourquoi la formule « Allah trahit ceux qui Le trahissent » est-elle rejetée ?",
+          "options": [
+            "Parce que la trahison est un qualificatif purement péjoratif",
+            "Parce que la trahison est un synonyme de sagesse",
+            "Parce que la trahison est un des plus beaux Noms d'Allah",
+            "Parce que cette expression est réservée aux créatures seulement"
+          ],
+          "reponseCorrecte": 0,
+          "justification": "La trahison relève uniquement de l'imperfection et ne peut être attribuée à Allah."
+        }
+      ]
     },
     {
       "id": 11,
