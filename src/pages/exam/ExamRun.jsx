@@ -73,20 +73,9 @@ export default function ExamRun() {
       if (attempt?.id) {
         setAttemptId(attempt.id);
       } else {
-        const { data: createdAttempt, error: createErr } = await supabase
-          .from('attempts')
-          .insert({
-            exam_id: examData.id,
-            candidate_id: parsed.candidateId
-          })
-          .select('id')
-          .single();
-        if (createErr || !createdAttempt) {
-          setError(createErr?.message || "Impossible d'initialiser la tentative.");
-          setLoading(false);
-          return;
-        }
-        setAttemptId(createdAttempt.id);
+        setError("Tentative introuvable. Veuillez refaire l'inscription.");
+        setLoading(false);
+        return;
       }
       setLoading(false);
     })();
