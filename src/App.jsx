@@ -1,131 +1,46 @@
-import React, { useCallback, useState } from 'react';
-import data from './data/questions.json';
-import { selectQuestions } from './utils/quizUtils.js';
-import Accueil from './components/Accueil.jsx';
-import SelectionCours from './components/SelectionCours.jsx';
-import QuizSession from './components/QuizSession.jsx';
-import ResultatsFinaux from './components/ResultatsFinaux.jsx';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import QuizRoute from './routes/QuizRoute.jsx';
+import RequireAdmin from './components/RequireAdmin.jsx';
+import AdminLogin from './pages/admin/AdminLogin.jsx';
+import AdminDashboard from './pages/admin/AdminDashboard.jsx';
+import ExamEditor from './pages/admin/ExamEditor.jsx';
+import ExamResults from './pages/admin/ExamResults.jsx';
+import CandidateAttemptDetail from './pages/admin/CandidateAttemptDetail.jsx';
+import ExamRegistration from './pages/exam/ExamRegistration.jsx';
+import ExamInstructions from './pages/exam/ExamInstructions.jsx';
+import ExamRun from './pages/exam/ExamRun.jsx';
+import ExamDone from './pages/exam/ExamDone.jsx';
 
 export default function App() {
-  const [phase, setPhase] = useState('accueil');
-  const [mode, setMode] = useState(null);
-  const [coursSelectionne, setCoursSelectionne] = useState(null);
-  const [questions, setQuestions] = useState([]);
-  const [indexQuestion, setIndexQuestion] = useState(0);
-  const [reponses, setReponses] = useState([]);
-  const [reponseEnCours, setReponseEnCours] = useState(null);
-  const [feedbackVisible, setFeedbackVisible] = useState(false);
-
-  const demarrerQuiz = useCallback(
-    (m, coursId = null) => {
-      const qs = selectQuestions(data, m, coursId);
-      if (qs.length === 0) return;
-      setMode(m);
-      setCoursSelectionne(coursId);
-      setQuestions(qs);
-      setIndexQuestion(0);
-      setReponses([]);
-      setReponseEnCours(null);
-      setFeedbackVisible(false);
-      setPhase('quiz');
-    },
-    []
-  );
-
-  const choisirComplet = () => demarrerQuiz('complet');
-  const choisirCours = () => setPhase('selection_cours');
-  const choisirCoursId = (id) => demarrerQuiz('cours', id);
-
-  const valider = () => {
-    if (reponseEnCours === null || feedbackVisible) return;
-    const q = questions[indexQuestion];
-    const estCorrecte = reponseEnCours === q.reponseCorrecte;
-    setReponses((prev) => {
-      const next = prev.slice();
-      next[indexQuestion] = {
-        questionId: q.id,
-        reponseChoisie: reponseEnCours,
-        estCorrecte
-      };
-      return next;
-    });
-    setFeedbackVisible(true);
-  };
-
-  const suivant = () => {
-    if (indexQuestion + 1 >= questions.length) {
-      setPhase('resultats');
-      return;
-    }
-    setIndexQuestion((i) => i + 1);
-    setReponseEnCours(null);
-    setFeedbackVisible(false);
-  };
-
-  const rejouer = () => {
-    demarrerQuiz(mode, coursSelectionne);
-  };
-
-  const retourAccueil = () => {
-    setPhase('accueil');
-    setMode(null);
-    setCoursSelectionne(null);
-    setQuestions([]);
-    setIndexQuestion(0);
-    setReponses([]);
-    setReponseEnCours(null);
-    setFeedbackVisible(false);
-  };
-
   return (
-    <div className="min-h-screen bg-bg">
-      {phase === 'accueil' && (
-        <Accueil
-          meta={data.meta}
-          onChoisirComplet={choisirComplet}
-          onChoisirCours={choisirCours}
-          coursDisponibles={data.cours.filter((c) => c.questions.length > 0)}
-          onChoisirCoursDirect={choisirCoursId}
-        />
-      )}
+    <BrowserRouter>
+      <div className="min-h-screen bg-bg">
+        <Routes>
+          <Route path="/" element={<QuizRoute />} />
 
-      {phase === 'selection_cours' && (
-        <SelectionCours
-          cours={data.cours}
-          onSelect={choisirCoursId}
-          onRetour={() => setPhase('accueil')}
-        />
-      )}
+          <Route path="/exam/:slug" element={<ExamRegistration />} />
+          <Route path="/exam/:slug/instructions" element={<ExamInstructions />} />
+          <Route path="/exam/:slug/run" element={<ExamRun />} />
+          <Route path="/exam/:slug/done" element={<ExamDone />} />
 
-      {phase === 'quiz' && (
-        <QuizSession
-          questions={questions}
-          index={indexQuestion}
-          reponses={reponses}
-          reponseEnCours={reponseEnCours}
-          feedbackVisible={feedbackVisible}
-          onChoisir={(i) => !feedbackVisible && setReponseEnCours(i)}
-          onValider={valider}
-          onSuivant={suivant}
-          onQuitter={retourAccueil}
-        />
-      )}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
+          <Route path="/admin/exams/new" element={<RequireAdmin><ExamEditor /></RequireAdmin>} />
+          <Route path="/admin/exams/:id" element={<RequireAdmin><ExamEditor /></RequireAdmin>} />
+          <Route path="/admin/exams/:id/results" element={<RequireAdmin><ExamResults /></RequireAdmin>} />
+          <Route path="/admin/exams/:id/results/:candidateId" element={<RequireAdmin><CandidateAttemptDetail /></RequireAdmin>} />
 
-      {phase === 'resultats' && (
-        <ResultatsFinaux
-          questions={questions}
-          reponses={reponses}
-          onRejouer={rejouer}
-          onAccueil={retourAccueil}
-        />
-      )}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
 
-      <footer className="text-center py-10 opacity-40">
-        <div className="w-8 h-[1px] bg-accent/30 mx-auto mb-4" />
-        <p className="text-[10px] text-accent uppercase tracking-[0.4em]">
-          Al-Qawā'id Al-Muthlaa • Révision
-        </p>
-      </footer>
-    </div>
+        <footer className="text-center py-10 opacity-40">
+          <div className="w-8 h-[1px] bg-accent/30 mx-auto mb-4" />
+          <p className="text-[10px] text-accent uppercase tracking-[0.4em]">
+            Al-Qawā'id Al-Muthlaa • Révision
+          </p>
+        </footer>
+      </div>
+    </BrowserRouter>
   );
 }
