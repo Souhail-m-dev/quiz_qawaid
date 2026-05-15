@@ -59,33 +59,30 @@ export default function ExamRegistration() {
       }
     }
 
-    const { data: cand, error: ce } = await supabase
-      .from('candidates')
-      .insert({
-        exam_id: exam.id,
-        full_name: values.full_name.trim(),
-        email: values.email.trim().toLowerCase(),
-        telegram: values.telegram.trim()
-      })
-      .select('id')
-      .single();
-    if (ce) {
-      if (ce.code === '23505') {
+    const { data: registration, error: regErr } = await supabase.rpc('register_candidate_and_attempt', {
+      p_exam_id: exam.id,
+      p_slug: slug,
+      p_access_code: exam.requires_code ? (values.access_code || '').trim() : null,
+      p_full_name: values.full_name.trim(),
+      p_email: values.email.trim().toLowerCase(),
+      p_telegram: values.telegram.trim()
+    });
+    if (regErr) {
+      if (regErr.code === '23505') {
         setError('Cet email a déjà été utilisé pour cet examen.');
       } else {
-        setError(ce.message);
+        setError(regErr.message);
       }
       return;
     }
-    const { error: ae } = await supabase.from('attempts').insert({
-      exam_id: exam.id,
-      candidate_id: cand.id
-    });
-    if (ae) {
-      setError(ae.message);
+
+    const candidateId = Array.isArray(registration) ? registration[0]?.candidate_id : registration?.candidate_id;
+    if (!candidateId) {
+      setError("Inscription échouée: identifiant candidat introuvable.");
       return;
     }
-    localStorage.setItem(lsKey(slug), JSON.stringify({ candidateId: cand.id, examId: exam.id }));
+
+    localStorage.setItem(lsKey(slug), JSON.stringify({ candidateId, examId: exam.id }));
     navigate(`/exam/${slug}/instructions`);
   };
 
