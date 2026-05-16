@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { supabase } from '../../lib/supabase.js';
 
 const lsKey = (slug) => `examCandidate:${slug}`;
+const draftKey = (slug) => `examRegistrationDraft:${slug}`;
 
 export default function ExamRegistration() {
   const { slug } = useParams();
@@ -11,11 +12,17 @@ export default function ExamRegistration() {
   const [exam, setExam] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting }
+  } = useForm();
 
   useEffect(() => {
     (async () => {
       const existing = localStorage.getItem(lsKey(slug));
+      const draft = localStorage.getItem(draftKey(slug));
       const { data, error: e } = await supabase
         .from('exams')
         .select('id, title, slug, is_open, requires_code, question_ids')
@@ -27,6 +34,13 @@ export default function ExamRegistration() {
         setError('Cet examen est fermé.');
       } else {
         setExam(data);
+        if (draft) {
+          try {
+            reset(JSON.parse(draft));
+          } catch {
+            localStorage.removeItem(draftKey(slug));
+          }
+        }
         if (existing) {
           navigate(`/exam/${slug}/instructions`, { replace: true });
           return;
@@ -34,7 +48,7 @@ export default function ExamRegistration() {
       }
       setLoading(false);
     })();
-  }, [slug, navigate]);
+  }, [slug, navigate, reset]);
 
   const onSubmit = async (values) => {
     setError(null);
@@ -59,30 +73,15 @@ export default function ExamRegistration() {
       }
     }
 
-    const { data: registration, error: regErr } = await supabase.rpc('register_candidate_and_attempt', {
-      p_exam_id: exam.id,
-      p_slug: slug,
-      p_access_code: exam.requires_code ? (values.access_code || '').trim() : null,
-      p_full_name: values.full_name.trim(),
-      p_email: values.email.trim().toLowerCase(),
-      p_telegram: values.telegram.trim()
-    });
-    if (regErr) {
-      if (regErr.code === '23505') {
-        setError('Cet email a déjà été utilisé pour cet examen.');
-      } else {
-        setError(regErr.message);
-      }
-      return;
-    }
-
-    const candidateId = Array.isArray(registration) ? registration[0]?.candidate_id : registration?.candidate_id;
-    if (!candidateId) {
-      setError("Inscription échouée: identifiant candidat introuvable.");
-      return;
-    }
-
-    localStorage.setItem(lsKey(slug), JSON.stringify({ candidateId, examId: exam.id }));
+    localStorage.setItem(
+      draftKey(slug),
+      JSON.stringify({
+        full_name: values.full_name.trim(),
+        email: values.email.trim().toLowerCase(),
+        telegram: values.telegram.trim(),
+        access_code: (values.access_code || '').trim()
+      })
+    );
     navigate(`/exam/${slug}/instructions`);
   };
 

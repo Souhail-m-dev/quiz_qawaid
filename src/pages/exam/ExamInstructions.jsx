@@ -3,29 +3,87 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
 
 const lsKey = (slug) => `examCandidate:${slug}`;
+const draftKey = (slug) => `examRegistrationDraft:${slug}`;
 
 export default function ExamInstructions() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [exam, setExam] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [starting, setStarting] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const raw = localStorage.getItem(lsKey(slug));
-    if (!raw) {
+    const candidateRaw = localStorage.getItem(lsKey(slug));
+    const draftRaw = localStorage.getItem(draftKey(slug));
+    if (!candidateRaw && !draftRaw) {
       navigate(`/exam/${slug}`, { replace: true });
       return;
     }
     (async () => {
       const { data } = await supabase
         .from('exams')
-        .select('title, instructions, question_ids, is_open')
+        .select('id, title, instructions, question_ids, is_open')
         .eq('slug', slug)
         .maybeSingle();
       setExam(data);
       setLoading(false);
     })();
   }, [slug, navigate]);
+
+  const handleStart = async () => {
+    setError(null);
+    const existing = localStorage.getItem(lsKey(slug));
+    if (existing) {
+      navigate(`/exam/${slug}/run`);
+      return;
+    }
+
+    const rawDraft = localStorage.getItem(draftKey(slug));
+    if (!rawDraft || !exam?.id) {
+      setError('Informations d’inscription introuvables. Veuillez recommencer.');
+      return;
+    }
+
+    let draft;
+    try {
+      draft = JSON.parse(rawDraft);
+    } catch {
+      localStorage.removeItem(draftKey(slug));
+      setError('Données invalides. Veuillez refaire l’inscription.');
+      return;
+    }
+
+    setStarting(true);
+    const { data: registration, error: regErr } = await supabase.rpc('register_candidate_and_attempt', {
+      p_exam_id: exam.id,
+      p_slug: slug,
+      p_access_code: draft.access_code || null,
+      p_full_name: draft.full_name,
+      p_email: draft.email,
+      p_telegram: draft.telegram
+    });
+    setStarting(false);
+
+    if (regErr) {
+      if (regErr.code === '23505') {
+        setError('Cet email a déjà été utilisé pour cet examen.');
+      } else {
+        setError(regErr.message);
+      }
+      return;
+    }
+
+    const candidateId = Array.isArray(registration) ? registration[0]?.candidate_id : registration?.candidate_id;
+    if (!candidateId) {
+      setError("Inscription échouée: identifiant candidat introuvable.");
+      return;
+    }
+
+    localStorage.setItem(lsKey(slug), JSON.stringify({ candidateId, examId: exam.id }));
+    localStorage.removeItem(draftKey(slug));
+    navigate(`/exam/${slug}/run`);
+  };
 
   if (loading) return <p className="text-muted p-10 text-center">Chargement…</p>;
   if (!exam) {
@@ -58,10 +116,13 @@ export default function ExamInstructions() {
           <li>• Une fois soumis, l'examen ne peut plus être modifié.</li>
           <li>• Vos résultats seront communiqués par l'administrateur.</li>
         </ul>
+        {error && <p className="text-incorrect text-sm">{error}</p>}
 
         <div className="pt-4 flex justify-end gap-3">
           <Link to="/" className="btn-secondary">Annuler</Link>
-          <Link to={`/exam/${slug}/run`} className="btn-primary">Commencer l'examen</Link>
+          <button type="button" onClick={handleStart} disabled={starting} className="btn-primary">
+            {starting ? 'Initialisation…' : "Commencer l'examen"}
+          </button>
         </div>
       </div>
     </div>
