@@ -28,11 +28,20 @@ export default function CandidateAttemptDetail() {
 
   useEffect(() => {
     (async () => {
-      const { data: examData, error: examErr } = await supabase
+      let { data: examData, error: examErr } = await supabase
         .from('exams')
-        .select('id, title, slug, question_ids, certificate_min_score')
+        .select('id, title, slug, question_ids, questions_snapshot, certificate_min_score')
         .eq('id', id)
         .maybeSingle();
+      if (examErr && /questions_snapshot/i.test(examErr.message || '')) {
+        const fallback = await supabase
+          .from('exams')
+          .select('id, title, slug, question_ids, certificate_min_score')
+          .eq('id', id)
+          .maybeSingle();
+        examData = fallback.data ? { ...fallback.data, questions_snapshot: null } : null;
+        examErr = fallback.error;
+      }
       if (examErr || !examData) {
         setError(examErr?.message || 'Examen introuvable.');
         setLoading(false);
@@ -73,7 +82,10 @@ export default function CandidateAttemptDetail() {
 
   const answerRows = useMemo(() => {
     if (!exam || !attempt?.answers) return [];
-    const byId = Object.fromEntries(getAllQuestions(data).map((q) => [q.id, q]));
+    const snapshot = Array.isArray(exam.questions_snapshot) ? exam.questions_snapshot : null;
+    const byId = snapshot && snapshot.length > 0
+      ? Object.fromEntries(snapshot.map((q) => [q.id, q]))
+      : Object.fromEntries(getAllQuestions(data).map((q) => [q.id, q]));
     return attempt.answers.map((a, idx) => {
       const q = byId[a.questionId];
       const selectedLabel = q && typeof a.reponseChoisie === 'number' ? q.options[a.reponseChoisie] : null;

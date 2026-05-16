@@ -9,10 +9,18 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     (async () => {
-      const { data, error } = await supabase
+      let { data, error } = await supabase
         .from('exams')
-        .select('id, slug, title, is_open, access_code, question_ids, created_at, candidates(count), attempts(count)')
+        .select('id, slug, title, is_open, access_code, question_ids, questions_snapshot, created_at, candidates(count), attempts(count)')
         .order('created_at', { ascending: false });
+      if (error && /questions_snapshot/i.test(error.message || '')) {
+        const fallback = await supabase
+          .from('exams')
+          .select('id, slug, title, is_open, access_code, question_ids, created_at, candidates(count), attempts(count)')
+          .order('created_at', { ascending: false });
+        data = (fallback.data || []).map((e) => ({ ...e, questions_snapshot: null }));
+        error = fallback.error;
+      }
       if (!error) setExams(data || []);
       setLoading(false);
     })();
@@ -49,7 +57,9 @@ export default function AdminDashboard() {
                 </span>
               </div>
               <p className="text-xs text-muted">
-                /exam/{e.slug} · {Array.isArray(e.question_ids) ? e.question_ids.length : 0} questions ·
+                /exam/{e.slug} · {Array.isArray(e.questions_snapshot) && e.questions_snapshot.length > 0
+                  ? e.questions_snapshot.length
+                  : Array.isArray(e.question_ids) ? e.question_ids.length : 0} questions ·
                 {' '}{e.candidates?.[0]?.count ?? 0} inscrits ·
                 {' '}{e.attempts?.[0]?.count ?? 0} attempts
               </p>

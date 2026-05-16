@@ -40,11 +40,20 @@ export default function ExamRun() {
     setCandidateId(parsed.candidateId);
 
     (async () => {
-      const { data: examData, error: ee } = await supabase
+      let { data: examData, error: ee } = await supabase
         .from('exams')
-        .select('id, title, question_ids')
+        .select('id, title, question_ids, questions_snapshot')
         .eq('slug', slug)
         .maybeSingle();
+      if (ee && /questions_snapshot/i.test(ee.message || '')) {
+        const fallback = await supabase
+          .from('exams')
+          .select('id, title, question_ids')
+          .eq('slug', slug)
+          .maybeSingle();
+        examData = fallback.data ? { ...fallback.data, questions_snapshot: null } : null;
+        ee = fallback.error;
+      }
       if (ee || !examData) {
         setError('Examen introuvable.');
         setLoading(false);
@@ -83,6 +92,9 @@ export default function ExamRun() {
 
   const questions = useMemo(() => {
     if (!exam) return [];
+    if (Array.isArray(exam.questions_snapshot) && exam.questions_snapshot.length > 0) {
+      return exam.questions_snapshot;
+    }
     const all = getAllQuestions(data);
     const byId = Object.fromEntries(all.map((q) => [q.id, q]));
     return (exam.question_ids || []).map((qid) => byId[qid]).filter(Boolean);

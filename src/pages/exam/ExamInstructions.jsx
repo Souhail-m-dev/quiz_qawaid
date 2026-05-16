@@ -21,11 +21,19 @@ export default function ExamInstructions() {
       return;
     }
     (async () => {
-      const { data } = await supabase
+      let { data, error: err } = await supabase
         .from('exams')
-        .select('id, title, instructions, question_ids, is_open')
+        .select('id, title, instructions, question_ids, questions_snapshot, is_open')
         .eq('slug', slug)
         .maybeSingle();
+      if (err && /questions_snapshot/i.test(err.message || '')) {
+        const fallback = await supabase
+          .from('exams')
+          .select('id, title, instructions, question_ids, is_open')
+          .eq('slug', slug)
+          .maybeSingle();
+        data = fallback.data ? { ...fallback.data, questions_snapshot: null } : null;
+      }
       setExam(data);
       setLoading(false);
     })();
@@ -94,7 +102,9 @@ export default function ExamInstructions() {
     );
   }
 
-  const nbQuestions = Array.isArray(exam.question_ids) ? exam.question_ids.length : 0;
+  const nbQuestions = Array.isArray(exam.questions_snapshot) && exam.questions_snapshot.length > 0
+    ? exam.questions_snapshot.length
+    : Array.isArray(exam.question_ids) ? exam.question_ids.length : 0;
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
