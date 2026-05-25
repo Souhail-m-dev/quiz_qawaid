@@ -11,6 +11,7 @@ import ExamRegistration from './pages/exam/ExamRegistration.jsx';
 import ExamInstructions from './pages/exam/ExamInstructions.jsx';
 import ExamRun from './pages/exam/ExamRun.jsx';
 import ExamDone from './pages/exam/ExamDone.jsx';
+import Temoignage from './pages/temoignage/Temoignage.jsx';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
       <div className="min-h-screen bg-bg">
         <Routes>
           <Route path="/" element={<QuizRoute />} />
+          <Route path="/temoignage" element={<Temoignage />} />
 
           <Route path="/exam/:slug" element={<ExamRegistration />} />
           <Route path="/exam/:slug/instructions" element={<ExamInstructions />} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Accueil({ meta, onChoisirComplet, onChoisirCours, coursDisponibles = [], onChoisirCoursDirect }) {
   return (
@@ -39,6 +40,23 @@ export default function Accueil({ meta, onChoisirComplet, onChoisirCours, coursD
       </div>
 
       <div className="grid gap-6">
+        <Link
+          to="/temoignage"
+          className="card text-left bg-accent/10 border-accent/60 hover:bg-accent hover:border-accent transition duration-500 group"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="title-display text-lg text-accent group-hover:text-bg transition">Laissez votre témoignage ✦</h2>
+              <p className="text-sm text-accent/70 mt-2 group-hover:text-bg/80">
+                Partagez votre avis sur la formation.
+              </p>
+            </div>
+            <div className="w-10 h-10 rounded-full border border-accent/50 flex items-center justify-center text-accent group-hover:bg-bg group-hover:text-accent transition duration-500">
+              <span className="text-xl" aria-hidden>→</span>
+            </div>
+          </div>
+        </Link>
+
         <button
           type="button"
           onClick={onChoisirComplet}
