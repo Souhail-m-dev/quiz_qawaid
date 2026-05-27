@@ -5,6 +5,7 @@ import { getAllQuestions } from '../../utils/quizUtils.js';
 import { supabase } from '../../lib/supabase.js';
 import {
   downloadBlob,
+  fetchAssetBase64,
   formatCertificateDate,
   generateCertificatePdfBlob,
   generateCertificatePngBlob,
@@ -17,6 +18,15 @@ function formatDate(d) {
   return new Date(d).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' });
 }
 
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
 export default function CandidateAttemptDetail() {
   const { id, candidateId } = useParams();
   const [loading, setLoading] = useState(true);
@@ -25,6 +35,8 @@ export default function CandidateAttemptDetail() {
   const [candidate, setCandidate] = useState(null);
   const [attempt, setAttempt] = useState(null);
   const [generating, setGenerating] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendMsg, setSendMsg] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -111,7 +123,7 @@ export default function CandidateAttemptDetail() {
     setGenerating(true);
     try {
       const day = new Date().toISOString().slice(0, 10);
-      const dateLabel = formatCertificateDate(new Date());
+      const dateLabel = formatCertificateDate(new Date(attempt.submitted_at));
       const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(candidate.full_name)}-${day}`;
       const png = await generateCertificatePngBlob({
         studentName: candidate.full_name,
@@ -127,6 +139,49 @@ export default function CandidateAttemptDetail() {
       setError(e?.message || 'Échec de génération du certificat.');
     } finally {
       setGenerating(false);
+    }
+  };
+
+  const sendCertificateEmail = async () => {
+    if (!eligible || !candidate?.email || !exam) return;
+    setSending(true);
+    setSendMsg(null);
+    try {
+      const day = new Date().toISOString().slice(0, 10);
+      const dateLabel = formatCertificateDate(new Date(attempt.submitted_at));
+      const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(candidate.full_name)}-${day}`;
+      const png = await generateCertificatePngBlob({
+        studentName: candidate.full_name,
+        dateLabel
+      });
+      const pdf = await generateCertificatePdfBlob({ pngBlob: png });
+      const pdfBase64 = await blobToBase64(pdf);
+      const logoBase64 = await fetchAssetBase64('/logo-email.png').catch(() => null);
+      const { error: fnError } = await supabase.functions.invoke('send-certificate', {
+        body: {
+          to: candidate.email,
+          studentName: candidate.full_name,
+          examTitle: exam.title,
+          fileName: `${baseName}.pdf`,
+          pdfBase64,
+          score: attempt.score,
+          total: attempt.total,
+          logoBase64
+        }
+      });
+      if (fnError) {
+        let detail = fnError.message;
+        try {
+          const body = await fnError.context?.json?.();
+          if (body?.error) detail = body.error;
+        } catch { /* ignore */ }
+        throw new Error(detail);
+      }
+      setSendMsg({ type: 'ok', text: `Certificat envoyé à ${candidate.email}.` });
+    } catch (e) {
+      setSendMsg({ type: 'err', text: e?.message || 'Échec de l\'envoi du certificat.' });
+    } finally {
+      setSending(false);
     }
   };
 
@@ -168,7 +223,7 @@ export default function CandidateAttemptDetail() {
                   : `Non éligible: certificat réservé aux tentatives soumises avec score >= ${minScore}%.`}
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <button
               type="button"
               className="btn-secondary"
@@ -179,14 +234,28 @@ export default function CandidateAttemptDetail() {
             </button>
             <button
               type="button"
-              className="btn-primary"
+              className="btn-secondary"
               disabled={!eligible || generating}
               onClick={() => downloadCertificate('pdf')}
             >
               {generating ? 'Génération…' : 'Télécharger PDF'}
             </button>
+            <button
+              type="button"
+              className="btn-primary"
+              disabled={!eligible || !candidate?.email || sending || generating}
+              onClick={sendCertificateEmail}
+              title={!candidate?.email ? 'Aucun email pour ce candidat.' : undefined}
+            >
+              {sending ? 'Envoi…' : 'Envoyer par email'}
+            </button>
           </div>
         </div>
+        {sendMsg && (
+          <p className={`mt-3 text-sm ${sendMsg.type === 'ok' ? 'text-correct' : 'text-incorrect'}`}>
+            {sendMsg.text}
+          </p>
+        )}
       </div>
 
       {!attempt?.answers || attempt.answers.length === 0 ? (

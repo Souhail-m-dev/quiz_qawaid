@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
 import {
   downloadBlob,
+  fetchAssetBase64,
   formatCertificateDate,
   generateCertificatePdfBlob,
   generateCertificatePngBlob,
@@ -16,6 +17,17 @@ function formatDate(d) {
   return new Date(d).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' });
 }
 
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 export default function ExamResults() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -26,6 +38,8 @@ export default function ExamResults() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [generatingZip, setGeneratingZip] = useState(false);
   const [bulkInfo, setBulkInfo] = useState(null);
+  const [sendingMails, setSendingMails] = useState(false);
+  const [mailInfo, setMailInfo] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -95,7 +109,6 @@ export default function ExamResults() {
     setGeneratingZip(true);
     setBulkInfo(null);
     try {
-      const dateLabel = formatCertificateDate(new Date());
       const day = new Date().toISOString().slice(0, 10);
       const selectedRows = rows.filter((r) => selectedIds.includes(r.id));
       const eligibleRows = selectedRows.filter((r) => isCertificateEligible(r.attempt, minScore));
@@ -115,7 +128,7 @@ export default function ExamResults() {
         const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(r.full_name)}-${day}`;
         const png = await generateCertificatePngBlob({
           studentName: r.full_name,
-          dateLabel
+          dateLabel: formatCertificateDate(new Date(r.attempt.submitted_at))
         });
         const pdf = await generateCertificatePdfBlob({ pngBlob: png });
         zipEntries.push({ fileName: `${baseName}.png`, blob: png });
@@ -132,6 +145,77 @@ export default function ExamResults() {
       setBulkInfo(e?.message || 'Échec de génération ZIP.');
     } finally {
       setGeneratingZip(false);
+    }
+  };
+
+  const sendBulkCertificateEmails = async () => {
+    if (!exam || selectedIds.length === 0) return;
+    const selectedRows = rows.filter((r) => selectedIds.includes(r.id));
+    const eligibleRows = selectedRows.filter((r) => isCertificateEligible(r.attempt, minScore));
+    const withEmail = eligibleRows.filter((r) => r.email && r.email.trim());
+    const noEmail = eligibleRows.length - withEmail.length;
+    const notEligible = selectedRows.length - eligibleRows.length;
+
+    if (withEmail.length === 0) {
+      setMailInfo(
+        minScore === null
+          ? 'Aucun envoi: seuil certificat non configuré sur cet examen.'
+          : "Aucun envoi: aucun candidat sélectionné n'est éligible avec un email."
+      );
+      return;
+    }
+
+    if (!window.confirm(`Envoyer le certificat par email à ${withEmail.length} candidat(s) ?`)) return;
+
+    setSendingMails(true);
+    setMailInfo(null);
+    let sent = 0;
+    const failed = [];
+    try {
+      const day = new Date().toISOString().slice(0, 10);
+      const logoBase64 = await fetchAssetBase64('/logo-email.png').catch(() => null);
+      for (const r of withEmail) {
+        try {
+          const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(r.full_name)}-${day}`;
+          const png = await generateCertificatePngBlob({
+            studentName: r.full_name,
+            dateLabel: formatCertificateDate(new Date(r.attempt.submitted_at))
+          });
+          const pdf = await generateCertificatePdfBlob({ pngBlob: png });
+          const pdfBase64 = await blobToBase64(pdf);
+          const { error: fnError } = await supabase.functions.invoke('send-certificate', {
+            body: {
+              to: r.email,
+              studentName: r.full_name,
+              examTitle: exam.title,
+              fileName: `${baseName}.pdf`,
+              pdfBase64,
+              score: r.attempt.score,
+              total: r.attempt.total,
+              logoBase64
+            }
+          });
+          if (fnError) {
+            let detail = fnError.message;
+            try {
+              const body = await fnError.context?.json?.();
+              if (body?.error) detail = body.error;
+            } catch { /* ignore */ }
+            throw new Error(detail);
+          }
+          sent += 1;
+        } catch (e) {
+          failed.push(`${r.full_name} (${e?.message || 'erreur'})`);
+        }
+        await sleep(600);
+      }
+      const parts = [`${sent} email(s) envoyé(s)`];
+      if (failed.length) parts.push(`${failed.length} échec(s): ${failed.join(', ')}`);
+      if (noEmail) parts.push(`${noEmail} sans email`);
+      if (notEligible) parts.push(`${notEligible} non éligible(s)`);
+      setMailInfo(parts.join(' · '));
+    } finally {
+      setSendingMails(false);
     }
   };
 
@@ -160,15 +244,24 @@ export default function ExamResults() {
           </button>
           <button
             type="button"
-            className="btn-primary"
-            disabled={selectedCount === 0 || generatingZip || minScore === null}
+            className="btn-secondary"
+            disabled={selectedCount === 0 || generatingZip || sendingMails || minScore === null}
             onClick={generateBulkCertificatesZip}
           >
             {generatingZip ? 'Génération ZIP…' : 'Générer certificats (ZIP)'}
           </button>
+          <button
+            type="button"
+            className="btn-primary"
+            disabled={selectedCount === 0 || generatingZip || sendingMails || minScore === null}
+            onClick={sendBulkCertificateEmails}
+          >
+            {sendingMails ? 'Envoi des mails…' : 'Envoyer les certificats par email'}
+          </button>
         </div>
       </div>
       {bulkInfo && <p className="text-xs text-muted mb-4">{bulkInfo}</p>}
+      {mailInfo && <p className="text-xs text-muted mb-4">{mailInfo}</p>}
 
       {rows.length === 0 ? (
         <p className="text-muted italic">Aucun inscrit pour l'instant.</p>

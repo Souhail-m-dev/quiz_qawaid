@@ -86,6 +86,15 @@ export default function ExamRun() {
         setLoading(false);
         return;
       }
+
+      const { data: progress } = await supabase
+        .from('attempts')
+        .select('answers')
+        .eq('id', attempt.id)
+        .maybeSingle();
+      const prior = Array.isArray(progress?.answers) ? progress.answers : [];
+      setAnswers(prior);
+      setIdx(prior.length);
       setLoading(false);
     })();
   }, [slug, navigate]);
@@ -112,13 +121,25 @@ export default function ExamRun() {
       reponseChoisie: currentChoice,
       estCorrecte
     }];
-    setAnswers(nextAnswers);
-    setCurrentChoice(null);
-
     if (!isLast) {
+      setSubmitting(true);
+      const { error: saveErr } = await supabase
+        .from('attempts')
+        .update({ answers: nextAnswers })
+        .eq('id', attemptId);
+      setSubmitting(false);
+      if (saveErr) {
+        setError("Échec de l'enregistrement : " + saveErr.message);
+        return;
+      }
+      setAnswers(nextAnswers);
+      setCurrentChoice(null);
       setIdx(idx + 1);
       return;
     }
+
+    setAnswers(nextAnswers);
+    setCurrentChoice(null);
 
     // submit
     setSubmitting(true);

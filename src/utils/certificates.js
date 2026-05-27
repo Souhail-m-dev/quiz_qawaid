@@ -31,6 +31,14 @@ function blobToDataUrl(blob) {
   });
 }
 
+export async function fetchAssetBase64(url) {
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(`Asset introuvable: ${url}`);
+  const blob = await resp.blob();
+  const dataUrl = await blobToDataUrl(blob);
+  return String(dataUrl).split(',')[1];
+}
+
 export function formatCertificateDate(date = new Date()) {
   return date.toLocaleDateString('fr-FR', {
     year: 'numeric',
@@ -88,7 +96,7 @@ export async function generateCertificatePngBlob({ studentName, dateLabel, templ
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = '#2f2f40';
   ctx.font = `${Math.round(h * 0.038)}px "Times New Roman", serif`;
-  ctx.fillText(dateLabel || formatCertificateDate(new Date()), w * 0.18, h * 0.84);
+  ctx.fillText(dateLabel || formatCertificateDate(new Date()), w * 0.18, h * 0.763);
 
   return canvasToBlob(canvas, 'image/png', 0.95);
 }
