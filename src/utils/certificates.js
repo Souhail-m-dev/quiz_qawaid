@@ -90,13 +90,13 @@ export async function generateCertificatePngBlob({ studentName, dateLabel, templ
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = '#17152f';
-  ctx.fillText(name, w * 0.5, centerLineY - 2);
+  ctx.fillText(name, w * 0.5, centerLineY - 30);
 
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = '#2f2f40';
   ctx.font = `${Math.round(h * 0.038)}px "Times New Roman", serif`;
-  ctx.fillText(dateLabel || formatCertificateDate(new Date()), w * 0.18, h * 0.763);
+  ctx.fillText(dateLabel || formatCertificateDate(new Date()), w * 0.18, h * 0.763 - 28);
 
   return canvasToBlob(canvas, 'image/png', 0.95);
 }
