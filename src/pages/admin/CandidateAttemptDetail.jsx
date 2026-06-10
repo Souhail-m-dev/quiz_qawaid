@@ -4,7 +4,6 @@ import { supabase } from '../../lib/supabase.js';
 import { isOpen as isOpenQ, effectivePoints, tallyScore } from '../../utils/questionModel.js';
 import {
   downloadBlob,
-  fetchAssetBase64,
   formatCertificateDate,
   generateCertificatePdfBlob,
   generateCertificatePngBlob,
@@ -227,7 +226,6 @@ export default function CandidateAttemptDetail() {
       });
       const pdf = await generateCertificatePdfBlob({ pngBlob: png });
       const pdfBase64 = await blobToBase64(pdf);
-      const logoBase64 = await fetchAssetBase64('/logo-email.png').catch(() => null);
       const { error: fnError } = await supabase.functions.invoke('send-certificate', {
         body: {
           to: candidate.email,
@@ -237,10 +235,10 @@ export default function CandidateAttemptDetail() {
           fileName: `${baseName}.pdf`,
           pdfBase64,
           score: attempt.score,
-          total: attempt.total,
-          logoBase64
+          total: attempt.total
         }
-      });      if (fnError) {
+      });
+      if (fnError) {
         let detail = fnError.message;
         try {
           const body = await fnError.context?.json?.();

@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
 import {
   downloadBlob,
-  fetchAssetBase64,
   formatCertificateDate,
   generateCertificatePdfBlob,
   generateCertificatePngBlob,
@@ -178,7 +177,6 @@ export default function ExamResults() {
     const failed = [];
     try {
       const day = new Date().toISOString().slice(0, 10);
-      const logoBase64 = await fetchAssetBase64('/logo-email.png').catch(() => null);
       for (const r of withEmail) {
         try {
           const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(r.full_name)}-${day}`;
@@ -197,10 +195,10 @@ export default function ExamResults() {
               fileName: `${baseName}.pdf`,
               pdfBase64,
               score: r.attempt.score,
-              total: r.attempt.total,
-              logoBase64
+              total: r.attempt.total
             }
-          });          if (fnError) {
+          });
+          if (fnError) {
             let detail = fnError.message;
             try {
               const body = await fnError.context?.json?.();

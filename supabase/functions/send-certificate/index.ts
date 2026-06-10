@@ -29,7 +29,6 @@ Deno.serve(async (req) => {
     pdfBase64?: string;
     score?: number;
     total?: number;
-    logoBase64?: string;
   };
 
   try {
@@ -38,7 +37,7 @@ Deno.serve(async (req) => {
     return json({ error: 'Invalid JSON body.' }, 400);
   }
 
-  const { to, examId, examTitle, fileName, pdfBase64, score, total, logoBase64 } = payload;
+  const { to, examId, examTitle, fileName, pdfBase64, score, total } = payload;
   if (!to || !pdfBase64 || !examId) {
     return json({ error: 'Missing required fields (to, pdfBase64, examId).' }, 400);
   }
@@ -52,7 +51,7 @@ Deno.serve(async (req) => {
   // 2. Fetch Tenant Config
   const { data: config, error: configErr } = await supabase
     .from('exams')
-    .select('title, tenants(resend_api_key, email_from, app_name)')
+    .select('title, tenants(resend_api_key, email_from, app_name, logo_url)')
     .eq('id', examId)
     .single();
 
@@ -61,8 +60,24 @@ Deno.serve(async (req) => {
     return json({ error: 'Failed to retrieve tenant configuration.' }, 500);
   }
 
-  const tenant = config.tenants as unknown as { resend_api_key: string; email_from: string; app_name: string };
-  
+  const tenant = config.tenants as unknown as { resend_api_key: string; email_from: string; app_name: string; logo_url: string | null };
+
+  // Logo = celui du tenant uniquement. Pas de logo_url -> aucun logo dans l'email.
+  let logoBase64: string | null = null;
+  if (tenant?.logo_url) {
+    try {
+      const r = await fetch(tenant.logo_url);
+      if (r.ok) {
+        const bytes = new Uint8Array(await r.arrayBuffer());
+        let binary = '';
+        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+        logoBase64 = btoa(binary);
+      }
+    } catch {
+      logoBase64 = null; // échec de fetch -> on envoie sans logo
+    }
+  }
+
   // 3. Resolve Secrets (Tenant value with Env Var fallback)
   const apiKey = tenant?.resend_api_key || Deno.env.get('RESEND_API_KEY');
   const from = tenant?.email_from || Deno.env.get('CERT_FROM');
