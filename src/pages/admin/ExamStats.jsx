@@ -1,6 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
+import { useAuth } from '../../lib/useAuth.js';
+
+function formatDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' });
+}
 
 function fmtNum(n) {
   if (typeof n !== 'number' || Number.isNaN(n)) return '—';
@@ -20,10 +26,11 @@ const profileLabel = (p) => p?.full_name || p?.email || p?.username || p?.id || 
 
 export default function ExamStats() {
   const { id } = useParams();
+  const { isAdmin, isPlatformAdmin } = useAuth();
+  const canSeeCorrectors = isAdmin || isPlatformAdmin; // owner / plateforme uniquement
   const [exam, setExam] = useState(null);
   const [candidates, setCandidates] = useState([]);
   const [attempts, setAttempts] = useState([]);
-  const [grades, setGrades] = useState([]);
   const [actors, setActors] = useState({});
   const [correctorsCount, setCorrectorsCount] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -44,14 +51,12 @@ export default function ExamStats() {
       if (ee || !ex) { setError(ee?.message || 'Examen introuvable.'); setLoading(false); return; }
       setExam(ex);
 
-      const [{ data: cands }, { data: atts }, { data: gradeLogs }] = await Promise.all([
+      const [{ data: cands }, { data: atts }] = await Promise.all([
         supabase.from('candidates').select('id, full_name, pre_form_data').eq('exam_id', id),
-        supabase.from('attempts').select('candidate_id, score, total, submitted_at, started_at, answers').eq('exam_id', id),
-        supabase.from('activity_log').select('actor_id, created_at').eq('exam_id', id).eq('action', 'grade')
+        supabase.from('attempts').select('candidate_id, score, total, submitted_at, started_at, answers').eq('exam_id', id)
       ]);
       setCandidates(cands || []);
       setAttempts(atts || []);
-      setGrades(gradeLogs || []);
 
       // Correcteurs du tenant (best-effort: visible aux admins/owners).
       if (ex.tenant_id) {
@@ -88,15 +93,35 @@ export default function ExamStats() {
     return { attByCand, submittedCount: submitted.length, inProgress: inProgress.length, avg, toReview, correctedAttempts };
   }, [attempts]);
 
+  // Corrections réelles, lues dans attempts.answers[].correction (by/at/points).
+  // Fiable (pas de dépendance à activity_log/RLS) et donne le détail par correcteur.
+  const corrections = useMemo(() => {
+    const candName = new Map(candidates.map((c) => [c.id, c.full_name]));
+    const out = [];
+    for (const a of attempts) {
+      if (!Array.isArray(a.answers)) continue;
+      for (const ans of a.answers) {
+        if (ans?.correction) {
+          out.push({
+            by: ans.correction.by || '—',
+            at: ans.correction.at || null,
+            candidate: candName.get(a.candidate_id) || a.candidate_id,
+            questionId: ans.questionId,
+            points: ans.correction.points
+          });
+        }
+      }
+    }
+    out.sort((x, y) => String(y.at || '').localeCompare(String(x.at || '')));
+    return out;
+  }, [attempts, candidates]);
+
   const perCorrector = useMemo(() => {
     const m = new Map();
-    for (const g of grades) {
-      const k = g.actor_id || '—';
-      m.set(k, (m.get(k) || 0) + 1);
-    }
+    for (const c of corrections) m.set(c.by, (m.get(c.by) || 0) + 1);
     return [...m.entries()].map(([actorId, count]) => ({ actorId, count }))
       .sort((a, b) => b.count - a.count);
-  }, [grades]);
+  }, [corrections]);
 
   // Champs catégoriels du formulaire d'entrée (select/radio) → filtrables.
   const categoricalFields = useMemo(
@@ -146,30 +171,55 @@ export default function ExamStats() {
         <Kpi label="Score moyen" value={stats.avg === null ? '—' : `${fmtNum(stats.avg)}%`} accent="text-accent" />
       </div>
 
-      <section className="card">
-        <h2 className="title-display text-lg mb-3">Corrections par correcteur</h2>
-        <p className="text-xs text-muted mb-3">
-          {correctorsCount !== null ? `${correctorsCount} correcteur(s) dans l'instance · ` : ''}
-          {grades.length} correction(s) enregistrée(s) au total.
-        </p>
-        {perCorrector.length === 0 ? (
-          <p className="text-muted text-sm italic">Aucune correction enregistrée.</p>
-        ) : (
-          <table className="w-full text-sm">
-            <thead><tr className="text-left text-accent uppercase tracking-widest text-[10px] border-b border-accent/20">
-              <th className="py-2 pr-3">Correcteur</th><th className="py-2 pr-3">Corrections</th>
-            </tr></thead>
-            <tbody className="divide-y divide-accent/10">
-              {perCorrector.map((r) => (
-                <tr key={r.actorId}>
-                  <td className="py-2 pr-3 text-white">{actors[r.actorId] || r.actorId}</td>
-                  <td className="py-2 pr-3 font-bold">{r.count}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </section>
+      {canSeeCorrectors && (
+        <section className="card">
+          <h2 className="title-display text-lg mb-3">Corrections par correcteur</h2>
+          <p className="text-xs text-muted mb-3">
+            {correctorsCount !== null ? `${correctorsCount} correcteur(s) dans l'instance · ` : ''}
+            {corrections.length} correction(s) enregistrée(s) au total.
+          </p>
+          {perCorrector.length === 0 ? (
+            <p className="text-muted text-sm italic">Aucune correction enregistrée.</p>
+          ) : (
+            <>
+              <table className="w-full text-sm mb-6">
+                <thead><tr className="text-left text-accent uppercase tracking-widest text-[10px] border-b border-accent/20">
+                  <th className="py-2 pr-3">Correcteur</th><th className="py-2 pr-3">Corrections</th>
+                </tr></thead>
+                <tbody className="divide-y divide-accent/10">
+                  {perCorrector.map((r) => (
+                    <tr key={r.actorId}>
+                      <td className="py-2 pr-3 text-white">{actors[r.actorId] || r.actorId}</td>
+                      <td className="py-2 pr-3 font-bold">{r.count}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <h3 className="text-[10px] uppercase tracking-widest text-accent mb-2">Détail des corrections</h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead><tr className="text-left text-accent uppercase tracking-widest text-[10px] border-b border-accent/20">
+                    <th className="py-2 pr-3">Date</th><th className="py-2 pr-3">Correcteur</th>
+                    <th className="py-2 pr-3">Candidat</th><th className="py-2 pr-3">Question</th><th className="py-2 pr-3">Points</th>
+                  </tr></thead>
+                  <tbody className="divide-y divide-accent/10">
+                    {corrections.slice(0, 100).map((c, i) => (
+                      <tr key={i}>
+                        <td className="py-2 pr-3 text-muted">{formatDate(c.at)}</td>
+                        <td className="py-2 pr-3 text-white">{actors[c.by] || c.by}</td>
+                        <td className="py-2 pr-3">{c.candidate}</td>
+                        <td className="py-2 pr-3 text-muted">{c.questionId}</td>
+                        <td className="py-2 pr-3 font-bold">{fmtNum(c.points)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
+        </section>
+      )}
 
       <section className="card">
         <div className="flex items-center gap-3 mb-3 flex-wrap">

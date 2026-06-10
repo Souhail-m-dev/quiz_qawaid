@@ -45,19 +45,31 @@ export default function ExamResults() {
   const [bulkInfo, setBulkInfo] = useState(null);
   const [sendingMails, setSendingMails] = useState(false);
   const [mailInfo, setMailInfo] = useState(null);
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [formField, setFormField] = useState('');
+  const [formValue, setFormValue] = useState('');
 
   useEffect(() => {
     (async () => {
-      const { data: examData } = await supabase
+      let { data: examData } = await supabase
         .from('exams')
-        .select('id, title, slug, tenant_id, question_ids, certificate_min_score')
+        .select('id, title, slug, tenant_id, question_ids, certificate_min_score, pre_form_schema')
         .eq('id', id)
         .maybeSingle();
+      if (!examData) {
+        const fb = await supabase
+          .from('exams')
+          .select('id, title, slug, tenant_id, question_ids, certificate_min_score')
+          .eq('id', id)
+          .maybeSingle();
+        examData = fb.data ? { ...fb.data, pre_form_schema: null } : null;
+      }
       setExam(examData);
 
       const { data: cands, error: candsErr } = await supabase
         .from('candidates')
-        .select('id, full_name, email, telegram, created_at')
+        .select('id, full_name, email, telegram, created_at, pre_form_data')
         .eq('exam_id', id)
         .order('created_at', { ascending: false });
 
@@ -95,13 +107,41 @@ export default function ExamResults() {
   if (loading) return <p className="text-muted p-10">Chargement…</p>;
   if (error) return <p className="text-incorrect p-10">{error}</p>;
 
-  const selectedCount = selectedIds.length;
-  const allSelected = rows.length > 0 && selectedCount === rows.length;
   const minScore = typeof exam?.certificate_min_score === 'number' ? exam.certificate_min_score : null;
   const certTemplate = certTemplateFor(exam?.tenant_id); // null => instance sans certificat
 
+  // Champs catégoriels du formulaire avant-examen (filtrables).
+  const categoricalFields = (exam?.pre_form_schema || []).filter((f) => f.type === 'select' || f.type === 'radio');
+  // Valeurs distinctes du champ choisi.
+  const fieldValues = formField
+    ? [...new Set(rows.map((r) => r.pre_form_data?.[formField]).filter((v) => v != null && v !== ''))]
+    : [];
+
+  const pctOf = (a) => (a?.submitted_at && a.total > 0 ? (a.score / a.total) * 100 : null);
+  const matchesStatus = (r) => {
+    const a = r.attempt; const submitted = !!a?.submitted_at; const pct = pctOf(a);
+    switch (statusFilter) {
+      case 'reussi': return submitted && minScore != null && pct != null && pct >= minScore;
+      case 'echoue': return submitted && minScore != null && (pct == null || pct < minScore);
+      case 'soumis': return submitted;
+      case 'encours': return !!a && !submitted;
+      case 'noncommence': return !a;
+      default: return true;
+    }
+  };
+  const q = search.trim().toLowerCase();
+  const filteredRows = rows.filter((r) => {
+    if (q && !(`${r.full_name} ${r.email} ${r.telegram}`.toLowerCase().includes(q))) return false;
+    if (!matchesStatus(r)) return false;
+    if (formField && formValue && String(r.pre_form_data?.[formField] ?? '') !== String(formValue)) return false;
+    return true;
+  });
+
+  const selectedCount = selectedIds.length;
+  const allSelected = filteredRows.length > 0 && filteredRows.every((r) => selectedIds.includes(r.id));
+
   const toggleSelectAll = () => {
-    setSelectedIds(allSelected ? [] : rows.map((r) => r.id));
+    setSelectedIds(allSelected ? [] : filteredRows.map((r) => r.id));
   };
 
   const toggleSelectOne = (candidateId) => {
@@ -292,6 +332,73 @@ export default function ExamResults() {
       {bulkInfo && <p className="text-xs text-muted mb-4">{bulkInfo}</p>}
       {mailInfo && <p className="text-xs text-muted mb-4">{mailInfo}</p>}
 
+      {rows.length > 0 && (
+        <div className="card mb-4 flex flex-wrap gap-3 items-end">
+          <div className="flex-1 min-w-[180px]">
+            <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Recherche</label>
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Nom, email, telegram…"
+              className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white text-sm focus:border-accent outline-none"
+            />
+          </div>
+          <div>
+            <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Statut</label>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="bg-bg/60 border border-accent/30 rounded px-2 py-2 text-white text-sm focus:border-accent outline-none"
+            >
+              <option value="">Tous</option>
+              <option value="reussi">Réussi</option>
+              <option value="echoue">Échoué</option>
+              <option value="soumis">Soumis</option>
+              <option value="encours">En cours</option>
+              <option value="noncommence">Non commencé</option>
+            </select>
+          </div>
+          {categoricalFields.length > 0 && (
+            <>
+              <div>
+                <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Champ formulaire</label>
+                <select
+                  value={formField}
+                  onChange={(e) => { setFormField(e.target.value); setFormValue(''); }}
+                  className="bg-bg/60 border border-accent/30 rounded px-2 py-2 text-white text-sm focus:border-accent outline-none"
+                >
+                  <option value="">—</option>
+                  {categoricalFields.map((f) => <option key={f.key} value={f.key}>{f.label}</option>)}
+                </select>
+              </div>
+              {formField && (
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Valeur</label>
+                  <select
+                    value={formValue}
+                    onChange={(e) => setFormValue(e.target.value)}
+                    className="bg-bg/60 border border-accent/30 rounded px-2 py-2 text-white text-sm focus:border-accent outline-none"
+                  >
+                    <option value="">Toutes</option>
+                    {fieldValues.map((v) => <option key={String(v)} value={String(v)}>{String(v)}</option>)}
+                  </select>
+                </div>
+              )}
+            </>
+          )}
+          {(search || statusFilter || formField) && (
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => { setSearch(''); setStatusFilter(''); setFormField(''); setFormValue(''); }}
+            >
+              Réinitialiser
+            </button>
+          )}
+          <p className="text-xs text-muted ml-auto self-center">{filteredRows.length} / {rows.length} affiché(s)</p>
+        </div>
+      )}
+
       {rows.length === 0 ? (
         <p className="text-muted italic">Aucun inscrit pour l'instant.</p>
       ) : (
@@ -312,7 +419,10 @@ export default function ExamResults() {
               </tr>
             </thead>
             <tbody className="divide-y divide-accent/10">
-              {rows.map((r) => {
+              {filteredRows.length === 0 && (
+                <tr><td colSpan={8} className="py-4 text-center text-muted italic">Aucun résultat pour ces filtres.</td></tr>
+              )}
+              {filteredRows.map((r) => {
                 const a = r.attempt;
                 const submitted = a?.submitted_at;
                 return (
