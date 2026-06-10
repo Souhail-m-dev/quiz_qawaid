@@ -15,7 +15,7 @@ export default function Users() {
   const roleOptions = isPlatformAdmin ? ['owner', 'admin', 'correcteur'] : ['admin', 'correcteur'];
 
   const load = async () => {
-    const { data, error: e } = await supabase.from('profiles').select('*');
+    const { data, error: e } = await supabase.rpc('list_members');
     if (e) {
       setError(e.message);
     } else {
