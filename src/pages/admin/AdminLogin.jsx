@@ -18,13 +18,14 @@ export default function AdminLogin() {
     }
     const { data: profile, error: pErr } = await supabase
       .from('profiles')
-      .select('role, is_admin')
+      .select('role, is_admin, is_platform_admin')
       .eq('id', data.user.id)
       .maybeSingle();
     const hasStaffAccess =
+      profile?.is_platform_admin === true || // admin plateforme (tier du haut)
       profile?.role === 'owner' ||
       profile?.role === 'correcteur' ||
-      profile?.is_admin === true; // flag plateforme hérité
+      profile?.is_admin === true; // flag hérité
     if (pErr || !hasStaffAccess) {
       await supabase.auth.signOut();
       setError("Compte sans accès. Contactez l'administrateur de votre instance.");

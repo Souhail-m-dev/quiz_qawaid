@@ -75,11 +75,11 @@ export function useAuth() {
     session,
     role,
     tenantId,
-    isPlatformAdmin,
+    isPlatformAdmin,                          // = l'« admin » plateforme (tier du haut)
     isOwner: role === 'owner',
-    isAdmin: isTenantAdmin,                 // gestionnaire d'instance = owner
+    isAdmin: isPlatformAdmin || isTenantAdmin, // gestion d'instance: plateforme OU owner
     isCorrector: role === 'correcteur',
-    isStaff: isTenantAdmin || role === 'correcteur',
+    isStaff: isPlatformAdmin || isTenantAdmin || role === 'correcteur',
     loading
   };
 }

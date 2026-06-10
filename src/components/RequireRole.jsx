@@ -4,7 +4,7 @@ import { useAuth } from '../lib/useAuth.js';
 
 // Garde de route par rôle. roles = ['owner'] ou ['owner','correcteur'].
 export default function RequireRole({ roles, children }) {
-  const { session, role, loading } = useAuth();
+  const { session, role, isPlatformAdmin, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
@@ -14,7 +14,9 @@ export default function RequireRole({ roles, children }) {
       </div>
     );
   }
-  if (!session || !roles.includes(role)) {
+  // L'admin plateforme passe toutes les gardes staff/admin (tier du haut),
+  // indépendamment de son rôle/tenant.
+  if (!session || (!isPlatformAdmin && !roles.includes(role))) {
     return <Navigate to="/admin/login" replace state={{ from: location.pathname }} />;
   }
   return children;
