@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { supabase } from '../../lib/supabase.js';
+import DynamicForm, { extractFormData } from '../../components/DynamicForm.jsx';
 
 const lsKey = (slug) => `examCandidate:${slug}`;
 const draftKey = (slug) => `examRegistrationDraft:${slug}`;
@@ -23,11 +24,20 @@ export default function ExamRegistration() {
     (async () => {
       const existing = localStorage.getItem(lsKey(slug));
       const draft = localStorage.getItem(draftKey(slug));
-      const { data, error: e } = await supabase
+      let { data, error: e } = await supabase
         .from('exams')
-        .select('id, title, slug, is_open, requires_code, question_ids')
+        .select('id, title, slug, is_open, requires_code, question_ids, pre_form_schema')
         .eq('slug', slug)
         .maybeSingle();
+      if (e && /column .* does not exist/i.test(e.message || '')) {
+        const fb = await supabase
+          .from('exams')
+          .select('id, title, slug, is_open, requires_code, question_ids')
+          .eq('slug', slug)
+          .maybeSingle();
+        data = fb.data ? { ...fb.data, pre_form_schema: null } : null;
+        e = fb.error;
+      }
       if (e || !data) {
         setError('Examen introuvable ou fermé.');
       } else if (!data.is_open) {
@@ -73,13 +83,15 @@ export default function ExamRegistration() {
       }
     }
 
+    const preFormData = extractFormData(values, exam.pre_form_schema || []);
     localStorage.setItem(
       draftKey(slug),
       JSON.stringify({
         full_name: values.full_name.trim(),
         email: values.email.trim().toLowerCase(),
         telegram: values.telegram.trim(),
-        access_code: (values.access_code || '').trim()
+        access_code: (values.access_code || '').trim(),
+        pre_form_data: preFormData
       })
     );
     navigate(`/exam/${slug}/instructions`);
@@ -133,6 +145,11 @@ export default function ExamRegistration() {
           />
           {errors.telegram && <p className="text-incorrect text-xs mt-1">{errors.telegram.message}</p>}
         </div>
+
+        {Array.isArray(exam.pre_form_schema) && exam.pre_form_schema.length > 0 && (
+          <DynamicForm schema={exam.pre_form_schema} register={register} errors={errors} />
+        )}
+
         {exam.requires_code && (
           <div>
             <label className="block text-xs uppercase tracking-widest text-accent mb-2">Code d'accès</label>

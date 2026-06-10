@@ -88,6 +88,14 @@ export default function ExamInstructions() {
       return;
     }
 
+    // Réponses du formulaire avant-examen (champs dynamiques).
+    if (draft.pre_form_data && Object.keys(draft.pre_form_data).length > 0) {
+      await supabase.rpc('save_candidate_pre_form', {
+        p_candidate_id: candidateId,
+        p_data: draft.pre_form_data
+      });
+    }
+
     localStorage.setItem(lsKey(slug), JSON.stringify({ candidateId, examId: exam.id }));
     localStorage.removeItem(draftKey(slug));
     navigate(`/exam/${slug}/run`);

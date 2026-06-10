@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import data from '../../data/questions.json';
 import { getAllQuestions } from '../../utils/quizUtils.js';
 import { supabase } from '../../lib/supabase.js';
+import { isOpen as isOpenQ, buildAnswer, tallyScore } from '../../utils/questionModel.js';
 import OptionButton from '../../components/OptionButton.jsx';
 import ProgressBar from '../../components/ProgressBar.jsx';
 
@@ -21,6 +22,7 @@ export default function ExamRun() {
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [currentChoice, setCurrentChoice] = useState(null);
+  const [currentText, setCurrentText] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -112,15 +114,13 @@ export default function ExamRun() {
   const total = questions.length;
   const isLast = idx + 1 >= total;
   const current = questions[idx];
+  const openQuestion = current ? isOpenQ(current) : false;
+  const canAdvance = openQuestion ? currentText.trim().length > 0 : currentChoice !== null;
 
   const handleNext = async () => {
-    if (currentChoice === null) return;
-    const estCorrecte = currentChoice === current.reponseCorrecte;
-    const nextAnswers = [...answers, {
-      questionId: current.id,
-      reponseChoisie: currentChoice,
-      estCorrecte
-    }];
+    if (!canAdvance) return;
+    const answer = buildAnswer(current, { reponseChoisie: currentChoice, reponseTexte: currentText });
+    const nextAnswers = [...answers, answer];
     if (!isLast) {
       setSubmitting(true);
       const { error: saveErr } = await supabase
@@ -134,22 +134,24 @@ export default function ExamRun() {
       }
       setAnswers(nextAnswers);
       setCurrentChoice(null);
+      setCurrentText('');
       setIdx(idx + 1);
       return;
     }
 
     setAnswers(nextAnswers);
     setCurrentChoice(null);
+    setCurrentText('');
 
     // submit
     setSubmitting(true);
-    const score = nextAnswers.filter((a) => a.estCorrecte).length;
+    const { score, total: totalPoints } = tallyScore(nextAnswers);
     const { data: updatedAttempt, error: upErr } = await supabase
       .from('attempts')
       .update({
         answers: nextAnswers,
         score,
-        total,
+        total: totalPoints,
         submitted_at: new Date().toISOString()
       })
       .eq('id', attemptId)
@@ -208,25 +210,35 @@ export default function ExamRun() {
             {current.question}
           </h2>
 
-          <div className="grid gap-3 sm:gap-4" role="radiogroup">
-            {current.options.map((opt, i) => (
-              <OptionButton
-                key={i}
-                index={i}
-                texte={opt}
-                selectionne={currentChoice === i}
-                valide={false}
-                estCorrecte={false}
-                estChoisie={false}
-                onClick={() => setCurrentChoice(i)}
-              />
-            ))}
-          </div>
+          {openQuestion ? (
+            <textarea
+              value={currentText}
+              onChange={(e) => setCurrentText(e.target.value)}
+              rows={6}
+              placeholder="Votre réponse…"
+              className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-3 text-white focus:border-accent outline-none leading-relaxed"
+            />
+          ) : (
+            <div className="grid gap-3 sm:gap-4" role="radiogroup">
+              {current.options.map((opt, i) => (
+                <OptionButton
+                  key={i}
+                  index={i}
+                  texte={opt}
+                  selectionne={currentChoice === i}
+                  valide={false}
+                  estCorrecte={false}
+                  estChoisie={false}
+                  onClick={() => setCurrentChoice(i)}
+                />
+              ))}
+            </div>
+          )}
 
           <div className="mt-8 flex justify-end">
             <button
               type="button"
-              disabled={currentChoice === null || submitting}
+              disabled={!canAdvance || submitting}
               onClick={handleNext}
               className="btn-primary min-w-[160px]"
             >
