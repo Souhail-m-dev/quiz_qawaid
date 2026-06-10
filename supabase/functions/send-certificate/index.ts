@@ -38,9 +38,10 @@ Deno.serve(async (req) => {
   }
 
   const { to, examId, examTitle, fileName, pdfBase64, score, total } = payload;
-  if (!to || !pdfBase64 || !examId) {
-    return json({ error: 'Missing required fields (to, pdfBase64, examId).' }, 400);
+  if (!to || !examId) {
+    return json({ error: 'Missing required fields (to, examId).' }, 400);
   }
+  const hasCert = typeof pdfBase64 === 'string' && pdfBase64.length > 0;
 
   // 1. Initialize Supabase client with SERVICE_ROLE to read tenant settings
   const supabase = createClient(
@@ -132,7 +133,7 @@ Deno.serve(async (req) => {
           </td></tr>
 
           <tr><td style="padding:10px 32px 4px;color:#E6DFD1;font-size:15px;line-height:1.7;">
-            <p style="margin:0;">Qu'Allah vous récompense pour vos efforts. Vous trouverez en pièce jointe votre certificat au format PDF.</p>
+            <p style="margin:0;">Qu'Allah vous récompense pour vos efforts.${hasCert ? ' Vous trouverez en pièce jointe votre certificat au format PDF.' : ''}</p>
           </td></tr>
 
           <tr><td style="padding:12px 32px 0;color:#E6DFD1;font-size:15px;line-height:1.7;">
@@ -149,9 +150,8 @@ Deno.serve(async (req) => {
   </div>
   `;
 
-  const attachments: Array<{ filename: string; content: string; content_id?: string }> = [
-    { filename: fileName || 'certificat.pdf', content: pdfBase64 }
-  ];
+  const attachments: Array<{ filename: string; content: string; content_id?: string }> = [];
+  if (hasCert) attachments.push({ filename: fileName || 'certificat.pdf', content: pdfBase64 as string });
   if (logoBase64) attachments.push({ filename: 'logo.png', content: logoBase64, content_id: 'logo' });
 
   // 5. Send Email

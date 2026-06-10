@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
 import { isOpen as isOpenQ, effectivePoints, tallyScore } from '../../utils/questionModel.js';
+import { certTemplateFor } from '../../config/certificateTemplates.js';
 import {
   downloadBlob,
   formatCertificateDate,
@@ -47,13 +48,13 @@ export default function CandidateAttemptDetail() {
     (async () => {
       let { data: examData, error: examErr } = await supabase
         .from('exams')
-        .select('id, title, slug, question_ids, questions_snapshot, certificate_min_score')
+        .select('id, title, slug, tenant_id, question_ids, questions_snapshot, certificate_min_score')
         .eq('id', id)
         .maybeSingle();
       if (examErr && /questions_snapshot/i.test(examErr.message || '')) {
         const fallback = await supabase
           .from('exams')
-          .select('id, title, slug, question_ids, certificate_min_score')
+          .select('id, title, slug, tenant_id, question_ids, certificate_min_score')
           .eq('id', id)
           .maybeSingle();
         examData = fallback.data ? { ...fallback.data, questions_snapshot: null } : null;
@@ -182,9 +183,12 @@ export default function CandidateAttemptDetail() {
 
   const minScore = typeof exam?.certificate_min_score === 'number' ? exam.certificate_min_score : null;
   const eligible = isCertificateEligible(attempt, minScore);
+  const certTemplate = certTemplateFor(exam?.tenant_id); // null => instance sans certificat
+  const canCertify = eligible && !!certTemplate;          // un certificat sera émis
+  const canSend = !!candidate?.email && !!attempt?.submitted_at; // email possible (avec ou sans cert)
 
   const downloadCertificate = async (format) => {
-    if (!eligible || !candidate || !exam) return;
+    if (!canCertify || !candidate || !exam) return;
     setGenerating(true);
     try {
       const day = new Date().toISOString().slice(0, 10);
@@ -192,7 +196,8 @@ export default function CandidateAttemptDetail() {
       const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(candidate.full_name)}-${day}`;
       const png = await generateCertificatePngBlob({
         studentName: candidate.full_name,
-        dateLabel
+        dateLabel,
+        templateUrl: certTemplate
       });
       if (format === 'png') {
         downloadBlob(png, `${baseName}.png`);
@@ -213,47 +218,49 @@ export default function CandidateAttemptDetail() {
   };
 
   const sendCertificateEmail = async () => {
-    if (!eligible || !candidate?.email || !exam) return;
+    if (!canSend || !exam) return;
     setSending(true);
     setSendMsg(null);
     try {
-      const day = new Date().toISOString().slice(0, 10);
-      const dateLabel = formatCertificateDate(new Date(attempt.submitted_at));
-      const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(candidate.full_name)}-${day}`;
-      const png = await generateCertificatePngBlob({
+      const body = {
+        to: candidate.email,
         studentName: candidate.full_name,
-        dateLabel
-      });
-      const pdf = await generateCertificatePdfBlob({ pngBlob: png });
-      const pdfBase64 = await blobToBase64(pdf);
-      const { error: fnError } = await supabase.functions.invoke('send-certificate', {
-        body: {
-          to: candidate.email,
+        examId: exam.id,
+        examTitle: exam.title,
+        score: attempt.score,
+        total: attempt.total
+      };
+      // Certificat joint uniquement si l'instance en émet un et le candidat est éligible.
+      if (canCertify) {
+        const day = new Date().toISOString().slice(0, 10);
+        const dateLabel = formatCertificateDate(new Date(attempt.submitted_at));
+        const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(candidate.full_name)}-${day}`;
+        const png = await generateCertificatePngBlob({
           studentName: candidate.full_name,
-          examId: exam.id,
-          examTitle: exam.title,
-          fileName: `${baseName}.pdf`,
-          pdfBase64,
-          score: attempt.score,
-          total: attempt.total
-        }
-      });
+          dateLabel,
+          templateUrl: certTemplate
+        });
+        const pdf = await generateCertificatePdfBlob({ pngBlob: png });
+        body.pdfBase64 = await blobToBase64(pdf);
+        body.fileName = `${baseName}.pdf`;
+      }
+      const { error: fnError } = await supabase.functions.invoke('send-certificate', { body });
       if (fnError) {
         let detail = fnError.message;
         try {
-          const body = await fnError.context?.json?.();
-          if (body?.error) detail = body.error;
+          const ctx = await fnError.context?.json?.();
+          if (ctx?.error) detail = ctx.error;
         } catch { /* ignore */ }
         throw new Error(detail);
       }
       supabase.rpc('log_activity', {
-        p_action: 'certificate_email',
+        p_action: body.pdfBase64 ? 'certificate_email' : 'result_email',
         p_exam_id: id, p_candidate_id: candidateId, p_attempt_id: attempt?.id || null,
         p_meta: { to: candidate.email }
       });
-      setSendMsg({ type: 'ok', text: `Certificat envoyé à ${candidate.email}.` });
+      setSendMsg({ type: 'ok', text: `${body.pdfBase64 ? 'Certificat' : 'Résultat'} envoyé à ${candidate.email}.` });
     } catch (e) {
-      setSendMsg({ type: 'err', text: e?.message || 'Échec de l\'envoi du certificat.' });
+      setSendMsg({ type: 'err', text: e?.message || "Échec de l'envoi." });
     } finally {
       setSending(false);
     }
@@ -288,40 +295,46 @@ export default function CandidateAttemptDetail() {
       <div className="card mb-6">
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div>
-            <h2 className="title-display text-lg">Certificat</h2>
+            <h2 className="title-display text-lg">{certTemplate ? 'Certificat' : 'Résultat'}</h2>
             <p className="text-xs text-muted">
-              {minScore === null
-                ? 'Seuil certificat non configuré sur cet examen.'
-                : eligible
-                  ? `Éligible: examen soumis avec score >= ${minScore}%.`
-                  : `Non éligible: certificat réservé aux tentatives soumises avec score >= ${minScore}%.`}
+              {!certTemplate
+                ? "Cette instance n'émet pas de certificat. Le résultat peut être envoyé par email."
+                : minScore === null
+                  ? 'Seuil certificat non configuré sur cet examen.'
+                  : eligible
+                    ? `Éligible: examen soumis avec score >= ${minScore}%.`
+                    : `Non éligible: certificat réservé aux tentatives soumises avec score >= ${minScore}%.`}
             </p>
           </div>
           <div className="flex gap-2 flex-wrap">
-            <button
-              type="button"
-              className="btn-secondary"
-              disabled={!eligible || generating}
-              onClick={() => downloadCertificate('png')}
-            >
-              {generating ? 'Génération…' : 'Télécharger PNG'}
-            </button>
-            <button
-              type="button"
-              className="btn-secondary"
-              disabled={!eligible || generating}
-              onClick={() => downloadCertificate('pdf')}
-            >
-              {generating ? 'Génération…' : 'Télécharger PDF'}
-            </button>
+            {certTemplate && (
+              <>
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  disabled={!canCertify || generating}
+                  onClick={() => downloadCertificate('png')}
+                >
+                  {generating ? 'Génération…' : 'Télécharger PNG'}
+                </button>
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  disabled={!canCertify || generating}
+                  onClick={() => downloadCertificate('pdf')}
+                >
+                  {generating ? 'Génération…' : 'Télécharger PDF'}
+                </button>
+              </>
+            )}
             <button
               type="button"
               className="btn-primary"
-              disabled={!eligible || !candidate?.email || sending || generating}
+              disabled={!canSend || sending || generating}
               onClick={sendCertificateEmail}
               title={!candidate?.email ? 'Aucun email pour ce candidat.' : undefined}
             >
-              {sending ? 'Envoi…' : 'Envoyer par email'}
+              {sending ? 'Envoi…' : (canCertify ? 'Envoyer le certificat' : 'Envoyer le résultat par mail')}
             </button>
           </div>
         </div>

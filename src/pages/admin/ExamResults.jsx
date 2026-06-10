@@ -10,6 +10,7 @@ import {
   isCertificateEligible,
   sanitizeFileName
 } from '../../utils/certificates.js';
+import { certTemplateFor } from '../../config/certificateTemplates.js';
 
 function formatDate(d) {
   if (!d) return '—';
@@ -49,7 +50,7 @@ export default function ExamResults() {
     (async () => {
       const { data: examData } = await supabase
         .from('exams')
-        .select('id, title, slug, question_ids, certificate_min_score')
+        .select('id, title, slug, tenant_id, question_ids, certificate_min_score')
         .eq('id', id)
         .maybeSingle();
       setExam(examData);
@@ -97,6 +98,7 @@ export default function ExamResults() {
   const selectedCount = selectedIds.length;
   const allSelected = rows.length > 0 && selectedCount === rows.length;
   const minScore = typeof exam?.certificate_min_score === 'number' ? exam.certificate_min_score : null;
+  const certTemplate = certTemplateFor(exam?.tenant_id); // null => instance sans certificat
 
   const toggleSelectAll = () => {
     setSelectedIds(allSelected ? [] : rows.map((r) => r.id));
@@ -110,6 +112,10 @@ export default function ExamResults() {
 
   const generateBulkCertificatesZip = async () => {
     if (!exam || selectedIds.length === 0) return;
+    if (!certTemplate) {
+      setBulkInfo("Cette instance n'émet pas de certificat.");
+      return;
+    }
     setGeneratingZip(true);
     setBulkInfo(null);
     try {
@@ -132,7 +138,8 @@ export default function ExamResults() {
         const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(r.full_name)}-${day}`;
         const png = await generateCertificatePngBlob({
           studentName: r.full_name,
-          dateLabel: formatCertificateDate(new Date(r.attempt.submitted_at))
+          dateLabel: formatCertificateDate(new Date(r.attempt.submitted_at)),
+          templateUrl: certTemplate
         });
         const pdf = await generateCertificatePdfBlob({ pngBlob: png });
         zipEntries.push({ fileName: `${baseName}.png`, blob: png });
@@ -155,21 +162,28 @@ export default function ExamResults() {
   const sendBulkCertificateEmails = async () => {
     if (!exam || selectedIds.length === 0) return;
     const selectedRows = rows.filter((r) => selectedIds.includes(r.id));
-    const eligibleRows = selectedRows.filter((r) => isCertificateEligible(r.attempt, minScore));
-    const withEmail = eligibleRows.filter((r) => r.email && r.email.trim());
-    const noEmail = eligibleRows.length - withEmail.length;
-    const notEligible = selectedRows.length - eligibleRows.length;
+    const submittedRows = selectedRows.filter((r) => r.attempt?.submitted_at);
+    // Avec certificat: seuls les éligibles. Sans certificat: tous les soumis (résultat).
+    const targetRows = certTemplate
+      ? submittedRows.filter((r) => isCertificateEligible(r.attempt, minScore))
+      : submittedRows;
+    const withEmail = targetRows.filter((r) => r.email && r.email.trim());
+    const noEmail = targetRows.length - withEmail.length;
+    const excluded = selectedRows.length - targetRows.length;
 
     if (withEmail.length === 0) {
       setMailInfo(
-        minScore === null
-          ? 'Aucun envoi: seuil certificat non configuré sur cet examen.'
-          : "Aucun envoi: aucun candidat sélectionné n'est éligible avec un email."
+        certTemplate
+          ? (minScore === null
+              ? 'Aucun envoi: seuil certificat non configuré sur cet examen.'
+              : "Aucun envoi: aucun candidat sélectionné n'est éligible avec un email.")
+          : 'Aucun envoi: aucun candidat soumis avec un email.'
       );
       return;
     }
 
-    if (!window.confirm(`Envoyer le certificat par email à ${withEmail.length} candidat(s) ?`)) return;
+    const what = certTemplate ? 'le certificat' : 'le résultat';
+    if (!window.confirm(`Envoyer ${what} par email à ${withEmail.length} candidat(s) ?`)) return;
 
     setSendingMails(true);
     setMailInfo(null);
@@ -179,36 +193,37 @@ export default function ExamResults() {
       const day = new Date().toISOString().slice(0, 10);
       for (const r of withEmail) {
         try {
-          const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(r.full_name)}-${day}`;
-          const png = await generateCertificatePngBlob({
+          const body = {
+            to: r.email,
             studentName: r.full_name,
-            dateLabel: formatCertificateDate(new Date(r.attempt.submitted_at))
-          });
-          const pdf = await generateCertificatePdfBlob({ pngBlob: png });
-          const pdfBase64 = await blobToBase64(pdf);
-          const { error: fnError } = await supabase.functions.invoke('send-certificate', {
-            body: {
-              to: r.email,
+            examId: exam.id,
+            examTitle: exam.title,
+            score: r.attempt.score,
+            total: r.attempt.total
+          };
+          if (certTemplate) {
+            const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(r.full_name)}-${day}`;
+            const png = await generateCertificatePngBlob({
               studentName: r.full_name,
-              examId: exam.id,
-              examTitle: exam.title,
-              fileName: `${baseName}.pdf`,
-              pdfBase64,
-              score: r.attempt.score,
-              total: r.attempt.total
-            }
-          });
+              dateLabel: formatCertificateDate(new Date(r.attempt.submitted_at)),
+              templateUrl: certTemplate
+            });
+            const pdf = await generateCertificatePdfBlob({ pngBlob: png });
+            body.pdfBase64 = await blobToBase64(pdf);
+            body.fileName = `${baseName}.pdf`;
+          }
+          const { error: fnError } = await supabase.functions.invoke('send-certificate', { body });
           if (fnError) {
             let detail = fnError.message;
             try {
-              const body = await fnError.context?.json?.();
-              if (body?.error) detail = body.error;
+              const ctx = await fnError.context?.json?.();
+              if (ctx?.error) detail = ctx.error;
             } catch { /* ignore */ }
             throw new Error(detail);
           }
           sent += 1;
           supabase.rpc('log_activity', {
-            p_action: 'certificate_email',
+            p_action: certTemplate ? 'certificate_email' : 'result_email',
             p_exam_id: id, p_candidate_id: r.id,
             p_meta: { to: r.email }
           });
@@ -220,7 +235,7 @@ export default function ExamResults() {
       const parts = [`${sent} email(s) envoyé(s)`];
       if (failed.length) parts.push(`${failed.length} échec(s): ${failed.join(', ')}`);
       if (noEmail) parts.push(`${noEmail} sans email`);
-      if (notEligible) parts.push(`${notEligible} non éligible(s)`);
+      if (excluded) parts.push(`${excluded} exclu(s)`);
       setMailInfo(parts.join(' · '));
     } finally {
       setSendingMails(false);
@@ -241,30 +256,36 @@ export default function ExamResults() {
         <div className="text-sm">
           <p className="text-white">{selectedCount} sélectionné(s)</p>
           <p className="text-xs text-muted">
-            {minScore === null
-              ? 'Certificat: seuil non configuré sur cet examen.'
-              : `Certificat: tentative soumise + score >= ${minScore}%.`}
+            {!certTemplate
+              ? "Cette instance n'émet pas de certificat. Envoi du résultat par email."
+              : minScore === null
+                ? 'Certificat: seuil non configuré sur cet examen.'
+                : `Certificat: tentative soumise + score >= ${minScore}%.`}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <button type="button" className="btn-secondary" onClick={toggleSelectAll}>
             {allSelected ? 'Tout désélectionner' : 'Tout sélectionner'}
           </button>
-          <button
-            type="button"
-            className="btn-secondary"
-            disabled={selectedCount === 0 || generatingZip || sendingMails || minScore === null}
-            onClick={generateBulkCertificatesZip}
-          >
-            {generatingZip ? 'Génération ZIP…' : 'Générer certificats (ZIP)'}
-          </button>
+          {certTemplate && (
+            <button
+              type="button"
+              className="btn-secondary"
+              disabled={selectedCount === 0 || generatingZip || sendingMails || minScore === null}
+              onClick={generateBulkCertificatesZip}
+            >
+              {generatingZip ? 'Génération ZIP…' : 'Générer certificats (ZIP)'}
+            </button>
+          )}
           <button
             type="button"
             className="btn-primary"
-            disabled={selectedCount === 0 || generatingZip || sendingMails || minScore === null}
+            disabled={selectedCount === 0 || generatingZip || sendingMails}
             onClick={sendBulkCertificateEmails}
           >
-            {sendingMails ? 'Envoi des mails…' : 'Envoyer les certificats par email'}
+            {sendingMails
+              ? 'Envoi des mails…'
+              : (certTemplate ? 'Envoyer les certificats par email' : 'Envoyer les résultats par email')}
           </button>
         </div>
       </div>
