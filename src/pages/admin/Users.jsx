@@ -11,6 +11,7 @@ export default function Users() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [savingId, setSavingId] = useState(null);
+  const [inviting, setInviting] = useState(false);
 
   // Owner réservé à l'admin plateforme (créé via provision_owner avec un tenant).
   const roleOptions = isPlatformAdmin ? ['owner', 'correcteur'] : ['correcteur'];
@@ -30,6 +31,20 @@ export default function Users() {
   };
 
   useEffect(() => { load(); }, [isPlatformAdmin]);
+
+  const inviteCorrector = async () => {
+    const email = window.prompt("Email du correcteur à inviter (doit déjà avoir un compte Supabase Auth) :");
+    if (!email) return;
+    setError(null);
+    setInviting(true);
+    try {
+      const { error: e } = await supabase.rpc('invite_corrector', { p_email: email.trim() });
+      if (e) setError(e.message);
+      else await load();
+    } finally {
+      setInviting(false);
+    }
+  };
 
   const changeRole = async (id, role) => {
     setError(null);
@@ -60,7 +75,17 @@ export default function Users() {
     <div className="max-w-4xl mx-auto px-4 py-10">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="title-display text-2xl">Utilisateurs</h1>
-        <Link to="/admin" className="btn-secondary">← Retour</Link>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            className="btn-primary"
+            disabled={inviting}
+            onClick={inviteCorrector}
+          >
+            {inviting ? 'Invitation…' : '+ Inviter un correcteur'}
+          </button>
+          <Link to="/admin" className="btn-secondary">← Retour</Link>
+        </div>
       </div>
 
       <p className="text-xs text-muted mb-4">

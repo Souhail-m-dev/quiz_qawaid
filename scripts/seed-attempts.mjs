@@ -14,7 +14,17 @@ import { dirname, join } from 'node:path';
 import { buildAnswer, tallyScore } from '../src/utils/questionModel.js';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
-const exam = JSON.parse(readFileSync(join(__dir, '../src/data/exam-niveau1.json'), 'utf8'));
+// Données d'examen optionnelles: requises pour --sql/--json (génère les
+// réponses), pas pour --forms-sql (n'a besoin que des noms/emails).
+let exam = { examen: { titre: '' }, questions: [] };
+try {
+  exam = JSON.parse(readFileSync(join(__dir, '../src/data/exam-niveau1.json'), 'utf8'));
+} catch {
+  if (!process.argv.includes('--forms-sql')) {
+    console.error('  exam-niveau1.json introuvable (requis pour --sql/--json).');
+    process.exit(1);
+  }
+}
 const questions = exam.questions;
 const byId = Object.fromEntries(questions.map((q) => [q.id, q]));
 
@@ -239,4 +249,53 @@ end $$;
   mkdirSync(join(__dir, 'out'), { recursive: true });
   writeFileSync(join(__dir, 'out/seed-attempts.sql'), sql);
   console.log('  wrote scripts/out/seed-attempts.sql\n');
+}
+
+// --- form data (pre/post) for the 30 candidates ----------------------------
+// Clés alignées sur le schéma de l'examen Niveau 1 (Miloud). Valeurs variées
+// pour démontrer les filtres (genre / groupe / modalité / réinscription).
+if (process.argv.includes('--forms-sql')) {
+  const q = (s) => String(s).replace(/'/g, "''");
+  const FEMALE = new Set(['Âmina', 'Khadîja', 'Maryam', 'Safiya', 'Nûr', 'Asmâ', 'Ruqayya', 'Hafsa', 'Sumayya', 'Lubna', 'Ouns', 'Halima', 'Janna', 'Imân']);
+  const firstName = (n) => n.trim().split(' ')[0];
+  const GROUPES = ['Mardi', 'Mercredi', 'Jeudi', 'Vendredi en présentiel', 'Vendredi en  distanciel'];
+  const MODALITES = ['En présentiel à la mosquée', 'En distanciel'];
+  const REINSCR = ['Oui, je me réinscris', 'Non,  je ne me réinscris pas'];
+  const CITIES = ['Paris', 'Lyon', 'Marseille', 'Lille', 'Toulouse', 'Strasbourg', 'Nantes', 'Bordeaux', 'Roubaix', 'Montreuil', 'Saint-Denis', 'Argenteuil'];
+  const STREETS = ['rue des Lilas', 'avenue de la République', 'rue Victor Hugo', 'boulevard Voltaire', 'rue de la Paix', 'allée des Roses', 'rue Jean Jaurès'];
+  const OPTIM = ['', '', 'Plus de supports écrits svp.', 'Des révisions avant l’examen seraient utiles.', 'Tout était très bien, qu’Allah vous récompense.', 'Un peu plus de temps pour les questions ouvertes.'];
+  const pick = (r, arr) => arr[Math.floor(r() * arr.length)];
+
+  const stmts = candidates.map((c, i) => {
+    const r = rng(2000 + i * 13);
+    const pre = {
+      genre: FEMALE.has(firstName(c.name)) ? 'Une sœur' : 'Un frère',
+      telephone: '0' + (r() < 0.5 ? '6' : '7') + Array.from({ length: 8 }, () => Math.floor(r() * 10)).join(''),
+      adresse: `${1 + Math.floor(r() * 98)} ${pick(r, STREETS)}`,
+      code_postal: String(75000 + Math.floor(r() * 20000)),
+      ville: pick(r, CITIES),
+      groupe: pick(r, GROUPES),
+      modalite_examen: pick(r, MODALITES)
+    };
+    const hasPost = r() < 0.7; // tous n'ont pas rempli le formulaire d'après-examen
+    let postSql = 'null';
+    if (hasPost) {
+      const post = {
+        reinscription: r() < 0.75 ? REINSCR[0] : REINSCR[1],
+        optimisations: pick(r, OPTIM)
+      };
+      postSql = `'${q(JSON.stringify(post))}'::jsonb`;
+    }
+    return `update public.candidates set pre_form_data = '${q(JSON.stringify(pre))}'::jsonb, post_form_data = ${postSql} where email = '${q(c.email)}';`;
+  }).join('\n');
+
+  const out = `-- Met à jour les 30 candidats seedés (email %@eleve.test) avec des données
+-- de formulaire avant/après examen. Clés alignées sur le schéma de l'examen
+-- Niveau 1 (Miloud). RUN ONCE (idempotent: réexécutable sans dommage).
+
+${stmts}
+`;
+  mkdirSync(join(__dir, 'out'), { recursive: true });
+  writeFileSync(join(__dir, 'out/seed-forms.sql'), out);
+  console.log('  wrote scripts/out/seed-forms.sql\n');
 }
