@@ -70,7 +70,7 @@ export default function ExamResults() {
 
       const { data: attempts, error: attemptsErr } = await supabase
         .from('attempts')
-        .select('candidate_id, score, total, submitted_at, started_at')
+        .select('candidate_id, score, total, submitted_at, started_at, graded_at')
         .eq('exam_id', id)
         .order('started_at', { ascending: false });
 
@@ -336,6 +336,9 @@ export default function ExamResults() {
                       {submitted
                         ? <span className="text-correct">Terminé</span>
                         : a ? <span className="text-moyenne">En cours</span> : <span className="text-muted">Non commencé</span>}
+                      {a?.graded_at && (
+                        <span className="ml-2 text-[9px] uppercase px-2 py-0.5 rounded bg-accent/20 text-accent">corrigé</span>
+                      )}
                     </td>
                     <td className="py-2 pr-3 font-bold">
                       {submitted ? `${fmtNum(a.score)}/${fmtNum(a.total)}` : '—'}

@@ -40,6 +40,7 @@ export default function CandidateAttemptDetail() {
   const [attempt, setAttempt] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [savingIdx, setSavingIdx] = useState(null);
+  const [validating, setValidating] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendMsg, setSendMsg] = useState(null);
@@ -92,7 +93,7 @@ export default function CandidateAttemptDetail() {
 
       const { data: attempts, error: attemptErr } = await supabase
         .from('attempts')
-        .select('id, answers, score, total, submitted_at, started_at')
+        .select('id, answers, score, total, submitted_at, started_at, graded_at')
         .eq('exam_id', id)
         .eq('candidate_id', candidateId)
         .order('started_at', { ascending: false })
@@ -149,6 +150,23 @@ export default function CandidateAttemptDetail() {
       p_candidate_id: candidateId,
       p_attempt_id: attempt.id,
       p_meta: { questionId: next[idx].questionId, points: pts, max }
+    });
+  };
+
+  const setGraded = async (validated) => {
+    if (!attempt) return;
+    setValidating(true);
+    const { data: u } = await supabase.auth.getUser();
+    const patch = validated
+      ? { graded_at: new Date().toISOString(), graded_by: u.user?.id || null }
+      : { graded_at: null, graded_by: null };
+    const { error: e } = await supabase.from('attempts').update(patch).eq('id', attempt.id);
+    setValidating(false);
+    if (e) { setError(e.message); return; }
+    setAttempt((a) => ({ ...a, ...patch }));
+    supabase.rpc('log_activity', {
+      p_action: validated ? 'correction_validated' : 'correction_reopened',
+      p_exam_id: id, p_candidate_id: candidateId, p_attempt_id: attempt.id, p_meta: {}
     });
   };
 
@@ -291,6 +309,44 @@ export default function CandidateAttemptDetail() {
         </p>
         <p><span className="text-muted">Soumis le:</span> {formatDate(attempt?.submitted_at)}</p>
       </div>
+
+      {attempt && (
+        <div className="card mb-6 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="title-display text-lg">Correction</h2>
+            <p className="text-xs text-muted">
+              {attempt.graded_at
+                ? `Validée le ${formatDate(attempt.graded_at)}.`
+                : (() => {
+                    const pending = rows.filter((r) => r.needsReview).length;
+                    return pending > 0
+                      ? `Non validée · ${pending} réponse(s) à revoir.`
+                      : 'Non validée.';
+                  })()}
+            </p>
+          </div>
+          {attempt.graded_at ? (
+            <button
+              type="button"
+              className="btn-secondary"
+              disabled={validating}
+              onClick={() => setGraded(false)}
+            >
+              {validating ? '…' : 'Rouvrir la correction'}
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="btn-primary"
+              disabled={validating || !attempt.submitted_at}
+              onClick={() => setGraded(true)}
+              title={!attempt.submitted_at ? 'Tentative non soumise.' : undefined}
+            >
+              {validating ? 'Validation…' : 'Valider la correction'}
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="card mb-6">
         <div className="flex items-center justify-between gap-3 flex-wrap">
