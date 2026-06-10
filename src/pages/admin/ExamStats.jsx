@@ -33,6 +33,7 @@ export default function ExamStats() {
   const [attempts, setAttempts] = useState([]);
   const [actors, setActors] = useState({});
   const [correctorsCount, setCorrectorsCount] = useState(null);
+  const [showCorr, setShowCorr] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filterField, setFilterField] = useState('');
@@ -93,34 +94,48 @@ export default function ExamStats() {
     return { attByCand, submittedCount: submitted.length, inProgress: inProgress.length, avg, toReview, correctedAttempts };
   }, [attempts]);
 
-  // Corrections réelles, lues dans attempts.answers[].correction (by/at/points).
-  // Fiable (pas de dépendance à activity_log/RLS) et donne le détail par correcteur.
+  // Corrections réelles (attempts.answers[].correction). Regroupées PAR TENTATIVE
+  // et par correcteur: une "correction" = un correcteur a corrigé la copie d'un
+  // élève (peu importe le nombre de questions touchées dans cette copie).
   const corrections = useMemo(() => {
     const candName = new Map(candidates.map((c) => [c.id, c.full_name]));
-    const out = [];
+    const map = new Map(); // clé: by|candidate_id
     for (const a of attempts) {
       if (!Array.isArray(a.answers)) continue;
       for (const ans of a.answers) {
-        if (ans?.correction) {
-          out.push({
-            by: ans.correction.by || '—',
-            at: ans.correction.at || null,
+        if (!ans?.correction) continue;
+        const by = ans.correction.by || '—';
+        const key = `${by}|${a.candidate_id}`;
+        if (!map.has(key)) {
+          map.set(key, {
+            by,
             candidate: candName.get(a.candidate_id) || a.candidate_id,
-            questionId: ans.questionId,
-            points: ans.correction.points
+            questions: 0,
+            lastAt: null
           });
         }
+        const e = map.get(key);
+        e.questions += 1;
+        const at = ans.correction.at;
+        if (at && (!e.lastAt || String(at) > String(e.lastAt))) e.lastAt = at;
       }
     }
-    out.sort((x, y) => String(y.at || '').localeCompare(String(x.at || '')));
-    return out;
+    return [...map.values()];
   }, [attempts, candidates]);
 
+  // Par correcteur: nb de copies corrigées + détail des copies.
   const perCorrector = useMemo(() => {
     const m = new Map();
-    for (const c of corrections) m.set(c.by, (m.get(c.by) || 0) + 1);
-    return [...m.entries()].map(([actorId, count]) => ({ actorId, count }))
-      .sort((a, b) => b.count - a.count);
+    for (const c of corrections) {
+      if (!m.has(c.by)) m.set(c.by, { actorId: c.by, attempts: 0, items: [] });
+      const g = m.get(c.by);
+      g.attempts += 1;
+      g.items.push(c);
+    }
+    for (const g of m.values()) {
+      g.items.sort((a, b) => String(b.lastAt || '').localeCompare(String(a.lastAt || '')));
+    }
+    return [...m.values()].sort((a, b) => b.attempts - a.attempts);
   }, [corrections]);
 
   // Champs catégoriels du formulaire d'entrée (select/radio) → filtrables.
@@ -173,50 +188,52 @@ export default function ExamStats() {
 
       {canSeeCorrectors && (
         <section className="card">
-          <h2 className="title-display text-lg mb-3">Corrections par correcteur</h2>
-          <p className="text-xs text-muted mb-3">
-            {correctorsCount !== null ? `${correctorsCount} correcteur(s) dans l'instance · ` : ''}
-            {corrections.length} correction(s) enregistrée(s) au total.
-          </p>
-          {perCorrector.length === 0 ? (
-            <p className="text-muted text-sm italic">Aucune correction enregistrée.</p>
-          ) : (
-            <>
-              <table className="w-full text-sm mb-6">
-                <thead><tr className="text-left text-accent uppercase tracking-widest text-[10px] border-b border-accent/20">
-                  <th className="py-2 pr-3">Correcteur</th><th className="py-2 pr-3">Corrections</th>
-                </tr></thead>
-                <tbody className="divide-y divide-accent/10">
-                  {perCorrector.map((r) => (
-                    <tr key={r.actorId}>
-                      <td className="py-2 pr-3 text-white">{actors[r.actorId] || r.actorId}</td>
-                      <td className="py-2 pr-3 font-bold">{r.count}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <button
+            type="button"
+            onClick={() => setShowCorr((v) => !v)}
+            className="w-full flex items-center justify-between gap-3 text-left"
+          >
+            <div>
+              <h2 className="title-display text-lg">Corrections par correcteur</h2>
+              <p className="text-xs text-muted mt-1">
+                {corrections.length} copie(s) corrigée(s) · {perCorrector.length} correcteur(s) actif(s)
+                {correctorsCount !== null ? ` · ${correctorsCount} dans l'instance` : ''}
+              </p>
+            </div>
+            <span className="text-accent text-sm shrink-0">{showCorr ? '▲ Masquer' : '▼ Détail'}</span>
+          </button>
 
-              <h3 className="text-[10px] uppercase tracking-widest text-accent mb-2">Détail des corrections</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead><tr className="text-left text-accent uppercase tracking-widest text-[10px] border-b border-accent/20">
-                    <th className="py-2 pr-3">Date</th><th className="py-2 pr-3">Correcteur</th>
-                    <th className="py-2 pr-3">Candidat</th><th className="py-2 pr-3">Question</th><th className="py-2 pr-3">Points</th>
-                  </tr></thead>
-                  <tbody className="divide-y divide-accent/10">
-                    {corrections.slice(0, 100).map((c, i) => (
-                      <tr key={i}>
-                        <td className="py-2 pr-3 text-muted">{formatDate(c.at)}</td>
-                        <td className="py-2 pr-3 text-white">{actors[c.by] || c.by}</td>
-                        <td className="py-2 pr-3">{c.candidate}</td>
-                        <td className="py-2 pr-3 text-muted">{c.questionId}</td>
-                        <td className="py-2 pr-3 font-bold">{fmtNum(c.points)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+          {showCorr && (
+            perCorrector.length === 0 ? (
+              <p className="text-muted text-sm italic mt-4">Aucune correction enregistrée.</p>
+            ) : (
+              <div className="mt-4 space-y-5">
+                {perCorrector.map((g) => (
+                  <div key={g.actorId}>
+                    <div className="flex items-baseline justify-between border-b border-accent/20 pb-1 mb-2">
+                      <span className="text-white font-bold">{actors[g.actorId] || g.actorId}</span>
+                      <span className="text-xs text-accent">{g.attempts} copie(s)</span>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead><tr className="text-left text-accent uppercase tracking-widest text-[10px] border-b border-accent/10">
+                          <th className="py-1 pr-3">Candidat</th><th className="py-1 pr-3">Réponses corrigées</th><th className="py-1 pr-3">Dernière correction</th>
+                        </tr></thead>
+                        <tbody className="divide-y divide-accent/10">
+                          {g.items.map((c, i) => (
+                            <tr key={i}>
+                              <td className="py-1.5 pr-3 text-white">{c.candidate}</td>
+                              <td className="py-1.5 pr-3">{c.questions}</td>
+                              <td className="py-1.5 pr-3 text-muted">{formatDate(c.lastAt)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </>
+            )
           )}
         </section>
       )}
