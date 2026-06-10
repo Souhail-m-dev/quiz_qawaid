@@ -12,7 +12,7 @@ export default function Users() {
   const [savingId, setSavingId] = useState(null);
 
   // Owner réservé à l'admin plateforme (créé via provision_owner avec un tenant).
-  const roleOptions = isPlatformAdmin ? ['owner', 'admin', 'correcteur'] : ['admin', 'correcteur'];
+  const roleOptions = isPlatformAdmin ? ['owner', 'correcteur'] : ['correcteur'];
 
   const load = async () => {
     const { data, error: e } = await supabase.rpc('list_members');
@@ -94,7 +94,7 @@ export default function Users() {
                   {isPlatformAdmin && <td className="py-2 pr-3 text-muted">{tenants[r.tenant_id] || '—'}</td>}
                   <td className="py-2 pr-3">
                     <select
-                      value={r.role || (r.is_admin ? 'admin' : 'correcteur')}
+                      value={r.role || 'correcteur'}
                       disabled={savingId === r.id}
                       onChange={(e) => changeRole(r.id, e.target.value)}
                       className="bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white focus:border-accent outline-none"

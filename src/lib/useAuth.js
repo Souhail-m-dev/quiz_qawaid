@@ -34,14 +34,14 @@ export function useAuth() {
           .eq('id', s.user.id)
           .maybeSingle();
         data = fb.data
-          ? { role: fb.data.is_admin ? 'admin' : null, is_admin: fb.data.is_admin, tenant_id: null, is_platform_admin: fb.data.is_admin }
+          ? { role: fb.data.is_admin ? 'owner' : null, is_admin: fb.data.is_admin, tenant_id: null, is_platform_admin: fb.data.is_admin }
           : null;
         error = fb.error;
       }
       if (!active) return;
       let resolved = null;
       if (!error && data) {
-        resolved = data.role || (data.is_admin ? 'admin' : null);
+        resolved = data.role || (data.is_admin ? 'owner' : null);
         setTenantId(data.tenant_id ?? null);
         setIsPlatformAdmin(data.is_platform_admin === true);
       }
@@ -70,14 +70,14 @@ export function useAuth() {
     };
   }, []);
 
-  const isTenantAdmin = role === 'admin' || role === 'owner';
+  const isTenantAdmin = role === 'owner';   // 'admin' intra-tenant supprimé
   return {
     session,
     role,
     tenantId,
     isPlatformAdmin,
     isOwner: role === 'owner',
-    isAdmin: isTenantAdmin,                 // pouvoirs admin intra-tenant (owner inclus)
+    isAdmin: isTenantAdmin,                 // gestionnaire d'instance = owner
     isCorrector: role === 'correcteur',
     isStaff: isTenantAdmin || role === 'correcteur',
     loading

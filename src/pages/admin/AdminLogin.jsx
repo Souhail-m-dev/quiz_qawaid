@@ -23,9 +23,8 @@ export default function AdminLogin() {
       .maybeSingle();
     const hasStaffAccess =
       profile?.role === 'owner' ||
-      profile?.role === 'admin' ||
       profile?.role === 'correcteur' ||
-      profile?.is_admin === true;
+      profile?.is_admin === true; // flag plateforme hérité
     if (pErr || !hasStaffAccess) {
       await supabase.auth.signOut();
       setError("Compte sans accès. Contactez l'administrateur de votre instance.");

@@ -78,7 +78,7 @@ export default function TenantDetail() {
               {members.map((m) => (
                 <tr key={m.id}>
                   <td className="py-2 pr-3 text-white">{profileLabel(m)}{m.is_platform_admin && <span className="ml-2 text-[9px] uppercase px-2 py-0.5 rounded bg-accent/20 text-accent">plateforme</span>}</td>
-                  <td className="py-2 pr-3 text-muted">{m.role || (m.is_admin ? 'admin' : '—')}</td>
+                  <td className="py-2 pr-3 text-muted">{m.role || '—'}</td>
                 </tr>
               ))}
             </tbody>

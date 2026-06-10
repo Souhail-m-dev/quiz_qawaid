@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../lib/useAuth.js';
 
-// Garde de route par rôle. roles = ['admin'] ou ['admin','correcteur'].
+// Garde de route par rôle. roles = ['owner'] ou ['owner','correcteur'].
 export default function RequireRole({ roles, children }) {
   const { session, role, loading } = useAuth();
   const location = useLocation();
@@ -21,11 +21,11 @@ export default function RequireRole({ roles, children }) {
 }
 
 export function RequireAdmin({ children }) {
-  return <RequireRole roles={['owner', 'admin']}>{children}</RequireRole>;
+  return <RequireRole roles={['owner']}>{children}</RequireRole>;
 }
 
 export function RequireStaff({ children }) {
-  return <RequireRole roles={['owner', 'admin', 'correcteur']}>{children}</RequireRole>;
+  return <RequireRole roles={['owner', 'correcteur']}>{children}</RequireRole>;
 }
 
 // Réservé à l'admin plateforme (flag is_platform_admin), pas un rôle.
