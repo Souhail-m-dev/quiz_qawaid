@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import data from '../../data/questions.json';
-import { getAllQuestions } from '../../utils/quizUtils.js';
 import { supabase } from '../../lib/supabase.js';
 import { isOpen as isOpenQ, buildAnswer, tallyScore } from '../../utils/questionModel.js';
 import OptionButton from '../../components/OptionButton.jsx';
@@ -103,12 +101,7 @@ export default function ExamRun() {
 
   const questions = useMemo(() => {
     if (!exam) return [];
-    if (Array.isArray(exam.questions_snapshot) && exam.questions_snapshot.length > 0) {
-      return exam.questions_snapshot;
-    }
-    const all = getAllQuestions(data);
-    const byId = Object.fromEntries(all.map((q) => [q.id, q]));
-    return (exam.question_ids || []).map((qid) => byId[qid]).filter(Boolean);
+    return Array.isArray(exam.questions_snapshot) ? exam.questions_snapshot : [];
   }, [exam]);
 
   const total = questions.length;

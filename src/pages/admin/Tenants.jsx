@@ -50,7 +50,7 @@ export default function Tenants() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
         <h1 className="title-display text-2xl">Instances (tenants)</h1>
         <div className="flex gap-3">
           <Link to="/admin/users" className="btn-secondary">Utilisateurs</Link>

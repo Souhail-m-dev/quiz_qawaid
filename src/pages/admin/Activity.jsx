@@ -60,7 +60,7 @@ export default function Activity() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="title-display text-2xl">Journal d'activité</h1>
         <Link to="/admin" className="btn-secondary">← Retour</Link>
       </div>

@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import data from '../../data/questions.json';
-import { getAllQuestions } from '../../utils/quizUtils.js';
 import { supabase } from '../../lib/supabase.js';
 import { isOpen as isOpenQ, effectivePoints, tallyScore } from '../../utils/questionModel.js';
 import {
@@ -113,10 +111,8 @@ export default function CandidateAttemptDetail() {
   }, [id, candidateId]);
 
   const byId = useMemo(() => {
-    const snapshot = Array.isArray(exam?.questions_snapshot) ? exam.questions_snapshot : null;
-    return snapshot && snapshot.length > 0
-      ? Object.fromEntries(snapshot.map((q) => [q.id, q]))
-      : Object.fromEntries(getAllQuestions(data).map((q) => [q.id, q]));
+    const snapshot = Array.isArray(exam?.questions_snapshot) ? exam.questions_snapshot : [];
+    return Object.fromEntries(snapshot.map((q) => [q.id, q]));
   }, [exam]);
 
   const saveGrade = async (idx, rawPoints, note) => {
@@ -267,7 +263,7 @@ export default function CandidateAttemptDetail() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div>
           <h1 className="title-display text-2xl">{candidate?.full_name}</h1>
           <p className="text-xs text-muted">/exam/{exam?.slug}</p>

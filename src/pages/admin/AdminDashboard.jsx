@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
 import { useAuth } from '../../lib/useAuth.js';
 
 export default function AdminDashboard() {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-  const { isAdmin, isPlatformAdmin } = useAuth();
+  const { isAdmin } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -28,28 +27,13 @@ export default function AdminDashboard() {
     })();
   }, []);
 
-  const logout = async () => {
-    await supabase.auth.signOut();
-    navigate('/admin/login', { replace: true });
-  };
-
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="title-display text-2xl">Tableau de bord</h1>
-        <div className="flex gap-3">
-          {isPlatformAdmin && (
-            <Link to="/admin/tenants" className="btn-primary">Instances</Link>
-          )}
-          {isAdmin && (
-            <>
-              <Link to="/admin/exams/new" className="btn-primary">+ Nouvel examen</Link>
-              <Link to="/admin/users" className="btn-secondary">Utilisateurs</Link>
-              <Link to="/admin/activity" className="btn-secondary">Activité</Link>
-            </>
-          )}
-          <button onClick={logout} className="btn-secondary">Déconnexion</button>
-        </div>
+    <div className="max-w-5xl mx-auto px-4 py-8 sm:py-10">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
+        <h1 className="title-display text-xl sm:text-2xl">Tableau de bord</h1>
+        {isAdmin && (
+          <Link to="/admin/exams/new" className="btn-primary">+ Nouvel examen</Link>
+        )}
       </div>
 
       {loading && <p className="text-muted">Chargement…</p>}
@@ -58,7 +42,7 @@ export default function AdminDashboard() {
       )}
 
       {!loading && exams.length > 0 && (
-        <div className="grid grid-cols-3 gap-3 mb-6">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
           {(() => {
             const totalInscrits = exams.reduce((s, e) => s + (e.candidates?.[0]?.count ?? 0), 0);
             const totalAttempts = exams.reduce((s, e) => s + (e.attempts?.[0]?.count ?? 0), 0);
@@ -98,7 +82,7 @@ export default function AdminDashboard() {
                 Code d'acces: {e.access_code?.trim() ? <span className="font-mono text-white">{e.access_code}</span> : 'aucun (public)'}
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {isAdmin && <Link to={`/admin/exams/${e.id}`} className="btn-secondary">Éditer</Link>}
               <Link to={`/admin/exams/${e.id}/stats`} className="btn-secondary">Stats</Link>
               <Link to={`/admin/exams/${e.id}/results`} className="btn-secondary">Résultats</Link>

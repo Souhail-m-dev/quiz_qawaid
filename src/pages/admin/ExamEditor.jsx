@@ -3,8 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
 import QuestionsBuilder from '../../components/QuestionsBuilder.jsx';
 import FormSchemaBuilder from '../../components/FormSchemaBuilder.jsx';
-import questionBank from '../../data/questions.json';
-import { getAllQuestions } from '../../utils/quizUtils.js';
 import { getType, getPoints } from '../../utils/questionModel.js';
 
 const NEW_EXAM_DRAFT_KEY = 'quiz-qawaid:new-exam-draft';
@@ -101,14 +99,8 @@ export default function ExamEditor() {
         // Questions: snapshot prioritaire, sinon résolution des ids depuis la banque.
         let questions = Array.isArray(data.questions_snapshot) && data.questions_snapshot.length > 0
           ? data.questions_snapshot
-          : null;
-        if (!questions) {
-          const byId = Object.fromEntries(getAllQuestions(questionBank).map((q) => [q.id, q]));
-          questions = (data.question_ids || [])
-            .map((qid) => byId[qid])
-            .filter(Boolean)
-            .map((q) => ({ ...q, type: getType(q), points: getPoints(q) }));
-        }
+          : [];
+
         setForm({
           title: data.title,
           slug: data.slug,
@@ -187,7 +179,7 @@ export default function ExamEditor() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="title-display text-2xl">{isNew ? 'Nouvel examen' : 'Éditer l\'examen'}</h1>
         <button type="button" onClick={() => navigate('/admin')} className="btn-secondary">← Retour</button>
       </div>

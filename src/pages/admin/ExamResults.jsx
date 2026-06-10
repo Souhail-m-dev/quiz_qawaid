@@ -231,7 +231,7 @@ export default function ExamResults() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div>
           <h1 className="title-display text-2xl">{exam?.title || 'Résultats'}</h1>
           <p className="text-xs text-muted">/exam/{exam?.slug}</p>
