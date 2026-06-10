@@ -4,7 +4,8 @@ import { supabase } from '../../lib/supabase.js';
 import { useAuth } from '../../lib/useAuth.js';
 
 export default function Users() {
-  const { isPlatformAdmin } = useAuth();
+  const { isPlatformAdmin, session } = useAuth();
+  const myId = session?.user?.id;
   const [rows, setRows] = useState([]);
   const [tenants, setTenants] = useState({});
   const [loading, setLoading] = useState(true);
@@ -93,16 +94,26 @@ export default function Users() {
                   </td>
                   {isPlatformAdmin && <td className="py-2 pr-3 text-muted">{tenants[r.tenant_id] || '—'}</td>}
                   <td className="py-2 pr-3">
-                    <select
-                      value={r.role || 'correcteur'}
-                      disabled={savingId === r.id}
-                      onChange={(e) => changeRole(r.id, e.target.value)}
-                      className="bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white focus:border-accent outline-none"
-                    >
-                      {roleOptions.map((role) => (
-                        <option key={role} value={role}>{role}</option>
-                      ))}
-                    </select>
+                    {/* L'owner ne modifie ni son propre rôle ni celui d'un autre owner;
+                        seul l'admin plateforme le peut (via provision_owner / set_member_role). */}
+                    {(!isPlatformAdmin && (r.id === myId || r.role === 'owner')) ? (
+                      <span className="text-white">
+                        {r.role || '—'}
+                        {r.id === myId && <span className="ml-2 text-[9px] uppercase text-muted">(vous)</span>}
+                      </span>
+                    ) : (
+                      <select
+                        value={r.role || 'correcteur'}
+                        disabled={savingId === r.id}
+                        onChange={(e) => changeRole(r.id, e.target.value)}
+                        className="bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white focus:border-accent outline-none"
+                      >
+                        {(roleOptions.includes(r.role) ? roleOptions : [r.role, ...roleOptions].filter(Boolean))
+                          .map((role) => (
+                            <option key={role} value={role}>{role}</option>
+                          ))}
+                      </select>
+                    )}
                   </td>
                 </tr>
               ))}
