@@ -54,7 +54,7 @@ export default function ExamResults() {
     (async () => {
       let { data: examData } = await supabase
         .from('exams')
-        .select('id, title, slug, tenant_id, question_ids, certificate_min_score, pre_form_schema')
+        .select('id, title, slug, tenant_id, question_ids, certificate_min_score, pre_form_schema, post_form_schema')
         .eq('id', id)
         .maybeSingle();
       if (!examData) {
@@ -63,13 +63,13 @@ export default function ExamResults() {
           .select('id, title, slug, tenant_id, question_ids, certificate_min_score')
           .eq('id', id)
           .maybeSingle();
-        examData = fb.data ? { ...fb.data, pre_form_schema: null } : null;
+        examData = fb.data ? { ...fb.data, pre_form_schema: null, post_form_schema: null } : null;
       }
       setExam(examData);
 
       const { data: cands, error: candsErr } = await supabase
         .from('candidates')
-        .select('id, full_name, email, telegram, created_at, pre_form_data')
+        .select('id, full_name, email, telegram, created_at, pre_form_data, post_form_data')
         .eq('exam_id', id)
         .order('created_at', { ascending: false });
 
@@ -110,11 +110,23 @@ export default function ExamResults() {
   const minScore = typeof exam?.certificate_min_score === 'number' ? exam.certificate_min_score : null;
   const certTemplate = certTemplateFor(exam?.tenant_id); // null => instance sans certificat
 
-  // Champs catégoriels du formulaire avant-examen (filtrables).
-  const categoricalFields = (exam?.pre_form_schema || []).filter((f) => f.type === 'select' || f.type === 'radio');
-  // Valeurs distinctes du champ choisi.
-  const fieldValues = formField
-    ? [...new Set(rows.map((r) => r.pre_form_data?.[formField]).filter((v) => v != null && v !== ''))]
+  // Champs catégoriels filtrables: avant ET après examen (select / radio / checkbox).
+  const CAT_TYPES = ['select', 'radio', 'checkbox'];
+  const categoricalFields = [
+    ...(exam?.pre_form_schema || []).filter((f) => CAT_TYPES.includes(f.type)).map((f) => ({ ...f, source: 'pre' })),
+    ...(exam?.post_form_schema || []).filter((f) => CAT_TYPES.includes(f.type)).map((f) => ({ ...f, source: 'post', label: `${f.label} (après)` }))
+  ];
+  // Valeur affichable d'un champ (gère booléen et multi-cases).
+  const getFormVal = (r, source, key) => {
+    const v = (source === 'post' ? r.post_form_data : r.pre_form_data)?.[key];
+    if (Array.isArray(v)) return v.join(', ');
+    if (typeof v === 'boolean') return v ? 'Oui' : 'Non';
+    return v;
+  };
+  // formField encode "source:key".
+  const [fSource, fKey] = formField ? formField.split(':') : [null, null];
+  const fieldValues = fKey
+    ? [...new Set(rows.map((r) => getFormVal(r, fSource, fKey)).filter((v) => v != null && v !== ''))]
     : [];
 
   const pctOf = (a) => (a?.submitted_at && a.total > 0 ? (a.score / a.total) * 100 : null);
@@ -133,7 +145,7 @@ export default function ExamResults() {
   const filteredRows = rows.filter((r) => {
     if (q && !(`${r.full_name} ${r.email} ${r.telegram}`.toLowerCase().includes(q))) return false;
     if (!matchesStatus(r)) return false;
-    if (formField && formValue && String(r.pre_form_data?.[formField] ?? '') !== String(formValue)) return false;
+    if (formField && formValue && String(getFormVal(r, fSource, fKey) ?? '') !== String(formValue)) return false;
     return true;
   });
 
@@ -368,7 +380,10 @@ export default function ExamResults() {
                   className="bg-bg/60 border border-accent/30 rounded px-2 py-2 text-white text-sm focus:border-accent outline-none"
                 >
                   <option value="">—</option>
-                  {categoricalFields.map((f) => <option key={f.key} value={f.key}>{f.label}</option>)}
+                  {categoricalFields.map((f) => {
+                    const v = `${f.source}:${f.key}`;
+                    return <option key={v} value={v}>{f.label}</option>;
+                  })}
                 </select>
               </div>
               {formField && (
