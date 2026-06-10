@@ -18,12 +18,17 @@ export default function AdminLogin() {
     }
     const { data: profile, error: pErr } = await supabase
       .from('profiles')
-      .select('is_admin')
+      .select('role, is_admin')
       .eq('id', data.user.id)
       .maybeSingle();
-    if (pErr || !profile?.is_admin) {
+    const hasStaffAccess =
+      profile?.role === 'owner' ||
+      profile?.role === 'admin' ||
+      profile?.role === 'correcteur' ||
+      profile?.is_admin === true;
+    if (pErr || !hasStaffAccess) {
       await supabase.auth.signOut();
-      setError("Compte sans droits d'administration.");
+      setError("Compte sans accès. Contactez l'administrateur de votre instance.");
       return;
     }
     const dest = location.state?.from || '/admin';

@@ -1,12 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import QuizRoute from './routes/QuizRoute.jsx';
-import RequireAdmin from './components/RequireAdmin.jsx';
+import { RequireAdmin, RequireStaff, RequirePlatformAdmin } from './components/RequireRole.jsx';
 import AdminLogin from './pages/admin/AdminLogin.jsx';
 import AdminDashboard from './pages/admin/AdminDashboard.jsx';
 import ExamEditor from './pages/admin/ExamEditor.jsx';
 import ExamResults from './pages/admin/ExamResults.jsx';
 import CandidateAttemptDetail from './pages/admin/CandidateAttemptDetail.jsx';
+import ExamStats from './pages/admin/ExamStats.jsx';
+import Users from './pages/admin/Users.jsx';
+import Activity from './pages/admin/Activity.jsx';
+import Tenants from './pages/admin/Tenants.jsx';
+import TenantDetail from './pages/admin/TenantDetail.jsx';
 import ExamRegistration from './pages/exam/ExamRegistration.jsx';
 import ExamInstructions from './pages/exam/ExamInstructions.jsx';
 import ExamRun from './pages/exam/ExamRun.jsx';
@@ -18,7 +22,8 @@ export default function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-bg">
         <Routes>
-          <Route path="/" element={<QuizRoute />} />
+          {/* Module examens uniquement: pas de quiz de révision des cours. */}
+          <Route path="/" element={<Navigate to="/admin" replace />} />
           <Route path="/temoignage" element={<Temoignage />} />
 
           <Route path="/exam/:slug" element={<ExamRegistration />} />
@@ -27,13 +32,24 @@ export default function App() {
           <Route path="/exam/:slug/done" element={<ExamDone />} />
 
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
+          <Route path="/admin" element={<RequireStaff><AdminDashboard /></RequireStaff>} />
+
+          {/* Admin only */}
           <Route path="/admin/exams/new" element={<RequireAdmin><ExamEditor /></RequireAdmin>} />
           <Route path="/admin/exams/:id" element={<RequireAdmin><ExamEditor /></RequireAdmin>} />
-          <Route path="/admin/exams/:id/results" element={<RequireAdmin><ExamResults /></RequireAdmin>} />
-          <Route path="/admin/exams/:id/results/:candidateId" element={<RequireAdmin><CandidateAttemptDetail /></RequireAdmin>} />
+          <Route path="/admin/users" element={<RequireAdmin><Users /></RequireAdmin>} />
+          <Route path="/admin/activity" element={<RequireAdmin><Activity /></RequireAdmin>} />
 
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* Plateforme uniquement: dashboard par tenant */}
+          <Route path="/admin/tenants" element={<RequirePlatformAdmin><Tenants /></RequirePlatformAdmin>} />
+          <Route path="/admin/tenants/:tenantId" element={<RequirePlatformAdmin><TenantDetail /></RequirePlatformAdmin>} />
+
+          {/* Staff: admin + correcteur */}
+          <Route path="/admin/exams/:id/stats" element={<RequireStaff><ExamStats /></RequireStaff>} />
+          <Route path="/admin/exams/:id/results" element={<RequireStaff><ExamResults /></RequireStaff>} />
+          <Route path="/admin/exams/:id/results/:candidateId" element={<RequireStaff><CandidateAttemptDetail /></RequireStaff>} />
+
+          <Route path="*" element={<Navigate to="/admin" replace />} />
         </Routes>
 
         <footer className="text-center py-10 opacity-40">
