@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
+import { useAuth } from '../../lib/useAuth.js';
 
 export default function AdminDashboard() {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { isAdmin, isPlatformAdmin } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -36,7 +38,16 @@ export default function AdminDashboard() {
       <div className="flex items-center justify-between mb-8">
         <h1 className="title-display text-2xl">Tableau de bord</h1>
         <div className="flex gap-3">
-          <Link to="/admin/exams/new" className="btn-primary">+ Nouvel examen</Link>
+          {isPlatformAdmin && (
+            <Link to="/admin/tenants" className="btn-primary">Instances</Link>
+          )}
+          {isAdmin && (
+            <>
+              <Link to="/admin/exams/new" className="btn-primary">+ Nouvel examen</Link>
+              <Link to="/admin/users" className="btn-secondary">Utilisateurs</Link>
+              <Link to="/admin/activity" className="btn-secondary">Activité</Link>
+            </>
+          )}
           <button onClick={logout} className="btn-secondary">Déconnexion</button>
         </div>
       </div>
@@ -44,6 +55,26 @@ export default function AdminDashboard() {
       {loading && <p className="text-muted">Chargement…</p>}
       {!loading && exams.length === 0 && (
         <p className="text-muted italic">Aucun examen. Créez-en un pour commencer.</p>
+      )}
+
+      {!loading && exams.length > 0 && (
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          {(() => {
+            const totalInscrits = exams.reduce((s, e) => s + (e.candidates?.[0]?.count ?? 0), 0);
+            const totalAttempts = exams.reduce((s, e) => s + (e.attempts?.[0]?.count ?? 0), 0);
+            const cards = [
+              { label: 'Examens', value: exams.length },
+              { label: 'Inscrits', value: totalInscrits },
+              { label: 'Tentatives', value: totalAttempts }
+            ];
+            return cards.map((c) => (
+              <div key={c.label} className="card text-center py-4">
+                <div className="text-3xl font-bold text-white">{c.value}</div>
+                <div className="text-[10px] uppercase tracking-widest text-muted mt-1">{c.label}</div>
+              </div>
+            ));
+          })()}
+        </div>
       )}
 
       <div className="grid gap-4">
@@ -68,7 +99,8 @@ export default function AdminDashboard() {
               </p>
             </div>
             <div className="flex gap-2">
-              <Link to={`/admin/exams/${e.id}`} className="btn-secondary">Éditer</Link>
+              {isAdmin && <Link to={`/admin/exams/${e.id}`} className="btn-secondary">Éditer</Link>}
+              <Link to={`/admin/exams/${e.id}/stats`} className="btn-secondary">Stats</Link>
               <Link to={`/admin/exams/${e.id}/results`} className="btn-secondary">Résultats</Link>
             </div>
           </div>

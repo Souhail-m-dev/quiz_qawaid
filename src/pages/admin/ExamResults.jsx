@@ -17,6 +17,11 @@ function formatDate(d) {
   return new Date(d).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' });
 }
 
+function fmtNum(n) {
+  if (typeof n !== 'number') return n;
+  return Number.isInteger(n) ? String(n) : n.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
+}
+
 function blobToBase64(blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -204,6 +209,11 @@ export default function ExamResults() {
             throw new Error(detail);
           }
           sent += 1;
+          supabase.rpc('log_activity', {
+            p_action: 'certificate_email',
+            p_exam_id: id, p_candidate_id: r.id,
+            p_meta: { to: r.email }
+          });
         } catch (e) {
           failed.push(`${r.full_name} (${e?.message || 'erreur'})`);
         }
@@ -309,7 +319,7 @@ export default function ExamResults() {
                         : a ? <span className="text-moyenne">En cours</span> : <span className="text-muted">Non commencé</span>}
                     </td>
                     <td className="py-2 pr-3 font-bold">
-                      {submitted ? `${a.score}/${a.total}` : '—'}
+                      {submitted ? `${fmtNum(a.score)}/${fmtNum(a.total)}` : '—'}
                     </td>
                     <td className="py-2 pr-3 text-muted">{formatDate(submitted)}</td>
                   </tr>

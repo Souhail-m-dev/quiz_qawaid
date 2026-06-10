@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import data from '../../data/questions.json';
 import { getAllQuestions } from '../../utils/quizUtils.js';
 import { supabase } from '../../lib/supabase.js';
+import { isOpen as isOpenQ, effectivePoints, tallyScore } from '../../utils/questionModel.js';
 import {
   downloadBlob,
   fetchAssetBase64,
@@ -16,6 +17,11 @@ import {
 function formatDate(d) {
   if (!d) return '—';
   return new Date(d).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' });
+}
+
+function fmtNum(n) {
+  if (typeof n !== 'number') return n;
+  return Number.isInteger(n) ? String(n) : n.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
 }
 
 function blobToBase64(blob) {
@@ -34,6 +40,8 @@ export default function CandidateAttemptDetail() {
   const [exam, setExam] = useState(null);
   const [candidate, setCandidate] = useState(null);
   const [attempt, setAttempt] = useState(null);
+  const [answers, setAnswers] = useState([]);
+  const [savingIdx, setSavingIdx] = useState(null);
   const [generating, setGenerating] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendMsg, setSendMsg] = useState(null);
@@ -61,12 +69,22 @@ export default function CandidateAttemptDetail() {
       }
       setExam(examData);
 
-      const { data: candData, error: candErr } = await supabase
+      let { data: candData, error: candErr } = await supabase
         .from('candidates')
-        .select('id, full_name, email, telegram, created_at')
+        .select('id, full_name, email, telegram, created_at, pre_form_data, post_form_data')
         .eq('id', candidateId)
         .eq('exam_id', id)
         .maybeSingle();
+      if (candErr && /column .* does not exist/i.test(candErr.message || '')) {
+        const fb = await supabase
+          .from('candidates')
+          .select('id, full_name, email, telegram, created_at')
+          .eq('id', candidateId)
+          .eq('exam_id', id)
+          .maybeSingle();
+        candData = fb.data ? { ...fb.data, pre_form_data: null, post_form_data: null } : null;
+        candErr = fb.error;
+      }
       if (candErr || !candData) {
         setError(candErr?.message || 'Candidat introuvable.');
         setLoading(false);
@@ -87,30 +105,82 @@ export default function CandidateAttemptDetail() {
         return;
       }
 
-      setAttempt(Array.isArray(attempts) ? attempts[0] || null : null);
+      const at = Array.isArray(attempts) ? attempts[0] || null : null;
+      setAttempt(at);
+      setAnswers(Array.isArray(at?.answers) ? at.answers : []);
       setLoading(false);
     })();
   }, [id, candidateId]);
 
-  const answerRows = useMemo(() => {
-    if (!exam || !attempt?.answers) return [];
-    const snapshot = Array.isArray(exam.questions_snapshot) ? exam.questions_snapshot : null;
-    const byId = snapshot && snapshot.length > 0
+  const byId = useMemo(() => {
+    const snapshot = Array.isArray(exam?.questions_snapshot) ? exam.questions_snapshot : null;
+    return snapshot && snapshot.length > 0
       ? Object.fromEntries(snapshot.map((q) => [q.id, q]))
       : Object.fromEntries(getAllQuestions(data).map((q) => [q.id, q]));
-    return attempt.answers.map((a, idx) => {
+  }, [exam]);
+
+  const saveGrade = async (idx, rawPoints, note) => {
+    const q = byId[answers[idx].questionId];
+    const max = typeof answers[idx].pointsMax === 'number' ? answers[idx].pointsMax
+      : (typeof q?.points === 'number' ? q.points : 1);
+    let pts = Number(rawPoints);
+    if (Number.isNaN(pts)) return;
+    pts = Math.max(0, Math.min(pts, max));
+
+    const { data: userData } = await supabase.auth.getUser();
+    const next = answers.map((a, i) =>
+      i === idx
+        ? { ...a, correction: { points: pts, by: userData.user?.id || null, at: new Date().toISOString(), note: note || null } }
+        : a
+    );
+    const { score, total } = tallyScore(next);
+
+    setSavingIdx(idx);
+    const { error: e } = await supabase
+      .from('attempts')
+      .update({ answers: next, score, total })
+      .eq('id', attempt.id);
+    setSavingIdx(null);
+    if (e) {
+      setError(e.message);
+      return;
+    }
+    setAnswers(next);
+    setAttempt((a) => ({ ...a, answers: next, score, total }));
+    supabase.rpc('log_activity', {
+      p_action: 'grade',
+      p_exam_id: id,
+      p_candidate_id: candidateId,
+      p_attempt_id: attempt.id,
+      p_meta: { questionId: next[idx].questionId, points: pts, max }
+    });
+  };
+
+  const rows = useMemo(() => {
+    return answers.map((a, idx) => {
       const q = byId[a.questionId];
-      const selectedLabel = q && typeof a.reponseChoisie === 'number' ? q.options[a.reponseChoisie] : null;
-      const correctLabel = q && typeof q.reponseCorrecte === 'number' ? q.options[q.reponseCorrecte] : null;
+      const open = q ? isOpenQ(q) : (typeof a.reponseTexte === 'string');
+      const selectedLabel = q && typeof a.reponseChoisie === 'number' ? q.options?.[a.reponseChoisie] : null;
+      const correctLabel = q && typeof q.reponseCorrecte === 'number' ? q.options?.[q.reponseCorrecte] : null;
+      const max = typeof a.pointsMax === 'number' ? a.pointsMax : (typeof q?.points === 'number' ? q.points : 1);
       return {
+        idx,
         key: `${a.questionId || 'q'}-${idx}`,
-        ok: !!a.estCorrecte,
+        open,
         question: q?.question || a.questionId || 'Question inconnue',
+        reponseTexte: a.reponseTexte || '',
+        modelAnswer: q?.modelAnswer || null,
+        acceptedAnswers: q?.grading?.acceptedAnswers || null,
         selectedLabel: selectedLabel || '—',
-        correctLabel: correctLabel || '—'
+        correctLabel: correctLabel || '—',
+        points: effectivePoints(a),
+        max,
+        needsReview: !!a.needsReview && !a.correction,
+        corrected: !!a.correction,
+        ok: a.correction ? effectivePoints(a) === max : !!a.estCorrecte
       };
     });
-  }, [exam, attempt]);
+  }, [answers, byId]);
 
   if (loading) return <p className="text-muted p-10">Chargement…</p>;
   if (error) return <p className="text-incorrect p-10">{error}</p>;
@@ -135,6 +205,11 @@ export default function CandidateAttemptDetail() {
         const pdf = await generateCertificatePdfBlob({ pngBlob: png });
         downloadBlob(pdf, `${baseName}.pdf`);
       }
+      supabase.rpc('log_activity', {
+        p_action: 'certificate_download',
+        p_exam_id: id, p_candidate_id: candidateId, p_attempt_id: attempt?.id || null,
+        p_meta: { format }
+      });
     } catch (e) {
       setError(e?.message || 'Échec de génération du certificat.');
     } finally {
@@ -177,6 +252,11 @@ export default function CandidateAttemptDetail() {
         } catch { /* ignore */ }
         throw new Error(detail);
       }
+      supabase.rpc('log_activity', {
+        p_action: 'certificate_email',
+        p_exam_id: id, p_candidate_id: candidateId, p_attempt_id: attempt?.id || null,
+        p_meta: { to: candidate.email }
+      });
       setSendMsg({ type: 'ok', text: `Certificat envoyé à ${candidate.email}.` });
     } catch (e) {
       setSendMsg({ type: 'err', text: e?.message || 'Échec de l\'envoi du certificat.' });
@@ -206,7 +286,7 @@ export default function CandidateAttemptDetail() {
         </p>
         <p>
           <span className="text-muted">Score:</span>{' '}
-          {attempt?.submitted_at ? <span className="font-bold">{attempt.score}/{attempt.total}</span> : '—'}
+          {attempt?.submitted_at ? <span className="font-bold">{fmtNum(attempt.score)}/{fmtNum(attempt.total)}</span> : '—'}
         </p>
         <p><span className="text-muted">Soumis le:</span> {formatDate(attempt?.submitted_at)}</p>
       </div>
@@ -258,34 +338,111 @@ export default function CandidateAttemptDetail() {
         )}
       </div>
 
-      {!attempt?.answers || attempt.answers.length === 0 ? (
+      {(candidate?.pre_form_data && Object.keys(candidate.pre_form_data).length > 0) && (
+        <FormDataCard title="Formulaire avant examen" data={candidate.pre_form_data} />
+      )}
+      {(candidate?.post_form_data && Object.keys(candidate.post_form_data).length > 0) && (
+        <FormDataCard title="Formulaire après examen" data={candidate.post_form_data} />
+      )}
+
+      {rows.length === 0 ? (
         <p className="text-muted italic">Aucune réponse enregistrée pour le moment.</p>
       ) : (
-        <div className="card overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left border-b border-accent/20 text-accent uppercase tracking-widest text-[10px]">
-                <th className="py-2 pr-3">#</th>
-                <th className="py-2 pr-3">Question</th>
-                <th className="py-2 pr-3">Réponse étudiant</th>
-                <th className="py-2 pr-3">Bonne réponse</th>
-                <th className="py-2 pr-3">Résultat</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-accent/10">
-              {answerRows.map((r, i) => (
-                <tr key={r.key}>
-                  <td className="py-2 pr-3 text-muted">{i + 1}</td>
-                  <td className="py-2 pr-3 text-white">{r.question}</td>
-                  <td className="py-2 pr-3">{r.selectedLabel}</td>
-                  <td className="py-2 pr-3">{r.correctLabel}</td>
-                  <td className="py-2 pr-3">{r.ok ? <span className="text-correct">Correct</span> : <span className="text-incorrect">Faux</span>}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="space-y-3">
+          {rows.map((r) => (
+            <AnswerCard
+              key={r.key}
+              row={r}
+              saving={savingIdx === r.idx}
+              onSave={(pts, note) => saveGrade(r.idx, pts, note)}
+            />
+          ))}
         </div>
       )}
+    </div>
+  );
+}
+
+function FormDataCard({ title, data }) {
+  return (
+    <div className="card mb-6">
+      <h2 className="title-display text-lg mb-3">{title}</h2>
+      <div className="grid sm:grid-cols-2 gap-2 text-sm">
+        {Object.entries(data).map(([k, v]) => (
+          <p key={k}>
+            <span className="text-muted">{k}:</span>{' '}
+            <span className="text-white/90">{v === true ? 'Oui' : v === false ? 'Non' : (v ?? '—')}</span>
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AnswerCard({ row, saving, onSave }) {
+  const [points, setPoints] = useState(String(row.points));
+  const [note, setNote] = useState('');
+
+  useEffect(() => { setPoints(String(row.points)); }, [row.points]);
+
+  return (
+    <div className="card">
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <p className="text-white text-sm flex-1">
+          <span className="text-accent font-bold mr-2">Q{row.idx + 1}</span>{row.question}
+        </p>
+        <div className="flex items-center gap-2 shrink-0">
+          {row.needsReview && <span className="text-[10px] uppercase px-2 py-0.5 rounded bg-moyenne/20 text-moyenne">à revoir</span>}
+          {row.corrected && <span className="text-[10px] uppercase px-2 py-0.5 rounded bg-accent/20 text-accent">corrigé</span>}
+          <span className={`text-sm font-bold ${row.ok ? 'text-correct' : 'text-incorrect'}`}>
+            {fmtNum(row.points)}/{fmtNum(row.max)}
+          </span>
+        </div>
+      </div>
+
+      {row.open ? (
+        <div className="space-y-2 text-sm">
+          <div>
+            <p className="text-[10px] uppercase tracking-widest text-accent mb-1">Réponse de l'étudiant</p>
+            <p className="text-white/90 whitespace-pre-wrap bg-bg/40 rounded p-2">{row.reponseTexte || <em className="text-muted">(vide)</em>}</p>
+          </div>
+          {row.modelAnswer && (
+            <div>
+              <p className="text-[10px] uppercase tracking-widest text-accent mb-1">Réponse de référence</p>
+              <p className="text-white/70 whitespace-pre-wrap">{row.modelAnswer}</p>
+            </div>
+          )}
+          {row.acceptedAnswers && row.acceptedAnswers.length > 0 && (
+            <p className="text-xs text-muted">Réponses acceptées: {row.acceptedAnswers.join(' · ')}</p>
+          )}
+        </div>
+      ) : (
+        <div className="text-sm grid sm:grid-cols-2 gap-2">
+          <p><span className="text-muted">Réponse:</span> {row.selectedLabel}</p>
+          <p><span className="text-muted">Bonne réponse:</span> {row.correctLabel}</p>
+        </div>
+      )}
+
+      <div className="mt-3 pt-3 border-t border-accent/10 flex items-end gap-2 flex-wrap">
+        <div>
+          <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Points</label>
+          <input
+            type="number" min="0" max={row.max} step="0.25" value={points}
+            onChange={(e) => setPoints(e.target.value)}
+            className="w-24 bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white text-sm"
+          />
+        </div>
+        <div className="flex-1 min-w-[140px]">
+          <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Note (facultatif)</label>
+          <input
+            value={note} onChange={(e) => setNote(e.target.value)}
+            className="w-full bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white text-sm"
+          />
+        </div>
+        <button type="button" disabled={saving} onClick={() => onSave(points, note)} className="btn-secondary text-xs">
+          {saving ? 'Enregistrement…' : 'Enregistrer la note'}
+        </button>
+      </div>
     </div>
   );
 }

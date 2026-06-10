@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
-import QuestionPicker from '../../components/QuestionPicker.jsx';
+import QuestionsBuilder from '../../components/QuestionsBuilder.jsx';
+import FormSchemaBuilder from '../../components/FormSchemaBuilder.jsx';
+import questionBank from '../../data/questions.json';
+import { getAllQuestions } from '../../utils/quizUtils.js';
+import { getType, getPoints } from '../../utils/questionModel.js';
+
+const NEW_EXAM_DRAFT_KEY = 'quiz-qawaid:new-exam-draft';
 
 function slugify(s) {
   return s
@@ -20,45 +26,100 @@ export default function ExamEditor() {
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
+  const [draftLoaded, setDraftLoaded] = useState(!isNew);
   const [form, setForm] = useState({
     title: '',
     slug: '',
     instructions: '',
+    subject: '',
     is_open: false,
     access_code: '',
     certificate_min_score: '',
-    question_ids: []
+    questions: [],
+    pre_form_schema: null,
+    post_form_schema: null
   });
   const [slugTouched, setSlugTouched] = useState(false);
 
   useEffect(() => {
+    if (!isNew) return;
+    try {
+      const raw = window.localStorage.getItem(NEW_EXAM_DRAFT_KEY);
+      if (raw) {
+        const draft = JSON.parse(raw);
+        if (draft && typeof draft === 'object') {
+          setForm((current) => ({ ...current, ...draft }));
+          setSlugTouched(Boolean(draft.slug));
+        }
+      }
+    } catch {
+      window.localStorage.removeItem(NEW_EXAM_DRAFT_KEY);
+    } finally {
+      setDraftLoaded(true);
+    }
+  }, [isNew]);
+
+  useEffect(() => {
+    if (!isNew || !draftLoaded) return;
+    const hasContent =
+      form.title.trim() ||
+      form.slug.trim() ||
+      form.instructions.trim() ||
+      form.subject.trim() ||
+      form.access_code.trim() ||
+      form.questions.length > 0 ||
+      form.pre_form_schema ||
+      form.post_form_schema;
+
+    if (!hasContent) {
+      window.localStorage.removeItem(NEW_EXAM_DRAFT_KEY);
+      return;
+    }
+    window.localStorage.setItem(NEW_EXAM_DRAFT_KEY, JSON.stringify(form));
+  }, [draftLoaded, form, isNew]);
+
+  useEffect(() => {
     if (isNew) return;
     (async () => {
-      let { data, error: e } = await supabase
-        .from('exams')
-        .select('title, slug, instructions, is_open, access_code, certificate_min_score, question_ids')
-        .eq('id', id)
-        .maybeSingle();
-      if (e && /certificate_min_score/i.test(e.message || '')) {
-        const fallback = await supabase
+      const cols = 'title, slug, instructions, subject, is_open, access_code, certificate_min_score, question_ids, questions_snapshot, pre_form_schema, post_form_schema';
+      let { data, error: e } = await supabase.from('exams').select(cols).eq('id', id).maybeSingle();
+      // Rétrocompat: si une colonne récente manque, retomber sur le minimum.
+      if (e && /column .* does not exist/i.test(e.message || '')) {
+        const fb = await supabase
           .from('exams')
           .select('title, slug, instructions, is_open, access_code, question_ids')
           .eq('id', id)
           .maybeSingle();
-        data = fallback.data ? { ...fallback.data, certificate_min_score: null } : null;
-        e = fallback.error;
+        data = fb.data
+          ? { ...fb.data, subject: null, certificate_min_score: null, questions_snapshot: null, pre_form_schema: null, post_form_schema: null }
+          : null;
+        e = fb.error;
       }
       if (e || !data) {
         setError(e?.message || 'Examen introuvable');
       } else {
+        // Questions: snapshot prioritaire, sinon résolution des ids depuis la banque.
+        let questions = Array.isArray(data.questions_snapshot) && data.questions_snapshot.length > 0
+          ? data.questions_snapshot
+          : null;
+        if (!questions) {
+          const byId = Object.fromEntries(getAllQuestions(questionBank).map((q) => [q.id, q]));
+          questions = (data.question_ids || [])
+            .map((qid) => byId[qid])
+            .filter(Boolean)
+            .map((q) => ({ ...q, type: getType(q), points: getPoints(q) }));
+        }
         setForm({
           title: data.title,
           slug: data.slug,
           instructions: data.instructions || '',
+          subject: data.subject || '',
           is_open: data.is_open,
           access_code: data.access_code || '',
           certificate_min_score: typeof data.certificate_min_score === 'number' ? String(data.certificate_min_score) : '80',
-          question_ids: Array.isArray(data.question_ids) ? data.question_ids : []
+          questions,
+          pre_form_schema: data.pre_form_schema || null,
+          post_form_schema: data.post_form_schema || null
         });
         setSlugTouched(true);
       }
@@ -80,8 +141,8 @@ export default function ExamEditor() {
       setError('Titre et slug requis');
       return;
     }
-    if (form.question_ids.length === 0) {
-      setError('Sélectionnez au moins une question');
+    if (form.questions.length === 0) {
+      setError('Ajoutez au moins une question');
       return;
     }
     const minScore = Number.parseInt(form.certificate_min_score, 10);
@@ -95,10 +156,14 @@ export default function ExamEditor() {
       title: form.title.trim(),
       slug: form.slug.trim(),
       instructions: form.instructions,
+      subject: form.subject.trim() === '' ? null : form.subject.trim(),
       is_open: form.is_open,
       access_code: form.access_code.trim() === '' ? null : form.access_code.trim(),
       certificate_min_score: minScore,
-      question_ids: form.question_ids
+      question_ids: form.questions.map((q) => q.id),
+      questions_snapshot: form.questions,
+      pre_form_schema: form.pre_form_schema,
+      post_form_schema: form.post_form_schema
     };
     let result;
     if (isNew) {
@@ -111,6 +176,9 @@ export default function ExamEditor() {
     if (result.error) {
       setError(result.error.message);
       return;
+    }
+    if (isNew) {
+      window.localStorage.removeItem(NEW_EXAM_DRAFT_KEY);
     }
     navigate('/admin', { replace: true });
   };
@@ -144,6 +212,17 @@ export default function ExamEditor() {
               required
             />
             <p className="text-[10px] text-muted mt-1">URL: /exam/{form.slug || '…'}</p>
+          </div>
+          <div className="sm:col-span-2">
+            <label className="block text-xs uppercase tracking-widest text-accent mb-2">
+              Sujet / Matière <span className="text-muted normal-case tracking-normal">(facultatif)</span>
+            </label>
+            <input
+              value={form.subject}
+              onChange={(e) => setField('subject', e.target.value)}
+              placeholder="ex: Tawḥīd, Fiqh, Sīra…"
+              className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white focus:border-accent outline-none"
+            />
           </div>
           <div className="sm:col-span-2">
             <label className="block text-xs uppercase tracking-widest text-accent mb-2">Instructions (affichées avant l'examen)</label>
@@ -204,10 +283,23 @@ export default function ExamEditor() {
           </label>
         </div>
 
+        <div className="card grid lg:grid-cols-2 gap-6">
+          <FormSchemaBuilder
+            label="Formulaire avant examen"
+            value={form.pre_form_schema}
+            onChange={(s) => setField('pre_form_schema', s)}
+          />
+          <FormSchemaBuilder
+            label="Formulaire après examen"
+            value={form.post_form_schema}
+            onChange={(s) => setField('post_form_schema', s)}
+          />
+        </div>
+
         <div className="card">
-          <QuestionPicker
-            value={form.question_ids}
-            onChange={(qids) => setField('question_ids', qids)}
+          <QuestionsBuilder
+            value={form.questions}
+            onChange={(qs) => setField('questions', qs)}
           />
         </div>
 
