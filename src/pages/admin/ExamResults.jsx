@@ -192,6 +192,7 @@ export default function ExamResults() {
             body: {
               to: r.email,
               studentName: r.full_name,
+              examId: exam.id,
               examTitle: exam.title,
               fileName: `${baseName}.pdf`,
               pdfBase64,
@@ -199,8 +200,7 @@ export default function ExamResults() {
               total: r.attempt.total,
               logoBase64
             }
-          });
-          if (fnError) {
+          });          if (fnError) {
             let detail = fnError.message;
             try {
               const body = await fnError.context?.json?.();
