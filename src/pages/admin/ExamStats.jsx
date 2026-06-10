@@ -59,14 +59,12 @@ export default function ExamStats() {
       setCandidates(cands || []);
       setAttempts(atts || []);
 
-      // Correcteurs du tenant (best-effort: visible aux admins/owners).
-      if (ex.tenant_id) {
-        const { data: profs } = await supabase
-          .from('profiles').select('id, full_name, email, role').eq('tenant_id', ex.tenant_id);
-        if (profs) {
-          setActors(Object.fromEntries(profs.map((p) => [p.id, profileLabel(p)])));
-          setCorrectorsCount(profs.filter((p) => p.role === 'correcteur').length);
-        }
+      // Noms des membres via RPC (joint auth.users -> email/nom). profiles seul
+      // ne porte pas email/full_name, d'où l'UUID affiché auparavant.
+      const { data: members } = await supabase.rpc('list_members');
+      if (members) {
+        setActors(Object.fromEntries(members.map((m) => [m.id, m.full_name || m.email || m.id])));
+        setCorrectorsCount(members.filter((m) => m.role === 'correcteur').length);
       }
       setLoading(false);
     })();

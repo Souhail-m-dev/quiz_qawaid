@@ -41,6 +41,7 @@ export default function CandidateAttemptDetail() {
   const [answers, setAnswers] = useState([]);
   const [savingIdx, setSavingIdx] = useState(null);
   const [validating, setValidating] = useState(false);
+  const [members, setMembers] = useState({});
   const [generating, setGenerating] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendMsg, setSendMsg] = useState(null);
@@ -93,7 +94,7 @@ export default function CandidateAttemptDetail() {
 
       const { data: attempts, error: attemptErr } = await supabase
         .from('attempts')
-        .select('id, answers, score, total, submitted_at, started_at, graded_at')
+        .select('id, answers, score, total, submitted_at, started_at, graded_at, graded_by')
         .eq('exam_id', id)
         .eq('candidate_id', candidateId)
         .order('started_at', { ascending: false })
@@ -107,9 +108,17 @@ export default function CandidateAttemptDetail() {
       const at = Array.isArray(attempts) ? attempts[0] || null : null;
       setAttempt(at);
       setAnswers(Array.isArray(at?.answers) ? at.answers : []);
+
+      // Noms des correcteurs (RPC: joint auth.users). Owner -> tous les membres
+      // du tenant; correcteur -> seulement lui (RLS de la fonction).
+      const { data: mem } = await supabase.rpc('list_members');
+      if (mem) setMembers(Object.fromEntries(mem.map((m) => [m.id, m.full_name || m.email || m.id])));
+
       setLoading(false);
     })();
   }, [id, candidateId]);
+
+  const memberLabel = (uid) => (uid ? (members[uid] || 'Correcteur') : null);
 
   const byId = useMemo(() => {
     const snapshot = Array.isArray(exam?.questions_snapshot) ? exam.questions_snapshot : [];
@@ -191,6 +200,8 @@ export default function CandidateAttemptDetail() {
         max,
         needsReview: !!a.needsReview && !a.correction,
         corrected: !!a.correction,
+        correctionBy: a.correction?.by || null,
+        correctionAt: a.correction?.at || null,
         ok: a.correction ? effectivePoints(a) === max : !!a.estCorrecte
       };
     });
@@ -316,7 +327,7 @@ export default function CandidateAttemptDetail() {
             <h2 className="title-display text-lg">Correction</h2>
             <p className="text-xs text-muted">
               {attempt.graded_at
-                ? `Validée le ${formatDate(attempt.graded_at)}.`
+                ? `Validée le ${formatDate(attempt.graded_at)}${attempt.graded_by ? ` par ${memberLabel(attempt.graded_by)}` : ''}.`
                 : (() => {
                     const pending = rows.filter((r) => r.needsReview).length;
                     return pending > 0
@@ -418,6 +429,7 @@ export default function CandidateAttemptDetail() {
               row={r}
               saving={savingIdx === r.idx}
               onSave={(pts, note) => saveGrade(r.idx, pts, note)}
+              correctorLabel={r.correctionBy ? memberLabel(r.correctionBy) : null}
             />
           ))}
         </div>
@@ -442,7 +454,7 @@ function FormDataCard({ title, data }) {
   );
 }
 
-function AnswerCard({ row, saving, onSave }) {
+function AnswerCard({ row, saving, onSave, correctorLabel }) {
   const [points, setPoints] = useState(String(row.points));
   const [note, setNote] = useState('');
 
@@ -462,6 +474,11 @@ function AnswerCard({ row, saving, onSave }) {
           </span>
         </div>
       </div>
+      {row.corrected && (
+        <p className="text-[11px] text-muted mb-2">
+          Corrigé{correctorLabel ? ` par ${correctorLabel}` : ''}{row.correctionAt ? ` le ${formatDate(row.correctionAt)}` : ''}
+        </p>
+      )}
 
       {row.open ? (
         <div className="space-y-2 text-sm">
