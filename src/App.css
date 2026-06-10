@@ -70,6 +70,26 @@ body {
   .title-display {
     @apply font-display text-accent uppercase tracking-[0.2em] leading-tight;
   }
+
+  /* Bouton-icône carré (réorganiser / éditer / supprimer) */
+  .icon-btn {
+    @apply inline-flex items-center justify-center w-8 h-8 rounded-md border border-accent/25 text-accent/80 bg-bg/40 transition duration-150 hover:bg-accent/15 hover:text-accent hover:border-accent/50 active:scale-95 disabled:opacity-25 disabled:cursor-not-allowed disabled:hover:bg-bg/40 disabled:hover:text-accent/80;
+  }
+  .icon-btn svg { @apply w-4 h-4; }
+  .icon-btn-danger {
+    @apply hover:bg-incorrect/15 hover:text-incorrect hover:border-incorrect/50;
+  }
+
+  /* Tuile d'ajout en pointillés (ajouter champ / question / option) */
+  .add-tile {
+    @apply inline-flex items-center gap-2 rounded-lg border border-dashed border-accent/40 text-accent px-3.5 py-2 text-xs font-bold uppercase tracking-wider bg-accent/5 transition duration-200 hover:bg-accent/15 hover:border-accent active:scale-[0.98];
+  }
+  .add-tile svg { @apply w-3.5 h-3.5; }
+
+  /* Pastille de type / méta */
+  .pill {
+    @apply inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full;
+  }
 }
 
 /* Custom Curved Shape for Specific Containers (like the bottom one in image) */
