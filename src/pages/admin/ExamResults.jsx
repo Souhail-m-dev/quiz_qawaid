@@ -425,11 +425,15 @@ export default function ExamResults() {
               {filteredRows.map((r) => {
                 const a = r.attempt;
                 const submitted = a?.submitted_at;
+                const pct = pctOf(a);
+                // Réussi/échoué connu uniquement si soumis + seuil configuré.
+                const passed = submitted && minScore != null && pct != null ? pct >= minScore : null;
+                const edge = passed === true ? 'border-l-correct' : passed === false ? 'border-l-incorrect' : 'border-l-transparent';
                 return (
                   <tr
                     key={r.id}
                     onClick={() => navigate(`/admin/exams/${id}/results/${r.id}`)}
-                    className="cursor-pointer hover:bg-accent/5"
+                    className={`cursor-pointer hover:bg-accent/5 border-l-2 ${edge}`}
                   >
                     <td className="py-2 pr-3" onClick={(e) => e.stopPropagation()}>
                       <input
@@ -451,7 +455,14 @@ export default function ExamResults() {
                       )}
                     </td>
                     <td className="py-2 pr-3 font-bold">
-                      {submitted ? `${fmtNum(a.score)}/${fmtNum(a.total)}` : '—'}
+                      {submitted ? (
+                        <span className={passed === true ? 'text-correct' : passed === false ? 'text-incorrect' : ''}>
+                          {fmtNum(a.score)}/{fmtNum(a.total)}
+                          {passed !== null && (
+                            <span className="ml-1.5 text-[10px]" title={passed ? 'Réussi' : 'Échoué'}>{passed ? '✓' : '✗'}</span>
+                          )}
+                        </span>
+                      ) : '—'}
                     </td>
                     <td className="py-2 pr-3 text-muted">{formatDate(submitted)}</td>
                   </tr>
