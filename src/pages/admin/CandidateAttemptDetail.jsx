@@ -41,6 +41,7 @@ export default function CandidateAttemptDetail() {
   const [answers, setAnswers] = useState([]);
   const [savingIdx, setSavingIdx] = useState(null);
   const [validating, setValidating] = useState(false);
+  const [drafts, setDrafts] = useState({});
   const [members, setMembers] = useState({});
   const [generating, setGenerating] = useState(false);
   const [sending, setSending] = useState(false);
@@ -179,6 +180,49 @@ export default function CandidateAttemptDetail() {
     });
   };
 
+  // Valide la correction en une fois: applique aux questions ouvertes les points
+  // saisis (drafts) ou, à défaut, leur note auto. Pas besoin d'enregistrer chaque
+  // note à la main. Les QCM (corrigés auto) ne sont pas touchés.
+  const validateAll = async () => {
+    if (!attempt) return;
+    setValidating(true);
+    const { data: userData } = await supabase.auth.getUser();
+    const uid = userData.user?.id || null;
+    const now = new Date().toISOString();
+    const next = answers.map((a, idx) => {
+      const q = byId[a.questionId];
+      const open = q ? isOpenQ(q) : (typeof a.reponseTexte === 'string');
+      if (!open) return a;
+      const max = typeof a.pointsMax === 'number' ? a.pointsMax : (typeof q?.points === 'number' ? q.points : 1);
+      const d = drafts[idx];
+      let pts = d ? Number(d.points) : effectivePoints(a);
+      if (Number.isNaN(pts)) pts = effectivePoints(a);
+      pts = Math.max(0, Math.min(pts, max));
+      const note = (d && d.note) || a.correction?.note || null;
+      return { ...a, correction: { points: pts, by: uid, at: now, note } };
+    });
+    const { score, total } = tallyScore(next);
+    const patch = { answers: next, score, total, graded_at: now, graded_by: uid };
+    const { error: e } = await supabase.from('attempts').update(patch).eq('id', attempt.id);
+    setValidating(false);
+    if (e) { setError(e.message); return; }
+    setAnswers(next);
+    setAttempt((a) => ({ ...a, ...patch }));
+    setDrafts({});
+    supabase.rpc('log_activity', {
+      p_action: 'correction_validated',
+      p_exam_id: id, p_candidate_id: candidateId, p_attempt_id: attempt.id, p_meta: {}
+    });
+  };
+
+  const draftFor = (r) => ({
+    points: String(r.points),
+    note: r.correctionNote || '',
+    ...(drafts[r.idx] || {})
+  });
+  const setDraft = (idx, patch) =>
+    setDrafts((d) => ({ ...d, [idx]: { ...(d[idx] || {}), ...patch } }));
+
   const rows = useMemo(() => {
     return answers.map((a, idx) => {
       const q = byId[a.questionId];
@@ -202,6 +246,7 @@ export default function CandidateAttemptDetail() {
         corrected: !!a.correction,
         correctionBy: a.correction?.by || null,
         correctionAt: a.correction?.at || null,
+        correctionNote: a.correction?.note || '',
         ok: a.correction ? effectivePoints(a) === max : !!a.estCorrecte
       };
     });
@@ -350,8 +395,8 @@ export default function CandidateAttemptDetail() {
               type="button"
               className="btn-primary"
               disabled={validating || !attempt.submitted_at}
-              onClick={() => setGraded(true)}
-              title={!attempt.submitted_at ? 'Tentative non soumise.' : undefined}
+              onClick={validateAll}
+              title={!attempt.submitted_at ? 'Tentative non soumise.' : 'Valide et enregistre toutes les notes affichées en une fois.'}
             >
               {validating ? 'Validation…' : 'Valider la correction'}
             </button>
@@ -421,19 +466,45 @@ export default function CandidateAttemptDetail() {
 
       {rows.length === 0 ? (
         <p className="text-muted italic">Aucune réponse enregistrée pour le moment.</p>
-      ) : (
-        <div className="space-y-3">
-          {rows.map((r) => (
-            <AnswerCard
-              key={r.key}
-              row={r}
-              saving={savingIdx === r.idx}
-              onSave={(pts, note) => saveGrade(r.idx, pts, note)}
-              correctorLabel={r.correctionBy ? memberLabel(r.correctionBy) : null}
-            />
-          ))}
-        </div>
-      )}
+      ) : (() => {
+        const openRows = rows.filter((r) => r.open);
+        const mcqRows = rows.filter((r) => !r.open);
+        const card = (r) => (
+          <AnswerCard
+            key={r.key}
+            row={r}
+            saving={savingIdx === r.idx}
+            draft={draftFor(r)}
+            onDraftChange={(patch) => setDraft(r.idx, patch)}
+            onSave={(pts, note) => saveGrade(r.idx, pts, note)}
+            correctorLabel={r.correctionBy ? memberLabel(r.correctionBy) : null}
+          />
+        );
+        return (
+          <>
+            {openRows.length > 0 && (
+              <section className="mb-8">
+                <h2 className="title-display text-lg mb-1">
+                  Questions à corriger <span className="text-sm text-muted">({openRows.length})</span>
+                </h2>
+                <p className="text-xs text-muted mb-3">
+                  Saisissez les points, puis cliquez « Valider la correction » en haut — inutile d'enregistrer chaque note.
+                </p>
+                <div className="space-y-3">{openRows.map(card)}</div>
+              </section>
+            )}
+            {mcqRows.length > 0 && (
+              <section>
+                <h2 className="title-display text-lg mb-1">
+                  Questions à choix <span className="text-sm text-muted">({mcqRows.length})</span>
+                </h2>
+                <p className="text-xs text-muted mb-3">Corrigées automatiquement. Modifiables au besoin.</p>
+                <div className="space-y-3">{mcqRows.map(card)}</div>
+              </section>
+            )}
+          </>
+        );
+      })()}
     </div>
   );
 }
@@ -454,11 +525,9 @@ function FormDataCard({ title, data }) {
   );
 }
 
-function AnswerCard({ row, saving, onSave, correctorLabel }) {
-  const [points, setPoints] = useState(String(row.points));
-  const [note, setNote] = useState('');
-
-  useEffect(() => { setPoints(String(row.points)); }, [row.points]);
+function AnswerCard({ row, saving, onSave, draft, onDraftChange, correctorLabel }) {
+  const points = draft?.points ?? String(row.points);
+  const note = draft?.note ?? '';
 
   return (
     <div className="card">
@@ -508,14 +577,14 @@ function AnswerCard({ row, saving, onSave, correctorLabel }) {
           <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Points</label>
           <input
             type="number" min="0" max={row.max} step="0.25" value={points}
-            onChange={(e) => setPoints(e.target.value)}
+            onChange={(e) => onDraftChange({ points: e.target.value })}
             className="w-24 bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white text-sm"
           />
         </div>
         <div className="flex-1 min-w-[140px]">
           <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Note (facultatif)</label>
           <input
-            value={note} onChange={(e) => setNote(e.target.value)}
+            value={note} onChange={(e) => onDraftChange({ note: e.target.value })}
             className="w-full bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white text-sm"
           />
         </div>
