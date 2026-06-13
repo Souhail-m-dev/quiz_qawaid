@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
+import { useAuth } from '../../lib/useAuth.js';
 import {
   downloadBlob,
   formatCertificateDate,
@@ -36,6 +37,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 export default function ExamResults() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
   const [exam, setExam] = useState(null);
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,6 +47,8 @@ export default function ExamResults() {
   const [bulkInfo, setBulkInfo] = useState(null);
   const [sendingMails, setSendingMails] = useState(false);
   const [mailInfo, setMailInfo] = useState(null);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteInfo, setDeleteInfo] = useState(null);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [formField, setFormField] = useState('');
@@ -294,6 +298,32 @@ export default function ExamResults() {
     }
   };
 
+  // Suppression définitive d'entrées: tentatives d'abord (FK), puis candidats.
+  const deleteCandidates = async (ids) => {
+    if (!ids.length) return;
+    const label = ids.length === 1
+      ? "Supprimer définitivement cette entrée (candidat + tentative) ?"
+      : `Supprimer définitivement ${ids.length} entrées (candidats + tentatives) ?`;
+    if (!window.confirm(label)) return;
+
+    setDeleting(true);
+    setDeleteInfo(null);
+    try {
+      const { error: attErr } = await supabase.from('attempts').delete().in('candidate_id', ids);
+      if (attErr) throw attErr;
+      const { error: candErr } = await supabase.from('candidates').delete().in('id', ids);
+      if (candErr) throw candErr;
+
+      setRows((prev) => prev.filter((r) => !ids.includes(r.id)));
+      setSelectedIds((prev) => prev.filter((sid) => !ids.includes(sid)));
+      setDeleteInfo(`${ids.length} entrée(s) supprimée(s).`);
+    } catch (e) {
+      setDeleteInfo(e?.message || 'Échec de la suppression.');
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -339,10 +369,21 @@ export default function ExamResults() {
               ? 'Envoi des mails…'
               : (certTemplate ? 'Envoyer les certificats par email' : 'Envoyer les résultats par email')}
           </button>
+          {isAdmin && (
+            <button
+              type="button"
+              className="btn-secondary text-incorrect border-incorrect/40 hover:bg-incorrect/10"
+              disabled={selectedCount === 0 || deleting || generatingZip || sendingMails}
+              onClick={() => deleteCandidates(selectedIds)}
+            >
+              {deleting ? 'Suppression…' : `Supprimer (${selectedCount})`}
+            </button>
+          )}
         </div>
       </div>
       {bulkInfo && <p className="text-xs text-muted mb-4">{bulkInfo}</p>}
       {mailInfo && <p className="text-xs text-muted mb-4">{mailInfo}</p>}
+      {deleteInfo && <p className="text-xs text-muted mb-4">{deleteInfo}</p>}
 
       {rows.length > 0 && (
         <div className="card mb-4 flex flex-wrap gap-3 items-end">
@@ -431,11 +472,12 @@ export default function ExamResults() {
                 <th className="py-2 pr-3">Statut</th>
                 <th className="py-2 pr-3">Score</th>
                 <th className="py-2 pr-3">Soumis le</th>
+                {isAdmin && <th className="py-2 pr-3"></th>}
               </tr>
             </thead>
             <tbody className="divide-y divide-accent/10">
               {filteredRows.length === 0 && (
-                <tr><td colSpan={8} className="py-4 text-center text-muted italic">Aucun résultat pour ces filtres.</td></tr>
+                <tr><td colSpan={isAdmin ? 9 : 8} className="py-4 text-center text-muted italic">Aucun résultat pour ces filtres.</td></tr>
               )}
               {filteredRows.map((r) => {
                 const a = r.attempt;
@@ -480,6 +522,19 @@ export default function ExamResults() {
                       ) : '—'}
                     </td>
                     <td className="py-2 pr-3 text-muted">{formatDate(submitted)}</td>
+                    {isAdmin && (
+                      <td className="py-2 pr-3" onClick={(e) => e.stopPropagation()}>
+                        <button
+                          type="button"
+                          className="text-incorrect/70 hover:text-incorrect text-xs"
+                          disabled={deleting}
+                          title="Supprimer cette entrée"
+                          onClick={() => deleteCandidates([r.id])}
+                        >
+                          Supprimer
+                        </button>
+                      </td>
+                    )}
                   </tr>
                 );
               })}

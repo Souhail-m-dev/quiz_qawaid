@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
 import { useAuth } from '../../lib/useAuth.js';
+import { effectivePoints, getType } from '../../utils/questionModel.js';
 
 function formatDate(d) {
   if (!d) return '—';
@@ -136,6 +137,42 @@ export default function ExamStats() {
     return [...m.values()].sort((a, b) => b.attempts - a.attempts);
   }, [corrections]);
 
+  // Stat par question: agrège attempts.answers (réponses soumises) par questionId.
+  // Taux de réussite = points obtenus (override correcteur prioritaire) / points max.
+  const perQuestion = useMemo(() => {
+    const questions = Array.isArray(exam?.questions_snapshot) ? exam.questions_snapshot : [];
+    if (questions.length === 0) return [];
+    const agg = new Map(); // questionId -> { answered, correct, sumPct, needsReview }
+    for (const a of attempts) {
+      if (!a.submitted_at || !Array.isArray(a.answers)) continue;
+      for (const ans of a.answers) {
+        const qid = ans?.questionId;
+        if (qid == null) continue;
+        if (!agg.has(qid)) agg.set(qid, { answered: 0, correct: 0, sumPct: 0, needsReview: 0 });
+        const e = agg.get(qid);
+        e.answered += 1;
+        const max = typeof ans?.pointsMax === 'number' ? ans.pointsMax : 1;
+        const pct = max > 0 ? (effectivePoints(ans) / max) * 100 : 0;
+        e.sumPct += pct;
+        if (pct >= 100) e.correct += 1;
+        if (ans?.needsReview && !ans?.correction) e.needsReview += 1;
+      }
+    }
+    return questions.map((q, i) => {
+      const e = agg.get(q.id) || { answered: 0, correct: 0, sumPct: 0, needsReview: 0 };
+      return {
+        id: q.id,
+        n: i + 1,
+        label: q.question || `Question ${i + 1}`,
+        type: getType(q),
+        answered: e.answered,
+        correct: e.correct,
+        needsReview: e.needsReview,
+        avg: e.answered ? e.sumPct / e.answered : null
+      };
+    });
+  }, [exam, attempts]);
+
   // Champs catégoriels du formulaire d'entrée (select/radio) → filtrables.
   const categoricalFields = useMemo(
     () => (exam?.pre_form_schema || []).filter((f) => f.type === 'select' || f.type === 'radio'),
@@ -235,6 +272,44 @@ export default function ExamStats() {
           )}
         </section>
       )}
+
+      <section className="card">
+        <h2 className="title-display text-lg mb-3">Statistiques par question</h2>
+        {perQuestion.length === 0 ? (
+          <p className="text-muted text-sm italic">Aucune question enregistrée pour cet examen.</p>
+        ) : stats.submittedCount === 0 ? (
+          <p className="text-muted text-sm italic">Aucune copie soumise.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead><tr className="text-left text-accent uppercase tracking-widest text-[10px] border-b border-accent/20">
+                <th className="py-2 pr-3">#</th>
+                <th className="py-2 pr-3">Question</th>
+                <th className="py-2 pr-3">Type</th>
+                <th className="py-2 pr-3">Répondu</th>
+                <th className="py-2 pr-3">Réussite</th>
+                <th className="py-2 pr-3">Taux moyen</th>
+                <th className="py-2 pr-3">À corriger</th>
+              </tr></thead>
+              <tbody className="divide-y divide-accent/10">
+                {perQuestion.map((q) => (
+                  <tr key={q.id}>
+                    <td className="py-2 pr-3 text-muted">{q.n}</td>
+                    <td className="py-2 pr-3 text-white max-w-md truncate" title={q.label}>{q.label}</td>
+                    <td className="py-2 pr-3 text-muted">{q.type === 'open' ? 'Ouverte' : 'Choix'}</td>
+                    <td className="py-2 pr-3">{q.answered}</td>
+                    <td className="py-2 pr-3">{q.answered ? `${q.correct}/${q.answered}` : '—'}</td>
+                    <td className="py-2 pr-3 text-accent">{q.avg === null ? '—' : `${fmtNum(q.avg)}%`}</td>
+                    <td className="py-2 pr-3">
+                      {q.needsReview ? <span className="text-incorrect">{q.needsReview}</span> : '—'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
 
       <section className="card">
         <div className="flex items-center gap-3 mb-3 flex-wrap">
