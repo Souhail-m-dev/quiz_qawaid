@@ -16,6 +16,7 @@ import ExamRegistration from './pages/exam/ExamRegistration.jsx';
 import ExamInstructions from './pages/exam/ExamInstructions.jsx';
 import ExamRun from './pages/exam/ExamRun.jsx';
 import ExamDone from './pages/exam/ExamDone.jsx';
+import InviteAccept from './pages/InviteAccept.jsx';
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/exam/:slug/done" element={<ExamDone />} />
 
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/invite/:token" element={<InviteAccept />} />
 
           {/* Espace admin: layout commun (barre latérale responsive) */}
           <Route element={<RequireStaff><AdminLayout /></RequireStaff>}>

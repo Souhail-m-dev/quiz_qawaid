@@ -12,6 +12,8 @@ export default function Users() {
   const [error, setError] = useState(null);
   const [savingId, setSavingId] = useState(null);
   const [inviting, setInviting] = useState(false);
+  const [inviteLink, setInviteLink] = useState(null);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   // Owner réservé à l'admin plateforme (créé via provision_owner avec un tenant).
   const roleOptions = isPlatformAdmin ? ['owner', 'correcteur'] : ['correcteur'];
@@ -46,6 +48,26 @@ export default function Users() {
     }
   };
 
+  const copyLink = async () => {
+    if (!inviteLink) return;
+    try { await navigator.clipboard.writeText(inviteLink); setLinkCopied(true); } catch { /* noop */ }
+  };
+
+  const generateInviteLink = async () => {
+    setError(null);
+    setLinkCopied(false);
+    setInviteLink(null);
+    setInviting(true);
+    try {
+      const email = window.prompt("Email du correcteur (optionnel, pour pré-remplir) :");
+      const { data, error: e } = await supabase.rpc('create_invite', { p_email: email || null });
+      if (e) { setError(e.message); return; }
+      setInviteLink(`${window.location.origin}/invite/${data}`);
+    } finally {
+      setInviting(false);
+    }
+  };
+
   const changeRole = async (id, role) => {
     setError(null);
     setSavingId(id);
@@ -75,22 +97,52 @@ export default function Users() {
     <div className="max-w-4xl mx-auto px-4 py-10">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="title-display text-2xl">Utilisateurs</h1>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <button
             type="button"
             className="btn-primary"
             disabled={inviting}
-            onClick={inviteCorrector}
+            onClick={generateInviteLink}
           >
-            {inviting ? 'Invitation…' : '+ Inviter un correcteur'}
+            {inviting ? '…' : '+ Lien d’invitation'}
+          </button>
+          <button
+            type="button"
+            className="btn-secondary"
+            disabled={inviting}
+            onClick={inviteCorrector}
+            title="Pour un compte déjà existant dans Supabase Auth"
+          >
+            Inviter (compte existant)
           </button>
           <Link to="/admin" className="btn-secondary">← Retour</Link>
         </div>
       </div>
 
+      {inviteLink && (
+        <div className="card mb-4 border border-accent/40 bg-accent/5">
+          <p className="text-sm text-white font-bold mb-1">Lien d’invitation prêt</p>
+          <p className="text-xs text-muted mb-3">
+            Envoyez ce lien au correcteur (WhatsApp, Telegram, email…). Il crée son compte et
+            rejoint votre instance en correcteur. Valable 7 jours, usage unique.
+          </p>
+          <button
+            type="button"
+            onClick={copyLink}
+            title="Cliquer pour copier"
+            className="w-full text-left bg-bg/60 border border-accent/30 hover:border-accent rounded px-3 py-3 text-accent text-sm break-all cursor-pointer transition-colors"
+          >
+            {inviteLink}
+          </button>
+          <p className={`text-xs mt-2 ${linkCopied ? 'text-correct' : 'text-muted'}`}>
+            {linkCopied ? '✓ Copié dans le presse-papiers' : 'Cliquez sur le lien pour le copier'}
+          </p>
+        </div>
+      )}
+
       <p className="text-xs text-muted mb-4">
-        Les comptes se créent via l'invitation Supabase Auth (un profil apparaît ici à la
-        première connexion).{' '}
+        « Lien d’invitation » génère un lien à envoyer vous-même : le correcteur crée son compte
+        et apparaît ici automatiquement, en correcteur.{' '}
         {isPlatformAdmin
           ? "Choisir « owner » crée une instance (tenant) dédiée et y rattache l'utilisateur."
           : "Vous gérez les rôles de votre instance."}
