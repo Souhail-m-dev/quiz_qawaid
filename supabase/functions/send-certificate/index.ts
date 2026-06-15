@@ -29,6 +29,7 @@ Deno.serve(async (req) => {
     pdfBase64?: string;
     score?: number;
     total?: number;
+    questions?: Array<{ q: string; your: string; correct: string; ok?: boolean }>;
   };
 
   try {
@@ -37,7 +38,7 @@ Deno.serve(async (req) => {
     return json({ error: 'Invalid JSON body.' }, 400);
   }
 
-  const { to, examId, examTitle, fileName, pdfBase64, score, total } = payload;
+  const { to, examId, examTitle, fileName, pdfBase64, score, total, questions } = payload;
   if (!to || !examId) {
     return json({ error: 'Missing required fields (to, examId).' }, 400);
   }
@@ -95,6 +96,31 @@ Deno.serve(async (req) => {
   const resultLine = hasScore ? `${score}/${total} (${percent}%)` : '';
   const subject = `Résultat examen — ${finalExamTitle}`;
 
+  const esc = (s: unknown) =>
+    String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  // Tableau Question / Réponse de l'élève / Bonne réponse (corps du mail).
+  const reviewBlock = Array.isArray(questions) && questions.length > 0
+    ? `<tr><td style="padding:8px 32px 4px;">
+         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:13px;">
+           <tr>
+             <th align="left" style="padding:8px 10px;background:#101827;color:#C5A059;font-size:11px;text-transform:uppercase;letter-spacing:1px;border:1px solid rgba(197,160,89,0.3);">Question</th>
+             <th align="left" style="padding:8px 10px;background:#101827;color:#C5A059;font-size:11px;text-transform:uppercase;letter-spacing:1px;border:1px solid rgba(197,160,89,0.3);">Votre réponse</th>
+             <th align="left" style="padding:8px 10px;background:#101827;color:#C5A059;font-size:11px;text-transform:uppercase;letter-spacing:1px;border:1px solid rgba(197,160,89,0.3);">Bonne réponse</th>
+           </tr>
+           ${questions.map((r) => {
+             const tint = r.ok ? '#0e2a1f' : '#2a1414';
+             const mark = r.ok ? '#10B981' : '#EF4444';
+             return `<tr>
+               <td style="padding:8px 10px;color:#E6DFD1;border:1px solid rgba(197,160,89,0.2);vertical-align:top;">${esc(r.q)}</td>
+               <td style="padding:8px 10px;color:#F9FAFB;background:${tint};border:1px solid rgba(197,160,89,0.2);vertical-align:top;border-left:3px solid ${mark};">${esc(r.your)}</td>
+               <td style="padding:8px 10px;color:#E6DFD1;border:1px solid rgba(197,160,89,0.2);vertical-align:top;">${esc(r.correct)}</td>
+             </tr>`;
+           }).join('')}
+         </table>
+       </td></tr>`
+    : '';
+
   const logoBlock = logoBase64
     ? `<tr><td align="center" style="padding:26px 28px 8px;">
          <table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr>
@@ -131,6 +157,8 @@ Deno.serve(async (req) => {
               </td></tr>
             </table>
           </td></tr>
+
+          ${reviewBlock ? `<tr><td style="padding:16px 32px 2px;color:#9CA3AF;font-size:11px;text-transform:uppercase;letter-spacing:2px;">Détail des réponses</td></tr>${reviewBlock}` : ''}
 
           <tr><td style="padding:10px 32px 4px;color:#E6DFD1;font-size:15px;line-height:1.7;">
             <p style="margin:0;">Qu'Allah vous récompense pour vos efforts.${hasCert ? ' Vous trouverez en pièce jointe votre certificat au format PDF.' : ''}</p>

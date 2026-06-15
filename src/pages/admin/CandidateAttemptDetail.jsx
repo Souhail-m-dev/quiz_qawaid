@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
 import { isOpen as isOpenQ, effectivePoints, tallyScore } from '../../utils/questionModel.js';
+import { buildReviewRows } from '../../utils/examReview.js';
 import { certTemplateFor } from '../../config/certificateTemplates.js';
 import {
   downloadBlob,
@@ -302,7 +303,8 @@ export default function CandidateAttemptDetail() {
         examId: exam.id,
         examTitle: exam.title,
         score: attempt.score,
-        total: attempt.total
+        total: attempt.total,
+        questions: buildReviewRows(answers, exam.questions_snapshot)
       };
       // Certificat joint uniquement si l'instance en émet un et le candidat est éligible.
       if (canCertify) {
