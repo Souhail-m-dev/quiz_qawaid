@@ -12,6 +12,7 @@ import {
   sanitizeFileName
 } from '../../utils/certificates.js';
 import { certTemplateFor } from '../../config/certificateTemplates.js';
+import { buildReviewRows } from '../../utils/examReview.js';
 
 function formatDate(d) {
   if (!d) return '—';
@@ -58,7 +59,7 @@ export default function ExamResults() {
     (async () => {
       let { data: examData } = await supabase
         .from('exams')
-        .select('id, title, slug, tenant_id, question_ids, certificate_min_score, pre_form_schema, post_form_schema')
+        .select('id, title, slug, tenant_id, question_ids, certificate_min_score, pre_form_schema, post_form_schema, questions_snapshot')
         .eq('id', id)
         .maybeSingle();
       if (!examData) {
@@ -86,7 +87,7 @@ export default function ExamResults() {
 
       const { data: attempts, error: attemptsErr } = await supabase
         .from('attempts')
-        .select('candidate_id, score, total, submitted_at, started_at, graded_at')
+        .select('candidate_id, score, total, submitted_at, started_at, graded_at, answers')
         .eq('exam_id', id)
         .order('started_at', { ascending: false });
 
@@ -134,9 +135,14 @@ export default function ExamResults() {
     : [];
 
   const pctOf = (a) => (a?.submitted_at && a.total > 0 ? (a.score / a.total) * 100 : null);
+  // Réponses ouvertes à revoir: signalées needsReview et pas encore corrigées.
+  const reviewCountOf = (a) =>
+    Array.isArray(a?.answers) ? a.answers.filter((x) => x?.needsReview && !x?.correction).length : 0;
+  const totalToReview = rows.reduce((n, r) => n + reviewCountOf(r.attempt), 0);
   const matchesStatus = (r) => {
     const a = r.attempt; const submitted = !!a?.submitted_at; const pct = pctOf(a);
     switch (statusFilter) {
+      case 'arevoir': return reviewCountOf(a) > 0;
       case 'reussi': return submitted && minScore != null && pct != null && pct >= minScore;
       case 'echoue': return submitted && minScore != null && (pct == null || pct < minScore);
       case 'soumis': return submitted;
@@ -255,7 +261,8 @@ export default function ExamResults() {
             examId: exam.id,
             examTitle: exam.title,
             score: r.attempt.score,
-            total: r.attempt.total
+            total: r.attempt.total,
+            questions: buildReviewRows(r.attempt.answers, exam.questions_snapshot)
           };
           if (certTemplate) {
             const baseName = `certificat-${sanitizeFileName(exam.slug)}-${sanitizeFileName(r.full_name)}-${day}`;
@@ -331,7 +338,15 @@ export default function ExamResults() {
           <h1 className="title-display text-2xl">{exam?.title || 'Résultats'}</h1>
           <p className="text-xs text-muted">/exam/{exam?.slug}</p>
         </div>
-        <Link to="/admin" className="btn-secondary">← Retour</Link>
+        <div className="flex gap-2">
+          <Link
+            to={`/admin/exams/${id}/review`}
+            className={`btn-secondary ${totalToReview ? 'text-moyenne border-moyenne/50 hover:bg-moyenne/10' : ''}`}
+          >
+            Réponses à revoir{totalToReview ? ` (${totalToReview})` : ''}
+          </Link>
+          <Link to="/admin" className="btn-secondary">← Retour</Link>
+        </div>
       </div>
 
       <div className="card mb-4 flex items-center justify-between gap-3 flex-wrap">
@@ -404,6 +419,7 @@ export default function ExamResults() {
               className="bg-bg/60 border border-accent/30 rounded px-2 py-2 text-white text-sm focus:border-accent outline-none"
             >
               <option value="">Tous</option>
+              <option value="arevoir">À revoir</option>
               <option value="reussi">Réussi</option>
               <option value="echoue">Échoué</option>
               <option value="soumis">Soumis</option>
@@ -509,6 +525,11 @@ export default function ExamResults() {
                         : a ? <span className="text-moyenne">En cours</span> : <span className="text-muted">Non commencé</span>}
                       {a?.graded_at && (
                         <span className="ml-2 text-[9px] uppercase px-2 py-0.5 rounded bg-accent/20 text-accent">corrigé</span>
+                      )}
+                      {reviewCountOf(a) > 0 && (
+                        <span className="ml-2 text-[9px] uppercase px-2 py-0.5 rounded bg-moyenne/20 text-moyenne" title="Réponses ouvertes à revoir">
+                          à revoir {reviewCountOf(a)}
+                        </span>
                       )}
                     </td>
                     <td className="py-2 pr-3 font-bold">

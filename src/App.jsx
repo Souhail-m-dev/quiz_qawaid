@@ -8,6 +8,7 @@ import ExamEditor from './pages/admin/ExamEditor.jsx';
 import ExamResults from './pages/admin/ExamResults.jsx';
 import CandidateAttemptDetail from './pages/admin/CandidateAttemptDetail.jsx';
 import ExamStats from './pages/admin/ExamStats.jsx';
+import ReviewQueue from './pages/admin/ReviewQueue.jsx';
 import Users from './pages/admin/Users.jsx';
 import Activity from './pages/admin/Activity.jsx';
 import Tenants from './pages/admin/Tenants.jsx';
@@ -51,6 +52,7 @@ export default function App() {
             {/* Staff: admin + correcteur */}
             <Route path="/admin/exams/:id/stats" element={<RequireStaff><ExamStats /></RequireStaff>} />
             <Route path="/admin/exams/:id/results" element={<RequireStaff><ExamResults /></RequireStaff>} />
+            <Route path="/admin/exams/:id/review" element={<RequireStaff><ReviewQueue /></RequireStaff>} />
             <Route path="/admin/exams/:id/results/:candidateId" element={<RequireStaff><CandidateAttemptDetail /></RequireStaff>} />
           </Route>
 
