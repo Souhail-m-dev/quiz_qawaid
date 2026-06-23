@@ -253,6 +253,41 @@ export default function CandidateAttemptDetail() {
     });
   }, [answers, byId]);
 
+  // Export CSV détaillé d'un élève: en-tête identité/score + une ligne par question.
+  const exportDetailCsv = () => {
+    const sep = ';';
+    const esc = (v) => {
+      const s = v == null ? '' : String(v);
+      return /[";\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const line = (arr) => arr.map(esc).join(sep);
+    const lines = [
+      line(['Nom', candidate?.full_name]),
+      line(['Email', candidate?.email]),
+      line(['Telegram', candidate?.telegram]),
+      line(['Soumis le', attempt?.submitted_at ? formatDate(attempt.submitted_at) : '']),
+      line(['Score', attempt?.submitted_at ? `${fmtNum(attempt.score)}/${fmtNum(attempt.total)}` : '']),
+      '',
+      line(['N°', 'Type', 'Question', 'Réponse élève', 'Réponse correcte / référence', 'Points', 'Max', 'Note correcteur'])
+    ];
+    for (const r of rows) {
+      lines.push(line([
+        r.idx + 1,
+        r.open ? 'Ouverte' : 'QCM',
+        r.question,
+        r.open ? r.reponseTexte : r.selectedLabel,
+        r.open ? (r.modelAnswer || '') : r.correctLabel,
+        fmtNum(r.points),
+        fmtNum(r.max),
+        r.correctionNote || ''
+      ]));
+    }
+    const csv = '﻿' + lines.join('\r\n');
+    const day = new Date().toISOString().slice(0, 10);
+    downloadBlob(new Blob([csv], { type: 'text/csv;charset=utf-8;' }),
+      `detail-${sanitizeFileName(exam?.slug || 'examen')}-${sanitizeFileName(candidate?.full_name || 'eleve')}-${day}.csv`);
+  };
+
   if (loading) return <p className="text-muted p-10">Chargement…</p>;
   if (error) return <p className="text-incorrect p-10">{error}</p>;
 
@@ -349,7 +384,12 @@ export default function CandidateAttemptDetail() {
           <h1 className="title-display text-2xl">{candidate?.full_name}</h1>
           <p className="text-xs text-muted">/exam/{exam?.slug}</p>
         </div>
-        <Link to={`/admin/exams/${id}/results`} className="btn-secondary">← Retour résultats</Link>
+        <div className="flex gap-2">
+          <button type="button" onClick={exportDetailCsv} className="btn-secondary" title="Exporter le détail de cet élève en CSV">
+            Exporter détail CSV
+          </button>
+          <Link to={`/admin/exams/${id}/results`} className="btn-secondary">← Retour résultats</Link>
+        </div>
       </div>
 
       <div className="card mb-6 grid sm:grid-cols-2 gap-3 text-sm">

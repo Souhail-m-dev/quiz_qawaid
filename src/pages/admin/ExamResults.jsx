@@ -313,9 +313,11 @@ export default function ExamResults() {
       const s = v == null ? '' : String(v);
       return /[";\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
     };
+    // Cochés uniquement, sinon tous (filtrés).
+    const source = selectedIds.length ? rows.filter((r) => selectedIds.includes(r.id)) : filteredRows;
     const headers = ['Nom', 'Email', 'Telegram', 'Inscrit le', 'Statut', 'Score', 'Total', '%', 'Soumis le'];
     const lines = [headers.join(sep)];
-    for (const r of filteredRows) {
+    for (const r of source) {
       const a = r.attempt;
       const pct = pctOf(a);
       lines.push([
@@ -399,9 +401,9 @@ export default function ExamResults() {
             className="btn-secondary"
             disabled={filteredRows.length === 0}
             onClick={exportCsv}
-            title="Exporter les lignes filtrées en CSV (Excel)"
+            title="CSV des cochés (ou tous si rien n'est coché)"
           >
-            Exporter CSV
+            Exporter CSV{selectedCount ? ` (${selectedCount})` : ''}
           </button>
           {certTemplate && (
             <button

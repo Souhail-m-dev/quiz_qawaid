@@ -108,18 +108,11 @@ export default function MatierePage() {
         {courses.length === 0 ? (
           <p className="text-muted italic text-sm">Aucun quiz de révision.</p>
         ) : (
-          <>
-            <Link to={`/revision?subject=${encodeURIComponent(content.name)}`}
-              className="card block hover:border-accent/60 transition group mb-3">
-              <span className="title-display text-base group-hover:text-white transition">S'entraîner ({courses.length} cours)</span>
-              <p className="text-xs text-muted mt-1">Quiz complet ou par cours.</p>
-            </Link>
-            <ul className="text-xs text-muted space-y-1 pl-1">
-              {courses.map((c) => (
-                <li key={c.id}>• {c.number != null ? `Unité ${c.number} — ` : ''}{c.title} <span className="opacity-60">({c.question_count} q.)</span></li>
-              ))}
-            </ul>
-          </>
+          <Link to={`/revision?subject=${encodeURIComponent(content.name)}`}
+            className="card block hover:border-accent/60 transition group">
+            <span className="title-display text-base group-hover:text-white transition">S'entraîner ({courses.length} cours)</span>
+            <p className="text-xs text-muted mt-1">Quiz complet ou par cours.</p>
+          </Link>
         )}
       </section>
     </div>
