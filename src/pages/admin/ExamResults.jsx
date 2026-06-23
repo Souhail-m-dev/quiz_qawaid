@@ -305,6 +305,36 @@ export default function ExamResults() {
     }
   };
 
+  // Export CSV des lignes actuellement filtrées (séparateur ';' + BOM => Excel FR).
+  const statusLabel = (a) => (!a ? 'Non commencé' : a.submitted_at ? 'Soumis' : 'En cours');
+  const exportCsv = () => {
+    const sep = ';';
+    const esc = (v) => {
+      const s = v == null ? '' : String(v);
+      return /[";\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const headers = ['Nom', 'Email', 'Telegram', 'Inscrit le', 'Statut', 'Score', 'Total', '%', 'Soumis le'];
+    const lines = [headers.join(sep)];
+    for (const r of filteredRows) {
+      const a = r.attempt;
+      const pct = pctOf(a);
+      lines.push([
+        r.full_name,
+        r.email,
+        r.telegram,
+        formatDate(r.created_at),
+        statusLabel(a),
+        a?.submitted_at ? fmtNum(a.score) : '',
+        a?.submitted_at ? fmtNum(a.total) : '',
+        a?.submitted_at && pct != null ? fmtNum(pct) : '',
+        a?.submitted_at ? formatDate(a.submitted_at) : ''
+      ].map(esc).join(sep));
+    }
+    const csv = '﻿' + lines.join('\r\n');
+    const day = new Date().toISOString().slice(0, 10);
+    downloadBlob(new Blob([csv], { type: 'text/csv;charset=utf-8;' }), `resultats-${sanitizeFileName(exam?.slug || 'examen')}-${day}.csv`);
+  };
+
   // Suppression définitive d'entrées: tentatives d'abord (FK), puis candidats.
   const deleteCandidates = async (ids) => {
     if (!ids.length) return;
@@ -363,6 +393,15 @@ export default function ExamResults() {
         <div className="flex gap-2 flex-wrap">
           <button type="button" className="btn-secondary" onClick={toggleSelectAll}>
             {allSelected ? 'Tout désélectionner' : 'Tout sélectionner'}
+          </button>
+          <button
+            type="button"
+            className="btn-secondary"
+            disabled={filteredRows.length === 0}
+            onClick={exportCsv}
+            title="Exporter les lignes filtrées en CSV (Excel)"
+          >
+            Exporter CSV
           </button>
           {certTemplate && (
             <button

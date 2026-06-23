@@ -11,6 +11,9 @@ import ExamStats from './pages/admin/ExamStats.jsx';
 import ReviewQueue from './pages/admin/ReviewQueue.jsx';
 import Users from './pages/admin/Users.jsx';
 import Activity from './pages/admin/Activity.jsx';
+import QuizBank from './pages/admin/QuizBank.jsx';
+import QuizCourseEditor from './pages/admin/QuizCourseEditor.jsx';
+import MatieresAdmin from './pages/admin/MatieresAdmin.jsx';
 import Tenants from './pages/admin/Tenants.jsx';
 import TenantDetail from './pages/admin/TenantDetail.jsx';
 import ExamRegistration from './pages/exam/ExamRegistration.jsx';
@@ -18,14 +21,20 @@ import ExamInstructions from './pages/exam/ExamInstructions.jsx';
 import ExamRun from './pages/exam/ExamRun.jsx';
 import ExamDone from './pages/exam/ExamDone.jsx';
 import InviteAccept from './pages/InviteAccept.jsx';
+import QuizRoute from './pages/revision/QuizRoute.jsx';
+import TenantHome from './pages/public/TenantHome.jsx';
+import MatierePage from './pages/public/MatierePage.jsx';
 
 export default function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-bg">
         <Routes>
-          {/* Module examens uniquement */}
-          <Route path="/" element={<Navigate to="/admin" replace />} />
+          {/* Vitrine publique par domaine (tenant). /admin reste joignable par URL directe. */}
+          <Route path="/" element={<TenantHome />} />
+          <Route path="/m/:slug" element={<MatierePage />} />
+
+          <Route path="/revision" element={<QuizRoute />} />
 
           <Route path="/exam/:slug" element={<ExamRegistration />} />
           <Route path="/exam/:slug/instructions" element={<ExamInstructions />} />
@@ -44,6 +53,9 @@ export default function App() {
             <Route path="/admin/exams/:id" element={<RequireAdmin><ExamEditor /></RequireAdmin>} />
             <Route path="/admin/users" element={<RequireAdmin><Users /></RequireAdmin>} />
             <Route path="/admin/activity" element={<RequireAdmin><Activity /></RequireAdmin>} />
+            <Route path="/admin/matieres" element={<RequireAdmin><MatieresAdmin /></RequireAdmin>} />
+            <Route path="/admin/quiz" element={<RequireAdmin><QuizBank /></RequireAdmin>} />
+            <Route path="/admin/quiz/:courseId" element={<RequireAdmin><QuizCourseEditor /></RequireAdmin>} />
 
             {/* Plateforme uniquement: dashboard par tenant */}
             <Route path="/admin/tenants" element={<RequirePlatformAdmin><Tenants /></RequirePlatformAdmin>} />
@@ -56,7 +68,7 @@ export default function App() {
             <Route path="/admin/exams/:id/results/:candidateId" element={<RequireStaff><CandidateAttemptDetail /></RequireStaff>} />
           </Route>
 
-          <Route path="*" element={<Navigate to="/admin" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
 
         <footer className="text-center py-10 opacity-40">

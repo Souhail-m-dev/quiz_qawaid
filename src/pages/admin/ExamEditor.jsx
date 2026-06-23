@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
+import { useAuth } from '../../lib/useAuth.js';
 import QuestionsBuilder from '../../components/QuestionsBuilder.jsx';
 import FormSchemaBuilder from '../../components/FormSchemaBuilder.jsx';
 import { getType, getPoints } from '../../utils/questionModel.js';
@@ -21,10 +22,13 @@ export default function ExamEditor() {
   const { id } = useParams();
   const isNew = !id || id === 'new';
   const navigate = useNavigate();
+  const { isPlatformAdmin } = useAuth();
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
   const [draftLoaded, setDraftLoaded] = useState(!isNew);
+  const [tenants, setTenants] = useState([]);
+  const [tenantId, setTenantId] = useState('');
   const [form, setForm] = useState({
     title: '',
     slug: '',
@@ -79,7 +83,7 @@ export default function ExamEditor() {
   useEffect(() => {
     if (isNew) return;
     (async () => {
-      const cols = 'title, slug, instructions, subject, is_open, access_code, certificate_min_score, question_ids, questions_snapshot, pre_form_schema, post_form_schema';
+      const cols = 'title, slug, instructions, subject, is_open, access_code, certificate_min_score, question_ids, questions_snapshot, pre_form_schema, post_form_schema, tenant_id';
       let { data, error: e } = await supabase.from('exams').select(cols).eq('id', id).maybeSingle();
       // Rétrocompat: si une colonne récente manque, retomber sur le minimum.
       if (e && /column .* does not exist/i.test(e.message || '')) {
@@ -113,11 +117,22 @@ export default function ExamEditor() {
           pre_form_schema: data.pre_form_schema || null,
           post_form_schema: data.post_form_schema || null
         });
+        setTenantId(data.tenant_id || '');
         setSlugTouched(true);
       }
       setLoading(false);
     })();
   }, [id, isNew]);
+
+  // Platform-admin: liste des tenants pour ranger l'examen sous le bon (ex: Hisnul Mouslim).
+  useEffect(() => {
+    if (!isPlatformAdmin) return;
+    supabase
+      .from('tenants')
+      .select('id, name')
+      .order('name')
+      .then(({ data }) => { if (data) setTenants(data); });
+  }, [isPlatformAdmin]);
 
   const setField = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
@@ -157,6 +172,10 @@ export default function ExamEditor() {
       pre_form_schema: form.pre_form_schema,
       post_form_schema: form.post_form_schema
     };
+    // Platform-admin: rattachement explicite à un tenant (sinon le trigger hérite du créateur).
+    if (isPlatformAdmin && tenantId) {
+      payload.tenant_id = tenantId;
+    }
     let result;
     if (isNew) {
       payload.created_by = userData.user?.id;
@@ -195,6 +214,22 @@ export default function ExamEditor() {
               required
             />
           </div>
+          {isPlatformAdmin && (
+            <div className="sm:col-span-2">
+              <label className="block text-xs uppercase tracking-widest text-accent mb-2">Instance / Tenant</label>
+              <select
+                value={tenantId}
+                onChange={(e) => setTenantId(e.target.value)}
+                className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white focus:border-accent outline-none"
+              >
+                <option value="">— Mon instance par défaut —</option>
+                {tenants.map((t) => (
+                  <option key={t.id} value={t.id}>{t.name}</option>
+                ))}
+              </select>
+              <p className="text-[10px] text-muted mt-1">Détermine sous quelle instance l'examen est rangé (ex: Hisnul Mouslim).</p>
+            </div>
+          )}
           <div>
             <label className="block text-xs uppercase tracking-widest text-accent mb-2">Slug (URL)</label>
             <input

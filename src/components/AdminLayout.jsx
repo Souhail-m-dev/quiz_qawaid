@@ -10,6 +10,8 @@ const IconUsers = (p) => (<svg {...ic} {...p}><path d="M17 21v-2a4 4 0 0 0-4-4H5
 const IconPulse = (p) => (<svg {...ic} {...p}><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>);
 const IconBuilding = (p) => (<svg {...ic} {...p}><rect x="4" y="2" width="16" height="20" rx="2" /><path d="M9 22v-4h6v4" /><path d="M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01" /></svg>);
 const IconLogout = (p) => (<svg {...ic} {...p}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5" /><path d="M21 12H9" /></svg>);
+const IconBook = (p) => (<svg {...ic} {...p}><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>);
+const IconLayers = (p) => (<svg {...ic} {...p}><path d="M12 2 2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>);
 const IconMenu = (p) => (<svg {...ic} {...p}><path d="M3 12h18M3 6h18M3 18h18" /></svg>);
 const IconClose = (p) => (<svg {...ic} {...p}><path d="M18 6 6 18" /><path d="M6 6l12 12" /></svg>);
 
@@ -30,6 +32,8 @@ export default function AdminLayout() {
   const links = [
     { to: '/admin', label: 'Tableau de bord', icon: <IconGrid />, end: true, show: true },
     { to: '/admin/exams/new', label: 'Nouvel examen', icon: <IconPlus />, show: isAdmin },
+    { to: '/admin/matieres', label: 'Matières', icon: <IconLayers />, show: isAdmin },
+    { to: '/admin/quiz', label: 'Banque de quiz', icon: <IconBook />, show: isAdmin },
     { to: '/admin/users', label: 'Utilisateurs', icon: <IconUsers />, show: isAdmin },
     { to: '/admin/activity', label: 'Activité', icon: <IconPulse />, show: isAdmin },
     { to: '/admin/tenants', label: 'Instances', icon: <IconBuilding />, show: isPlatformAdmin },
