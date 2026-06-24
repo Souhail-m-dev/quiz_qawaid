@@ -36,5 +36,9 @@ coverage/
 .cache/
 *.stackdump
 
+# Local scratch / import sources (not shipped)
+grading/
+hisn*.json
+
 # Local Claude Code tooling
 .claude/

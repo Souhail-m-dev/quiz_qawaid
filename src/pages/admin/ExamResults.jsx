@@ -128,6 +128,12 @@ export default function ExamResults() {
     if (typeof v === 'boolean') return v ? 'Oui' : 'Non';
     return v;
   };
+  // Colonnes formulaire (avant + après) pour affichage tableau et export CSV.
+  // Les cases à cocher (engagement / consentement) ne sont pas affichées dans les résultats.
+  const formColumns = [
+    ...(exam?.pre_form_schema || []).filter((f) => f.type !== 'checkbox').map((f) => ({ source: 'pre', key: f.key, label: f.label })),
+    ...(exam?.post_form_schema || []).filter((f) => f.type !== 'checkbox').map((f) => ({ source: 'post', key: f.key, label: `${f.label} (après)` }))
+  ];
   // formField encode "source:key".
   const [fSource, fKey] = formField ? formField.split(':') : [null, null];
   const fieldValues = fKey
@@ -315,7 +321,7 @@ export default function ExamResults() {
     };
     // Cochés uniquement, sinon tous (filtrés).
     const source = selectedIds.length ? rows.filter((r) => selectedIds.includes(r.id)) : filteredRows;
-    const headers = ['Nom', 'Email', 'Telegram', 'Inscrit le', 'Statut', 'Score', 'Total', '%', 'Soumis le'];
+    const headers = ['Nom', 'Email', 'Telegram', 'Inscrit le', 'Statut', 'Score', 'Total', '%', 'Soumis le', ...formColumns.map((c) => c.label)];
     const lines = [headers.join(sep)];
     for (const r of source) {
       const a = r.attempt;
@@ -329,7 +335,8 @@ export default function ExamResults() {
         a?.submitted_at ? fmtNum(a.score) : '',
         a?.submitted_at ? fmtNum(a.total) : '',
         a?.submitted_at && pct != null ? fmtNum(pct) : '',
-        a?.submitted_at ? formatDate(a.submitted_at) : ''
+        a?.submitted_at ? formatDate(a.submitted_at) : '',
+        ...formColumns.map((c) => getFormVal(r, c.source, c.key))
       ].map(esc).join(sep));
     }
     const csv = '﻿' + lines.join('\r\n');
@@ -529,12 +536,15 @@ export default function ExamResults() {
                 <th className="py-2 pr-3">Statut</th>
                 <th className="py-2 pr-3">Score</th>
                 <th className="py-2 pr-3">Soumis le</th>
+                {formColumns.map((c) => (
+                  <th key={`${c.source}:${c.key}`} className="py-2 pr-3 whitespace-nowrap">{c.label}</th>
+                ))}
                 {isAdmin && <th className="py-2 pr-3"></th>}
               </tr>
             </thead>
             <tbody className="divide-y divide-accent/10">
               {filteredRows.length === 0 && (
-                <tr><td colSpan={isAdmin ? 9 : 8} className="py-4 text-center text-muted italic">Aucun résultat pour ces filtres.</td></tr>
+                <tr><td colSpan={(isAdmin ? 9 : 8) + formColumns.length} className="py-4 text-center text-muted italic">Aucun résultat pour ces filtres.</td></tr>
               )}
               {filteredRows.map((r) => {
                 const a = r.attempt;
@@ -584,6 +594,9 @@ export default function ExamResults() {
                       ) : '—'}
                     </td>
                     <td className="py-2 pr-3 text-muted">{formatDate(submitted)}</td>
+                    {formColumns.map((c) => (
+                      <td key={`${c.source}:${c.key}`} className="py-2 pr-3 text-muted whitespace-nowrap">{getFormVal(r, c.source, c.key) ?? ''}</td>
+                    ))}
                     {isAdmin && (
                       <td className="py-2 pr-3" onClick={(e) => e.stopPropagation()}>
                         <button

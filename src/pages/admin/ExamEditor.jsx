@@ -157,6 +157,21 @@ export default function ExamEditor() {
       setError('Le score minimal certificat doit être un nombre entre 0 et 100.');
       return;
     }
+    // Garde anti-collision: deux champs de même clé écrasent leur réponse dans
+    // pre_form_data/post_form_data. Refuser la sauvegarde tant que ce n'est pas corrigé.
+    const dupKey = (schema) => {
+      const seen = new Set();
+      for (const f of schema || []) {
+        if (seen.has(f.key)) return f.key;
+        seen.add(f.key);
+      }
+      return null;
+    };
+    const dup = dupKey(form.pre_form_schema) || dupKey(form.post_form_schema);
+    if (dup) {
+      setError(`Clé de champ formulaire dupliquée : "${dup}". Chaque champ doit avoir une clé unique (renommez le libellé).`);
+      return;
+    }
     setSaving(true);
     const { data: userData } = await supabase.auth.getUser();
     const payload = {

@@ -38,23 +38,24 @@ export default function ExamStats() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filterField, setFilterField] = useState('');
+  const [filterValue, setFilterValue] = useState('');
 
   useEffect(() => {
     (async () => {
       let { data: ex, error: ee } = await supabase
         .from('exams')
-        .select('id, title, slug, tenant_id, pre_form_schema, questions_snapshot')
+        .select('id, title, slug, tenant_id, pre_form_schema, post_form_schema, questions_snapshot')
         .eq('id', id).maybeSingle();
       if (ee && /column .* does not exist/i.test(ee.message || '')) {
         const fb = await supabase.from('exams').select('id, title, slug, question_ids').eq('id', id).maybeSingle();
-        ex = fb.data ? { ...fb.data, tenant_id: null, pre_form_schema: null, questions_snapshot: null } : null;
+        ex = fb.data ? { ...fb.data, tenant_id: null, pre_form_schema: null, post_form_schema: null, questions_snapshot: null } : null;
         ee = fb.error;
       }
       if (ee || !ex) { setError(ee?.message || 'Examen introuvable.'); setLoading(false); return; }
       setExam(ex);
 
       const [{ data: cands }, { data: atts }] = await Promise.all([
-        supabase.from('candidates').select('id, full_name, pre_form_data').eq('exam_id', id),
+        supabase.from('candidates').select('id, full_name, pre_form_data, post_form_data').eq('exam_id', id),
         supabase.from('attempts').select('candidate_id, score, total, submitted_at, started_at, answers').eq('exam_id', id)
       ]);
       setCandidates(cands || []);
@@ -173,28 +174,86 @@ export default function ExamStats() {
     });
   }, [exam, attempts]);
 
-  // Champs catégoriels du formulaire d'entrée (select/radio) → filtrables.
-  const categoricalFields = useMemo(
-    () => (exam?.pre_form_schema || []).filter((f) => f.type === 'select' || f.type === 'radio'),
-    [exam]
+  // Colonnes formulaire dédupliquées par clé (source:key) — avant puis après examen.
+  // La déduplication évite de répéter à l'identique des champs de même clé (bug Miloud:
+  // 6 champs partageaient la clé "champ", leurs réponses fusionnent dans une seule colonne).
+  // Colonnes formulaire (pré + post), cases à cocher exclues. NON dédupliquées:
+  // si plusieurs champs partagent une clé (collision pre_form_data), on les garde
+  // séparés et on route chaque valeur stockée vers le bon champ (options/type/libellé).
+  const formCols = useMemo(() => {
+    const out = [];
+    for (const [src, schema] of [['pre', exam?.pre_form_schema], ['post', exam?.post_form_schema]]) {
+      (schema || []).forEach((f, i) => {
+        if (f.type === 'checkbox') return; // engagement/consentement masqué
+        out.push({
+          id: `${src}:${f.key}:${i}`,
+          source: src, key: f.key, type: f.type,
+          rawLabel: f.label,
+          label: src === 'post' ? `${f.label} (après)` : f.label,
+          options: f.options || []
+        });
+      });
+    }
+    return out;
+  }, [exam]);
+
+  // Nb de colonnes par clé → collision si > 1.
+  const keyCount = useMemo(() => {
+    const m = {};
+    for (const c of formCols) { const k = `${c.source}:${c.key}`; m[k] = (m[k] || 0) + 1; }
+    return m;
+  }, [formCols]);
+
+  // Champs catégoriels (select/radio) → proposés comme filtre.
+  const filterableFields = useMemo(
+    () => formCols.filter((f) => f.type === 'select' || f.type === 'radio'),
+    [formCols]
   );
 
-  const breakdown = useMemo(() => {
-    if (!filterField) return null;
-    const groups = new Map();
-    for (const c of candidates) {
-      const val = c.pre_form_data?.[filterField] ?? '(non renseigné)';
-      if (!groups.has(val)) groups.set(val, { value: val, inscrits: 0, soumis: 0, sumPct: 0 });
-      const g = groups.get(val);
-      g.inscrits += 1;
-      const at = stats.attByCand.get(c.id);
-      if (at?.submitted_at) {
-        g.soumis += 1;
-        g.sumPct += at.total > 0 ? (at.score / at.total) * 100 : 0;
-      }
+  const isDateLike = (s) => /^\d{1,2}[/.\- ]\d{1,2}[/.\- ]\d{2,4}$/.test(String(s).trim());
+
+  // Colonne (id) à laquelle appartient une valeur fusionnée.
+  const routeTo = (val, siblings) => {
+    const byOption = siblings.find((f) => f.options.includes(val));
+    if (byOption) return byOption.id;
+    if (isDateLike(val)) {
+      const d = siblings.find((f) => /naiss|date/i.test(f.rawLabel));
+      if (d) return d.id;
     }
-    return [...groups.values()].map((g) => ({ ...g, avg: g.soumis ? g.sumPct / g.soumis : null }));
-  }, [filterField, candidates, stats]);
+    const abs = siblings.find((f) => /absen|combien|nombre/i.test(f.rawLabel));
+    if (abs) return abs.id;
+    const txt = siblings.find((f) => ['text', 'textarea', 'tel', 'email', 'number'].includes(f.type));
+    return (txt || siblings[0]).id;
+  };
+
+  // Valeur affichée d'une cellule: route les valeurs fusionnées vers la bonne colonne.
+  const cellValue = (c, col) => {
+    const raw = (col.source === 'post' ? c.post_form_data : c.pre_form_data)?.[col.key];
+    if (raw == null || raw === '') return '';
+    const fmt = (v) => (typeof v === 'boolean' ? (v ? 'Oui' : 'Non') : String(v));
+    if (keyCount[`${col.source}:${col.key}`] <= 1) {
+      return Array.isArray(raw) ? raw.map(fmt).join(', ') : fmt(raw);
+    }
+    const elems = (Array.isArray(raw) ? raw : [raw])
+      .map((e) => (typeof e === 'boolean' ? (e ? 'on' : '') : String(e)))
+      .filter((e) => e !== '');
+    const siblings = formCols.filter((f) => f.source === col.source && f.key === col.key);
+    return elems.filter((e) => routeTo(e, siblings) === col.id).join(', ');
+  };
+
+  // Filtre par colonne (filterField = col.id).
+  const fCol = formCols.find((f) => f.id === filterField) || null;
+  const filterValues = useMemo(() => {
+    if (!fCol) return [];
+    return [...new Set(candidates.map((c) => cellValue(c, fCol)).filter((v) => v !== ''))].sort();
+  }, [candidates, fCol]);
+
+  // Une ligne par inscrit, filtrée puis triée par nom.
+  const personRows = useMemo(() => {
+    let out = candidates;
+    if (fCol && filterValue) out = out.filter((c) => cellValue(c, fCol) === filterValue);
+    return [...out].sort((a, b) => (a.full_name || '').localeCompare(b.full_name || ''));
+  }, [candidates, fCol, filterValue]);
 
   if (loading) return <p className="text-muted p-10">Chargement…</p>;
   if (error) return <p className="text-incorrect p-10">{error}</p>;
@@ -312,38 +371,60 @@ export default function ExamStats() {
       </section>
 
       <section className="card">
-        <div className="flex items-center gap-3 mb-3 flex-wrap">
-          <h2 className="title-display text-lg">Répartition par champ du formulaire</h2>
-          <select
-            value={filterField}
-            onChange={(e) => setFilterField(e.target.value)}
-            className="bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white text-sm"
-          >
-            <option value="">— choisir un champ —</option>
-            {categoricalFields.map((f) => <option key={f.key} value={f.key}>{f.label}</option>)}
-          </select>
+        <div className="flex items-center gap-3 mb-1 flex-wrap">
+          <h2 className="title-display text-lg">Réponses formulaire par personne</h2>
+          {filterableFields.length > 0 && (
+            <>
+              <select
+                value={filterField}
+                onChange={(e) => { setFilterField(e.target.value); setFilterValue(''); }}
+                className="bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white text-sm"
+              >
+                <option value="">— filtrer par champ —</option>
+                {filterableFields.map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}
+              </select>
+              {filterField && (
+                <select
+                  value={filterValue}
+                  onChange={(e) => setFilterValue(e.target.value)}
+                  className="bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white text-sm"
+                >
+                  <option value="">Toutes les valeurs</option>
+                  {filterValues.map((v) => <option key={v} value={v}>{v}</option>)}
+                </select>
+              )}
+            </>
+          )}
+          <span className="text-xs text-muted ml-auto self-center">{personRows.length} / {candidates.length}</span>
         </div>
-        {categoricalFields.length === 0 ? (
-          <p className="text-muted text-sm italic">Aucun champ filtrable (select/choix unique) dans le formulaire avant-examen.</p>
-        ) : !breakdown ? (
-          <p className="text-muted text-sm italic">Choisissez un champ pour voir la répartition.</p>
+        <p className="text-xs text-muted mb-4">Une ligne par inscrit · une colonne par champ (avant/après). Les champs de même clé sont fusionnés.</p>
+        {formCols.length === 0 ? (
+          <p className="text-muted text-sm italic">Aucun champ de formulaire sur cet examen.</p>
         ) : (
-          <table className="w-full text-sm">
-            <thead><tr className="text-left text-accent uppercase tracking-widest text-[10px] border-b border-accent/20">
-              <th className="py-2 pr-3">Valeur</th><th className="py-2 pr-3">Inscrits</th>
-              <th className="py-2 pr-3">Soumis</th><th className="py-2 pr-3">Score moyen</th>
-            </tr></thead>
-            <tbody className="divide-y divide-accent/10">
-              {breakdown.map((g) => (
-                <tr key={String(g.value)}>
-                  <td className="py-2 pr-3 text-white">{String(g.value)}</td>
-                  <td className="py-2 pr-3">{g.inscrits}</td>
-                  <td className="py-2 pr-3">{g.soumis}</td>
-                  <td className="py-2 pr-3 text-accent">{g.avg === null ? '—' : `${fmtNum(g.avg)}%`}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead><tr className="text-left text-accent uppercase tracking-widest text-[10px] border-b border-accent/20">
+                <th className="py-2 pr-3">Nom</th>
+                <th className="py-2 pr-3">Score</th>
+                {formCols.map((f) => <th key={f.id} className="py-2 pr-3 whitespace-nowrap">{f.label}</th>)}
+              </tr></thead>
+              <tbody className="divide-y divide-accent/10">
+                {personRows.length === 0 ? (
+                  <tr><td colSpan={2 + formCols.length} className="py-4 text-center text-muted italic">Aucun inscrit pour ce filtre.</td></tr>
+                ) : personRows.map((c) => {
+                  const a = stats.attByCand.get(c.id);
+                  const pct = a?.submitted_at && a.total > 0 ? (a.score / a.total) * 100 : null;
+                  return (
+                    <tr key={c.id}>
+                      <td className="py-2 pr-3 text-white whitespace-nowrap">{c.full_name}</td>
+                      <td className="py-2 pr-3 text-accent">{pct == null ? '—' : `${fmtNum(pct)}%`}</td>
+                      {formCols.map((f) => <td key={f.id} className="py-2 pr-3 whitespace-nowrap">{cellValue(c, f) || '—'}</td>)}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         )}
       </section>
     </div>

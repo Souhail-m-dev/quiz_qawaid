@@ -11,8 +11,19 @@ const TYPES = [
   ['checkbox', 'Case à cocher']
 ];
 
-const slugKey = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
-  .replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 40) || `champ_${Math.random().toString(36).slice(2, 6)}`;
+const slugKey = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+  .replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 40);
+
+// Clé unique parmi les champs. Indispensable: deux champs de même clé écrasent leur
+// réponse dans pre_form_data (les inputs partagent le même name react-hook-form).
+const uniqueKey = (base, fields, selfIdx) => {
+  const root = base || 'champ';
+  const taken = new Set(fields.filter((_, i) => i !== selfIdx).map((f) => f.key));
+  if (!taken.has(root)) return root;
+  let n = 2;
+  while (taken.has(`${root}_${n}`)) n += 1;
+  return `${root}_${n}`;
+};
 
 const hasOptions = (t) => t === 'select' || t === 'radio';
 
@@ -21,7 +32,7 @@ export default function FormSchemaBuilder({ value, onChange, label }) {
   const fields = value || [];
   const set = (next) => onChange(next.length ? next : null);
 
-  const add = () => set([...fields, { key: slugKey('champ'), label: 'Nouveau champ', type: 'text', required: false }]);
+  const add = () => set([...fields, { key: uniqueKey('champ', fields, -1), label: 'Nouveau champ', type: 'text', required: false }]);
   const update = (idx, patch) => set(fields.map((f, i) => (i === idx ? { ...f, ...patch } : f)));
   const remove = (idx) => set(fields.filter((_, i) => i !== idx));
   const move = (idx, dir) => {
@@ -50,7 +61,7 @@ export default function FormSchemaBuilder({ value, onChange, label }) {
                   <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Libellé</label>
                   <input
                     value={f.label}
-                    onChange={(e) => update(idx, { label: e.target.value, key: f.key || slugKey(e.target.value) })}
+                    onChange={(e) => update(idx, { label: e.target.value, key: uniqueKey(slugKey(e.target.value), fields, idx) })}
                     className="w-full bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white text-sm"
                   />
                 </div>
