@@ -14,6 +14,8 @@ export default function Users() {
   const [inviting, setInviting] = useState(false);
   const [inviteLink, setInviteLink] = useState(null);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [inviteTenants, setInviteTenants] = useState([]);
+  const [inviteTenantId, setInviteTenantId] = useState('');
 
   // Owner réservé à l'admin plateforme (créé via provision_owner avec un tenant).
   // 'editeur' (« Admin ») et 'correcteur' attribuables par l'owner.
@@ -30,6 +32,11 @@ export default function Users() {
       const { data: t } = await supabase.from('tenants').select('id, name');
       setTenants(Object.fromEntries((t || []).map((x) => [x.id, x.name])));
     }
+    // Instances vers lesquelles on peut inviter (owner: les siennes; plateforme: toutes).
+    const { data: it } = await supabase.rpc('invite_tenants');
+    const list = it || [];
+    setInviteTenants(list);
+    setInviteTenantId((prev) => prev || (list.length ? list[0].id : ''));
     setLoading(false);
   };
 
@@ -61,7 +68,10 @@ export default function Users() {
     setInviting(true);
     try {
       const email = window.prompt("Email du correcteur (optionnel, pour pré-remplir) :");
-      const { data, error: e } = await supabase.rpc('create_invite', { p_email: email || null });
+      const { data, error: e } = await supabase.rpc('create_invite', {
+        p_email: email || null,
+        p_tenant_id: inviteTenantId || null,
+      });
       if (e) { setError(e.message); return; }
       setInviteLink(`${window.location.origin}/invite/${data}`);
     } finally {
@@ -98,7 +108,19 @@ export default function Users() {
     <div className="max-w-4xl mx-auto px-4 py-10">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="title-display text-2xl">Utilisateurs</h1>
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap items-center">
+          {inviteTenants.length > 1 && (
+            <select
+              value={inviteTenantId}
+              onChange={(e) => setInviteTenantId(e.target.value)}
+              title="Instance cible du lien d’invitation"
+              className="bg-bg/60 border border-accent/30 rounded px-2 py-2 text-white focus:border-accent outline-none"
+            >
+              {inviteTenants.map((t) => (
+                <option key={t.id} value={t.id}>{t.name}</option>
+              ))}
+            </select>
+          )}
           <button
             type="button"
             className="btn-primary"
