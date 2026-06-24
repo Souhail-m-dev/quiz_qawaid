@@ -6,7 +6,7 @@ import { useAuth } from '../../lib/useAuth.js';
 export default function AdminDashboard() {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { isAdmin } = useAuth();
+  const { isContentManager } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -31,7 +31,7 @@ export default function AdminDashboard() {
     <div className="max-w-5xl mx-auto px-4 py-8 sm:py-10">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
         <h1 className="title-display text-xl sm:text-2xl">Tableau de bord</h1>
-        {isAdmin && (
+        {isContentManager && (
           <Link to="/admin/exams/new" className="btn-primary">+ Nouvel examen</Link>
         )}
       </div>
@@ -83,7 +83,7 @@ export default function AdminDashboard() {
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
-              {isAdmin && <Link to={`/admin/exams/${e.id}`} className="btn-secondary">Éditer</Link>}
+              {isContentManager && <Link to={`/admin/exams/${e.id}`} className="btn-secondary">Éditer</Link>}
               <Link to={`/admin/exams/${e.id}/stats`} className="btn-secondary">Stats</Link>
               <Link to={`/admin/exams/${e.id}/results`} className="btn-secondary">Résultats</Link>
             </div>

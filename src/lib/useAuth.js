@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { supabase } from './supabase.js';
 
+// Libellés affichés. 'editeur' est présenté « Admin » côté UI (cf. collision owner=admin).
+export const ROLE_LABELS = { owner: 'Owner', editeur: 'Admin', correcteur: 'Correcteur' };
+export const roleLabel = (r) => ROLE_LABELS[r] || r || '—';
+
 export function useAuth() {
   const [session, setSession] = useState(null);
   const [role, setRole] = useState(null);
@@ -71,6 +75,7 @@ export function useAuth() {
   }, []);
 
   const isTenantAdmin = role === 'owner';   // 'admin' intra-tenant supprimé
+  const isEditor = role === 'editeur';       // libellé UI « Admin »
   return {
     session,
     role,
@@ -78,8 +83,10 @@ export function useAuth() {
     isPlatformAdmin,                          // = l'« admin » plateforme (tier du haut)
     isOwner: role === 'owner',
     isAdmin: isPlatformAdmin || isTenantAdmin, // gestion d'instance: plateforme OU owner
+    isEditor,
+    isContentManager: isPlatformAdmin || isTenantAdmin || isEditor, // crée/édite le contenu
     isCorrector: role === 'correcteur',
-    isStaff: isPlatformAdmin || isTenantAdmin || role === 'correcteur',
+    isStaff: isPlatformAdmin || isTenantAdmin || isEditor || role === 'correcteur',
     loading
   };
 }

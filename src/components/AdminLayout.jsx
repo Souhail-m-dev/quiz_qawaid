@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabase.js';
-import { useAuth } from '../lib/useAuth.js';
+import { useAuth, roleLabel } from '../lib/useAuth.js';
 
 const ic = { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' };
 const IconGrid = (p) => (<svg {...ic} {...p}><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg>);
@@ -17,7 +17,7 @@ const IconClose = (p) => (<svg {...ic} {...p}><path d="M18 6 6 18" /><path d="M6
 
 export default function AdminLayout() {
   const [open, setOpen] = useState(false);
-  const { isAdmin, isPlatformAdmin, role, session } = useAuth();
+  const { isAdmin, isContentManager, isPlatformAdmin, role, session } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -31,9 +31,9 @@ export default function AdminLayout() {
 
   const links = [
     { to: '/admin', label: 'Tableau de bord', icon: <IconGrid />, end: true, show: true },
-    { to: '/admin/exams/new', label: 'Nouvel examen', icon: <IconPlus />, show: isAdmin },
-    { to: '/admin/matieres', label: 'Matières', icon: <IconLayers />, show: isAdmin },
-    { to: '/admin/quiz', label: 'Banque de quiz', icon: <IconBook />, show: isAdmin },
+    { to: '/admin/exams/new', label: 'Nouvel examen', icon: <IconPlus />, show: isContentManager },
+    { to: '/admin/matieres', label: 'Matières', icon: <IconLayers />, show: isContentManager },
+    { to: '/admin/quiz', label: 'Banque de quiz', icon: <IconBook />, show: isContentManager },
     { to: '/admin/users', label: 'Utilisateurs', icon: <IconUsers />, show: isAdmin },
     { to: '/admin/activity', label: 'Activité', icon: <IconPulse />, show: isAdmin },
     { to: '/admin/tenants', label: 'Instances', icon: <IconBuilding />, show: isPlatformAdmin },
@@ -82,7 +82,7 @@ export default function AdminLayout() {
         <div className="p-3 border-t border-accent/20">
           <div className="px-3 py-2 mb-1">
             <p className="text-xs text-white truncate">{session?.user?.email}</p>
-            {role && <p className="text-[10px] uppercase tracking-widest text-accent mt-0.5">{role}</p>}
+            {role && <p className="text-[10px] uppercase tracking-widest text-accent mt-0.5">{roleLabel(role)}</p>}
           </div>
           <button
             onClick={logout}

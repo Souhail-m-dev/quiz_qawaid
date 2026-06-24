@@ -26,8 +26,13 @@ export function RequireAdmin({ children }) {
   return <RequireRole roles={['owner']}>{children}</RequireRole>;
 }
 
+// Création/édition du contenu: owner + editeur (« Admin »).
+export function RequireContentManager({ children }) {
+  return <RequireRole roles={['owner', 'editeur']}>{children}</RequireRole>;
+}
+
 export function RequireStaff({ children }) {
-  return <RequireRole roles={['owner', 'correcteur']}>{children}</RequireRole>;
+  return <RequireRole roles={['owner', 'editeur', 'correcteur']}>{children}</RequireRole>;
 }
 
 // Réservé à l'admin plateforme (flag is_platform_admin), pas un rôle.

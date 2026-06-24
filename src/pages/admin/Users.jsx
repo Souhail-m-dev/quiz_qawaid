@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
-import { useAuth } from '../../lib/useAuth.js';
+import { useAuth, roleLabel } from '../../lib/useAuth.js';
 
 export default function Users() {
   const { isPlatformAdmin, session } = useAuth();
@@ -16,7 +16,8 @@ export default function Users() {
   const [linkCopied, setLinkCopied] = useState(false);
 
   // Owner réservé à l'admin plateforme (créé via provision_owner avec un tenant).
-  const roleOptions = isPlatformAdmin ? ['owner', 'correcteur'] : ['correcteur'];
+  // 'editeur' (« Admin ») et 'correcteur' attribuables par l'owner.
+  const roleOptions = isPlatformAdmin ? ['owner', 'editeur', 'correcteur'] : ['editeur', 'correcteur'];
 
   const load = async () => {
     const { data, error: e } = await supabase.rpc('list_members');
@@ -175,7 +176,7 @@ export default function Users() {
                         seul l'admin plateforme le peut (via provision_owner / set_member_role). */}
                     {(!isPlatformAdmin && (r.id === myId || r.role === 'owner')) ? (
                       <span className="text-white">
-                        {r.role || '—'}
+                        {roleLabel(r.role)}
                         {r.id === myId && <span className="ml-2 text-[9px] uppercase text-muted">(vous)</span>}
                       </span>
                     ) : (
@@ -187,7 +188,7 @@ export default function Users() {
                       >
                         {(roleOptions.includes(r.role) ? roleOptions : [r.role, ...roleOptions].filter(Boolean))
                           .map((role) => (
-                            <option key={role} value={role}>{role}</option>
+                            <option key={role} value={role}>{roleLabel(role)}</option>
                           ))}
                       </select>
                     )}
