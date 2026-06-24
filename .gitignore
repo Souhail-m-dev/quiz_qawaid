@@ -39,6 +39,7 @@ coverage/
 # Local scratch / import sources (not shipped)
 grading/
 hisn*.json
+cours*hin*.json
 
 # Local Claude Code tooling
 .claude/
