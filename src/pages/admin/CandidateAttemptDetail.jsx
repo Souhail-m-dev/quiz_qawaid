@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
 import { isOpen as isOpenQ, effectivePoints, tallyScore } from '../../utils/questionModel.js';
-import { buildReviewRows } from '../../utils/examReview.js';
+import { buildReviewRows, validFormKeys } from '../../utils/examReview.js';
 import { certTemplateFor } from '../../config/certificateTemplates.js';
 import {
   downloadBlob,
@@ -52,7 +52,7 @@ export default function CandidateAttemptDetail() {
     (async () => {
       let { data: examData, error: examErr } = await supabase
         .from('exams')
-        .select('id, title, slug, tenant_id, question_ids, questions_snapshot, certificate_min_score')
+        .select('id, title, slug, tenant_id, question_ids, questions_snapshot, certificate_min_score, pre_form_schema, post_form_schema')
         .eq('id', id)
         .maybeSingle();
       if (examErr && /questions_snapshot/i.test(examErr.message || '')) {
@@ -261,12 +261,27 @@ export default function CandidateAttemptDetail() {
       return /[";\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
     };
     const line = (arr) => arr.map(esc).join(sep);
+    // Champs de formulaire sains (exclut clés dupliquées + cases à cocher).
+    const formLines = [];
+    const addForm = (schema, data, suffix) => {
+      const valid = validFormKeys(schema);
+      for (const f of (Array.isArray(schema) ? schema : [])) {
+        if (f.type === 'checkbox' || !valid.has(f.key)) continue;
+        let v = data?.[f.key];
+        if (Array.isArray(v)) v = v.join(', ');
+        else if (typeof v === 'boolean') v = v ? 'Oui' : 'Non';
+        formLines.push(line([`${f.label}${suffix}`, v ?? '']));
+      }
+    };
+    addForm(exam?.pre_form_schema, candidate?.pre_form_data, '');
+    addForm(exam?.post_form_schema, candidate?.post_form_data, ' (après)');
     const lines = [
       line(['Nom', candidate?.full_name]),
       line(['Email', candidate?.email]),
       line(['Telegram', candidate?.telegram]),
       line(['Soumis le', attempt?.submitted_at ? formatDate(attempt.submitted_at) : '']),
       line(['Score', attempt?.submitted_at ? `${fmtNum(attempt.score)}/${fmtNum(attempt.total)}` : '']),
+      ...formLines,
       '',
       line(['N°', 'Type', 'Question', 'Réponse élève', 'Réponse correcte / référence', 'Points', 'Max', 'Note correcteur'])
     ];

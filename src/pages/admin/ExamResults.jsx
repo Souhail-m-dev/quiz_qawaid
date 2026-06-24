@@ -12,7 +12,7 @@ import {
   sanitizeFileName
 } from '../../utils/certificates.js';
 import { certTemplateFor } from '../../config/certificateTemplates.js';
-import { buildReviewRows } from '../../utils/examReview.js';
+import { buildReviewRows, buildDetailRows, validFormKeys } from '../../utils/examReview.js';
 
 function formatDate(d) {
   if (!d) return '—';
@@ -115,11 +115,14 @@ export default function ExamResults() {
   const minScore = typeof exam?.certificate_min_score === 'number' ? exam.certificate_min_score : null;
   const certTemplate = certTemplateFor(exam?.tenant_id); // null => instance sans certificat
 
+  // Clés de formulaire saines (exclut les clés dupliquées = champs "cassés").
+  const preValid = validFormKeys(exam?.pre_form_schema);
+  const postValid = validFormKeys(exam?.post_form_schema);
   // Champs catégoriels filtrables: avant ET après examen (select / radio / checkbox).
   const CAT_TYPES = ['select', 'radio', 'checkbox'];
   const categoricalFields = [
-    ...(exam?.pre_form_schema || []).filter((f) => CAT_TYPES.includes(f.type)).map((f) => ({ ...f, source: 'pre' })),
-    ...(exam?.post_form_schema || []).filter((f) => CAT_TYPES.includes(f.type)).map((f) => ({ ...f, source: 'post', label: `${f.label} (après)` }))
+    ...(exam?.pre_form_schema || []).filter((f) => CAT_TYPES.includes(f.type) && preValid.has(f.key)).map((f) => ({ ...f, source: 'pre' })),
+    ...(exam?.post_form_schema || []).filter((f) => CAT_TYPES.includes(f.type) && postValid.has(f.key)).map((f) => ({ ...f, source: 'post', label: `${f.label} (après)` }))
   ];
   // Valeur affichable d'un champ (gère booléen et multi-cases).
   const getFormVal = (r, source, key) => {
@@ -131,8 +134,8 @@ export default function ExamResults() {
   // Colonnes formulaire (avant + après) pour affichage tableau et export CSV.
   // Les cases à cocher (engagement / consentement) ne sont pas affichées dans les résultats.
   const formColumns = [
-    ...(exam?.pre_form_schema || []).filter((f) => f.type !== 'checkbox').map((f) => ({ source: 'pre', key: f.key, label: f.label })),
-    ...(exam?.post_form_schema || []).filter((f) => f.type !== 'checkbox').map((f) => ({ source: 'post', key: f.key, label: `${f.label} (après)` }))
+    ...(exam?.pre_form_schema || []).filter((f) => f.type !== 'checkbox' && preValid.has(f.key)).map((f) => ({ source: 'pre', key: f.key, label: f.label })),
+    ...(exam?.post_form_schema || []).filter((f) => f.type !== 'checkbox' && postValid.has(f.key)).map((f) => ({ source: 'post', key: f.key, label: `${f.label} (après)` }))
   ];
   // formField encode "source:key".
   const [fSource, fKey] = formField ? formField.split(':') : [null, null];
@@ -311,37 +314,63 @@ export default function ExamResults() {
     }
   };
 
-  // Export CSV des lignes actuellement filtrées (séparateur ';' + BOM => Excel FR).
+  // Exports CSV (séparateur ';' + BOM => Excel FR). Cochés uniquement, sinon tous (filtrés).
   const statusLabel = (a) => (!a ? 'Non commencé' : a.submitted_at ? 'Soumis' : 'En cours');
-  const exportCsv = () => {
+  const csvEsc = (v) => {
+    const s = v == null ? '' : String(v);
+    return /[";\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  const csvSource = () => (selectedIds.length ? rows.filter((r) => selectedIds.includes(r.id)) : filteredRows);
+  const saveCsv = (lines, prefix) => {
+    const csv = '﻿' + lines.join('\r\n');
+    const day = new Date().toISOString().slice(0, 10);
+    downloadBlob(new Blob([csv], { type: 'text/csv;charset=utf-8;' }), `${prefix}-${sanitizeFileName(exam?.slug || 'examen')}-${day}.csv`);
+  };
+
+  // 1) Liste: une ligne par élève (identité, note, champs de formulaire sains).
+  const exportListCsv = () => {
     const sep = ';';
-    const esc = (v) => {
-      const s = v == null ? '' : String(v);
-      return /[";\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-    };
-    // Cochés uniquement, sinon tous (filtrés).
-    const source = selectedIds.length ? rows.filter((r) => selectedIds.includes(r.id)) : filteredRows;
     const headers = ['Nom', 'Email', 'Telegram', 'Inscrit le', 'Statut', 'Score', 'Total', '%', 'Soumis le', ...formColumns.map((c) => c.label)];
     const lines = [headers.join(sep)];
-    for (const r of source) {
+    for (const r of csvSource()) {
       const a = r.attempt;
       const pct = pctOf(a);
       lines.push([
-        r.full_name,
-        r.email,
-        r.telegram,
-        formatDate(r.created_at),
-        statusLabel(a),
+        r.full_name, r.email, r.telegram, formatDate(r.created_at), statusLabel(a),
         a?.submitted_at ? fmtNum(a.score) : '',
         a?.submitted_at ? fmtNum(a.total) : '',
         a?.submitted_at && pct != null ? fmtNum(pct) : '',
         a?.submitted_at ? formatDate(a.submitted_at) : '',
         ...formColumns.map((c) => getFormVal(r, c.source, c.key))
-      ].map(esc).join(sep));
+      ].map(csvEsc).join(sep));
     }
-    const csv = '﻿' + lines.join('\r\n');
-    const day = new Date().toISOString().slice(0, 10);
-    downloadBlob(new Blob([csv], { type: 'text/csv;charset=utf-8;' }), `resultats-${sanitizeFileName(exam?.slug || 'examen')}-${day}.csv`);
+    saveCsv(lines, 'resultats');
+  };
+
+  // 2) Détaillé: une ligne par (élève × question), avec toutes les réponses.
+  const exportDetailedCsv = () => {
+    const sep = ';';
+    const headers = ['Nom', 'Email', 'Statut', 'Score', 'Total', '%', 'N°', 'Type', 'Question', 'Réponse élève', 'Bonne réponse / référence', 'Points', 'Max', 'Correct'];
+    const lines = [headers.join(sep)];
+    for (const r of csvSource()) {
+      const a = r.attempt;
+      const pct = pctOf(a);
+      const base = [
+        r.full_name, r.email, statusLabel(a),
+        a?.submitted_at ? fmtNum(a.score) : '',
+        a?.submitted_at ? fmtNum(a.total) : '',
+        a?.submitted_at && pct != null ? fmtNum(pct) : ''
+      ];
+      const detail = buildDetailRows(a?.answers, exam?.questions_snapshot);
+      if (detail.length === 0) {
+        lines.push([...base, '', '', '', '', '', '', '', ''].map(csvEsc).join(sep));
+      } else {
+        for (const d of detail) {
+          lines.push([...base, d.num, d.type, d.question, d.your, d.correct, fmtNum(d.points), fmtNum(d.max), d.ok ? 'Oui' : 'Non'].map(csvEsc).join(sep));
+        }
+      }
+    }
+    saveCsv(lines, 'detail');
   };
 
   // Suppression définitive d'entrées: tentatives d'abord (FK), puis candidats.
@@ -407,10 +436,19 @@ export default function ExamResults() {
             type="button"
             className="btn-secondary"
             disabled={filteredRows.length === 0}
-            onClick={exportCsv}
-            title="CSV des cochés (ou tous si rien n'est coché)"
+            onClick={exportListCsv}
+            title="Liste des résultats (cochés, ou tous si rien n'est coché)"
           >
-            Exporter CSV{selectedCount ? ` (${selectedCount})` : ''}
+            CSV liste{selectedCount ? ` (${selectedCount})` : ''}
+          </button>
+          <button
+            type="button"
+            className="btn-secondary"
+            disabled={filteredRows.length === 0}
+            onClick={exportDetailedCsv}
+            title="Détail: toutes les réponses de chaque élève (cochés, ou tous si rien n'est coché)"
+          >
+            CSV détaillé{selectedCount ? ` (${selectedCount})` : ''}
           </button>
           {certTemplate && (
             <button
