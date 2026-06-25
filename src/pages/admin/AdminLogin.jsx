@@ -24,6 +24,7 @@ export default function AdminLogin() {
     const hasStaffAccess =
       profile?.is_platform_admin === true || // admin plateforme (tier du haut)
       profile?.role === 'owner' ||
+      profile?.role === 'editeur' ||
       profile?.role === 'correcteur' ||
       profile?.is_admin === true; // flag hérité
     if (pErr || !hasStaffAccess) {
