@@ -4,6 +4,7 @@ import { supabase } from '../../lib/supabase.js';
 import { useAuth } from '../../lib/useAuth.js';
 import QuestionsBuilder from '../../components/QuestionsBuilder.jsx';
 import FormSchemaBuilder from '../../components/FormSchemaBuilder.jsx';
+import MatiereSelect from '../../components/MatiereSelect.jsx';
 import { getType, getPoints } from '../../utils/questionModel.js';
 
 const NEW_EXAM_DRAFT_KEY = 'quiz-qawaid:new-exam-draft';
@@ -259,10 +260,11 @@ export default function ExamEditor() {
             <label className="block text-xs uppercase tracking-widest text-accent mb-2">
               Sujet / Matière <span className="text-muted normal-case tracking-normal">(facultatif)</span>
             </label>
-            <input
+            <MatiereSelect
               value={form.subject}
-              onChange={(e) => setField('subject', e.target.value)}
-              placeholder="ex: Tawḥīd, Fiqh, Sīra…"
+              onChange={(v) => setField('subject', v)}
+              tenantId={isPlatformAdmin ? tenantId : undefined}
+              allowEmpty
               className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white focus:border-accent outline-none"
             />
           </div>

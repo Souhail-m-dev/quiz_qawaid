@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
 import { useAuth } from '../../lib/useAuth.js';
+import MatiereSelect from '../../components/MatiereSelect.jsx';
 
 // Banque de quiz de révision: cours par matière. Ajout progressif du contenu.
 export default function QuizBank() {
@@ -86,10 +87,10 @@ export default function QuizBank() {
       <form onSubmit={addCourse} className="card mb-6 grid sm:grid-cols-2 gap-3">
         <div className="sm:col-span-2">
           <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Matière</label>
-          <input
+          <MatiereSelect
             value={form.subject}
-            onChange={(e) => setForm((f) => ({ ...f, subject: e.target.value }))}
-            placeholder="ex: Qawaid al-Muthla, Hisnul Mouslim"
+            onChange={(v) => setForm((f) => ({ ...f, subject: v }))}
+            tenantId={isPlatformAdmin ? tenantId : undefined}
             className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white text-sm focus:border-accent outline-none"
           />
         </div>

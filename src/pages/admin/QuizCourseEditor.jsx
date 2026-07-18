@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
+import MatiereSelect from '../../components/MatiereSelect.jsx';
 
 const DIFFS = ['facile', 'moyenne', 'difficile'];
 const emptyQuestion = () => ({ question: '', options: ['', '', '', ''], correct_index: 0, difficulte: 'moyenne', justification: '' });
@@ -19,7 +20,7 @@ export default function QuizCourseEditor() {
   const load = async () => {
     setLoading(true);
     const { data: c, error: ce } = await supabase
-      .from('quiz_courses').select('id, subject, number, title, course_date').eq('id', courseId).maybeSingle();
+      .from('quiz_courses').select('id, subject, number, title, course_date, tenant_id').eq('id', courseId).maybeSingle();
     if (ce || !c) { setError(ce?.message || 'Cours introuvable.'); setLoading(false); return; }
     setCourse(c);
     const { data: qs } = await supabase
@@ -108,7 +109,8 @@ export default function QuizCourseEditor() {
       <div className="card mb-6 grid sm:grid-cols-2 gap-3">
         <div className="sm:col-span-2">
           <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">Matière</label>
-          <input value={course.subject} onChange={(e) => setCourse((c) => ({ ...c, subject: e.target.value }))}
+          <MatiereSelect value={course.subject} onChange={(v) => setCourse((c) => ({ ...c, subject: v }))}
+            tenantId={course.tenant_id}
             className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white text-sm focus:border-accent outline-none" />
         </div>
         <div>
