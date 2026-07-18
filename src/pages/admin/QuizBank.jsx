@@ -28,6 +28,7 @@ export default function QuizBank() {
       .from('quiz_courses')
       .select('id, subject, number, title, course_date, position, quiz_questions(count)')
       .order('subject')
+      .order('created_at')
       .order('position');
     if (isPlatformAdmin && tenantId) query = query.eq('tenant_id', tenantId);
     const { data, error: e } = await query;
@@ -137,7 +138,7 @@ export default function QuizBank() {
             <ul className="grid gap-3 sm:grid-cols-2">
               {list.map((c) => (
                 <li key={c.id}>
-                  <Link to={`/admin/quiz/${c.id}`} className="card block hover:border-accent/50 transition">
+                  <Link to={`/admin/quiz/${c.id}`} className="card block h-full hover:border-accent/50 transition">
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         {c.number != null && <div className="text-[10px] text-accent font-bold uppercase tracking-widest mb-1">Unité {c.number}</div>}

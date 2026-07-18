@@ -146,7 +146,7 @@ export default function QuizRoute() {
               <button
                 type="button"
                 onClick={async () => { setSubject(s.subject); await loadCourses(s.subject); setPhase('accueil'); }}
-                className="w-full text-left card hover:border-accent/50 transition group"
+                className="w-full h-full text-left card hover:border-accent/50 transition group"
               >
                 <div className="font-display text-white group-hover:text-accent transition uppercase text-sm tracking-wider">{s.subject}</div>
                 <div className="text-[10px] text-muted mt-2 uppercase tracking-widest">{s.course_count} cours</div>
@@ -192,7 +192,7 @@ export default function QuizRoute() {
                 <button
                   type="button"
                   onClick={() => demarrerCours(c.id)}
-                  className="w-full text-left card hover:border-accent/50 transition group"
+                  className="w-full h-full text-left card hover:border-accent/50 transition group"
                 >
                   <div className="flex justify-between items-start mb-2">
                     {c.number != null && <span className="text-[10px] text-accent font-bold uppercase tracking-[0.2em]">Unité {c.number}</span>}
