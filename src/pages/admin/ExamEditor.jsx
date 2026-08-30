@@ -35,6 +35,8 @@ export default function ExamEditor() {
     slug: '',
     instructions: '',
     subject: '',
+    course_id: '',
+    class_id: '',
     is_open: false,
     access_code: '',
     certificate_min_score: '',
@@ -43,6 +45,8 @@ export default function ExamEditor() {
     post_form_schema: null
   });
   const [slugTouched, setSlugTouched] = useState(false);
+  const [courses, setCourses] = useState([]); // cours de la matière choisie (1 examen par cours)
+  const [classes, setClasses] = useState([]); // classes de l'instance (portée facultative)
 
   useEffect(() => {
     if (!isNew) return;
@@ -84,7 +88,7 @@ export default function ExamEditor() {
   useEffect(() => {
     if (isNew) return;
     (async () => {
-      const cols = 'title, slug, instructions, subject, is_open, access_code, certificate_min_score, question_ids, questions_snapshot, pre_form_schema, post_form_schema, tenant_id';
+      const cols = 'title, slug, instructions, subject, course_id, class_id, is_open, access_code, certificate_min_score, question_ids, questions_snapshot, pre_form_schema, post_form_schema, tenant_id';
       let { data, error: e } = await supabase.from('exams').select(cols).eq('id', id).maybeSingle();
       // Rétrocompat: si une colonne récente manque, retomber sur le minimum.
       if (e && /column .* does not exist/i.test(e.message || '')) {
@@ -94,7 +98,7 @@ export default function ExamEditor() {
           .eq('id', id)
           .maybeSingle();
         data = fb.data
-          ? { ...fb.data, subject: null, certificate_min_score: null, questions_snapshot: null, pre_form_schema: null, post_form_schema: null }
+          ? { ...fb.data, subject: null, course_id: null, class_id: null, certificate_min_score: null, questions_snapshot: null, pre_form_schema: null, post_form_schema: null }
           : null;
         e = fb.error;
       }
@@ -111,6 +115,8 @@ export default function ExamEditor() {
           slug: data.slug,
           instructions: data.instructions || '',
           subject: data.subject || '',
+          course_id: data.course_id || '',
+          class_id: data.class_id || '',
           is_open: data.is_open,
           access_code: data.access_code || '',
           certificate_min_score: typeof data.certificate_min_score === 'number' ? String(data.certificate_min_score) : '80',
@@ -134,6 +140,32 @@ export default function ExamEditor() {
       .order('name')
       .then(({ data }) => { if (data) setTenants(data); });
   }, [isPlatformAdmin]);
+
+  // Classes de l'instance: un examen peut être réservé à l'une d'elles.
+  useEffect(() => {
+    let query = supabase.from('classes').select('id, name').order('position').order('name');
+    if (isPlatformAdmin && tenantId) query = query.eq('tenant_id', tenantId);
+    query.then(({ data }) => setClasses(data || []));
+  }, [isPlatformAdmin, tenantId]);
+
+  // Cours de la matière choisie. `quiz_courses.subject` porte le libellé canonique
+  // de la matière (normalisé par le trigger find-or-create), d'où la jointure par nom.
+  useEffect(() => {
+    if (!form.subject) { setCourses([]); return; }
+    let query = supabase
+      .from('quiz_courses')
+      .select('id, number, title')
+      .eq('subject', form.subject)
+      .order('created_at')
+      .order('position');
+    if (isPlatformAdmin && tenantId) query = query.eq('tenant_id', tenantId);
+    query.then(({ data }) => {
+      const list = data || [];
+      setCourses(list);
+      // Changement de matière: un cours d'une autre matière ne doit pas rester sélectionné.
+      setForm((f) => (f.course_id && !list.some((c) => c.id === f.course_id) ? { ...f, course_id: '' } : f));
+    });
+  }, [form.subject, isPlatformAdmin, tenantId]);
 
   const setField = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
@@ -180,6 +212,8 @@ export default function ExamEditor() {
       slug: form.slug.trim(),
       instructions: form.instructions,
       subject: form.subject.trim() === '' ? null : form.subject.trim(),
+      course_id: form.course_id || null,
+      class_id: form.class_id || null,
       is_open: form.is_open,
       access_code: form.access_code.trim() === '' ? null : form.access_code.trim(),
       certificate_min_score: minScore,
@@ -267,6 +301,41 @@ export default function ExamEditor() {
               allowEmpty
               className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white focus:border-accent outline-none"
             />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="block text-xs uppercase tracking-widest text-accent mb-2">
+              Cours <span className="text-muted normal-case tracking-normal">(facultatif — rattache l'examen à un cours pour le suivi des élèves)</span>
+            </label>
+            <select
+              value={form.course_id}
+              onChange={(e) => setField('course_id', e.target.value)}
+              disabled={!form.subject}
+              className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white focus:border-accent outline-none disabled:opacity-50"
+            >
+              <option value="">— Aucun —</option>
+              {courses.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.number != null ? `#${c.number} · ` : ''}{c.title}
+                </option>
+              ))}
+            </select>
+            {!form.subject && <p className="text-[10px] text-muted mt-1">Choisissez d'abord une matière.</p>}
+          </div>
+          <div className="sm:col-span-2">
+            <label className="block text-xs uppercase tracking-widest text-accent mb-2">
+              Réservé à une classe <span className="text-muted normal-case tracking-normal">(facultatif)</span>
+            </label>
+            <select
+              value={form.class_id}
+              onChange={(e) => setField('class_id', e.target.value)}
+              className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white focus:border-accent outline-none"
+            >
+              <option value="">— Toutes les classes —</option>
+              {classes.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </select>
+            <p className="text-[10px] text-muted mt-1">
+              Une classe choisie retire aussi cet examen de la vitrine publique.
+            </p>
           </div>
           <div className="sm:col-span-2">
             <label className="block text-xs uppercase tracking-widest text-accent mb-2">Instructions (affichées avant l'examen)</label>

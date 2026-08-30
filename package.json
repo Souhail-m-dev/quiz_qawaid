@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node src/utils/gradeOpen.test.mjs"
+    "test": "node src/utils/gradeOpen.test.mjs && node src/utils/studentProgress.test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

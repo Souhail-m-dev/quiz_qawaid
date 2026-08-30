@@ -35,6 +35,24 @@ export function RequireStaff({ children }) {
   return <RequireRole roles={['owner', 'editeur', 'correcteur']}>{children}</RequireRole>;
 }
 
+// Espace élève: rôle 'eleve' ET inscription validée par l'admin.
+// Un élève en attente/refusé est renvoyé vers /eleve/login, qui affiche l'état.
+export function RequireStudent({ children }) {
+  const { session, role, status, loading } = useAuth();
+  const location = useLocation();
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <p className="text-muted text-sm tracking-widest uppercase">Chargement…</p>
+      </div>
+    );
+  }
+  if (!session || role !== 'eleve' || status !== 'approved') {
+    return <Navigate to="/eleve/login" replace state={{ from: location.pathname }} />;
+  }
+  return children;
+}
+
 // Réservé à l'admin plateforme (flag is_platform_admin), pas un rôle.
 export function RequirePlatformAdmin({ children }) {
   const { session, isPlatformAdmin, loading } = useAuth();

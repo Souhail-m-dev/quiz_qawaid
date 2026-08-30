@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
+import { useAuth } from '../../lib/useAuth.js';
 
 const lsKey = (slug) => `examCandidate:${slug}`;
 const draftKey = (slug) => `examRegistrationDraft:${slug}`;
@@ -12,6 +13,7 @@ export default function ExamInstructions() {
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState(null);
+  const { isStudent, status } = useAuth();
 
   useEffect(() => {
     const candidateRaw = localStorage.getItem(lsKey(slug));
@@ -86,6 +88,13 @@ export default function ExamInstructions() {
     if (!candidateId) {
       setError("Inscription échouée: identifiant candidat introuvable.");
       return;
+    }
+
+    // Élève connecté: rattacher la copie à son compte (suivi de progression).
+    // Non bloquant: un échec ne doit pas empêcher de passer l'examen.
+    if (isStudent && status === 'approved') {
+      const { error: linkErr } = await supabase.rpc('link_candidate_to_student', { p_candidate_id: candidateId });
+      if (linkErr) console.warn('link_candidate_to_student:', linkErr.message);
     }
 
     // Réponses du formulaire avant-examen (champs dynamiques).

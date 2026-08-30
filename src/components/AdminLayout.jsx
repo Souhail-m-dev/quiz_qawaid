@@ -12,6 +12,8 @@ const IconBuilding = (p) => (<svg {...ic} {...p}><rect x="4" y="2" width="16" he
 const IconLogout = (p) => (<svg {...ic} {...p}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5" /><path d="M21 12H9" /></svg>);
 const IconBook = (p) => (<svg {...ic} {...p}><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>);
 const IconLayers = (p) => (<svg {...ic} {...p}><path d="M12 2 2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>);
+const IconGraduation = (p) => (<svg {...ic} {...p}><path d="M22 10 12 5 2 10l10 5 10-5z" /><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5" /></svg>);
+const IconClass = (p) => (<svg {...ic} {...p}><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M7 20h10" /><path d="M7 9h6M7 13h4" /></svg>);
 const IconMenu = (p) => (<svg {...ic} {...p}><path d="M3 12h18M3 6h18M3 18h18" /></svg>);
 const IconClose = (p) => (<svg {...ic} {...p}><path d="M18 6 6 18" /><path d="M6 6l12 12" /></svg>);
 
@@ -33,7 +35,9 @@ export default function AdminLayout() {
     { to: '/admin', label: 'Tableau de bord', icon: <IconGrid />, end: true, show: true },
     { to: '/admin/exams/new', label: 'Nouvel examen', icon: <IconPlus />, show: isContentManager },
     { to: '/admin/matieres', label: 'Matières', icon: <IconLayers />, show: isContentManager },
+    { to: '/admin/classes', label: 'Classes', icon: <IconClass />, show: isContentManager },
     { to: '/admin/quiz', label: 'Banque de quiz', icon: <IconBook />, show: isContentManager },
+    { to: '/admin/eleves', label: 'Élèves', icon: <IconGraduation />, show: isAdmin },
     { to: '/admin/users', label: 'Utilisateurs', icon: <IconUsers />, show: isAdmin },
     { to: '/admin/activity', label: 'Activité', icon: <IconPulse />, show: isAdmin },
     { to: '/admin/tenants', label: 'Instances', icon: <IconBuilding />, show: isPlatformAdmin },

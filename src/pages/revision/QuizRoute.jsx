@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
+import { TENANT_HOST } from '../../lib/tenantHost.js';
 import { selectQuestions, shuffle } from '../../utils/quizUtils.js';
 import ExamBrand from '../../components/ExamBrand.jsx';
 import QuizSession from '../../components/QuizSession.jsx';
 import ResultatsFinaux from '../../components/ResultatsFinaux.jsx';
 
-const HOST = window.location.hostname;
+const HOST = TENANT_HOST;
 
 // Adapte les lignes RPC au modèle attendu par les composants de quiz.
 const shapeQuestions = (rows) =>

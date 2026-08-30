@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
+import { TENANT_HOST } from '../../lib/tenantHost.js';
 import ExamBrand from '../../components/ExamBrand.jsx';
 
-const HOST = window.location.hostname;
+const HOST = TENANT_HOST;
 const unlockKey = (slug) => `matiereUnlock:${HOST}:${slug}`;
 
 export default function MatierePage() {

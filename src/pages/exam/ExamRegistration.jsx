@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { supabase } from '../../lib/supabase.js';
+import { useAuth } from '../../lib/useAuth.js';
 import DynamicForm, { extractFormData } from '../../components/DynamicForm.jsx';
 import ExamBrand from '../../components/ExamBrand.jsx';
+import { TENANT_HOST } from '../../lib/tenantHost.js';
 
 const lsKey = (slug) => `examCandidate:${slug}`;
 const draftKey = (slug) => `examRegistrationDraft:${slug}`;
 // Code d'accès mémorisé par matière (host = tenant) : saisi une fois, réutilisé sur
 // tous les quizz de la même matière partageant le même code.
-const subjKey = (subject) => `subjectAccess:${window.location.hostname}:${subject}`;
+const subjKey = (subject) => `subjectAccess:${TENANT_HOST}:${subject}`;
 
 export default function ExamRegistration() {
   const { slug } = useParams();
@@ -18,6 +20,8 @@ export default function ExamRegistration() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [memoCode, setMemoCode] = useState(null); // code matière déjà validé (saute la saisie)
+  const [student, setStudent] = useState(null);   // élève connecté et inscrit à la matière de l'examen
+  const { role, status, loading: authLoading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -31,7 +35,7 @@ export default function ExamRegistration() {
       const draft = localStorage.getItem(draftKey(slug));
       let { data, error: e } = await supabase
         .from('exams')
-        .select('id, title, slug, subject, is_open, requires_code, question_ids, pre_form_schema')
+        .select('id, title, slug, subject, subject_id, is_open, requires_code, question_ids, pre_form_schema')
         .eq('slug', slug)
         .maybeSingle();
       if (e && /column .* does not exist/i.test(e.message || '')) {
@@ -40,7 +44,7 @@ export default function ExamRegistration() {
           .select('id, title, slug, is_open, requires_code, question_ids')
           .eq('slug', slug)
           .maybeSingle();
-        data = fb.data ? { ...fb.data, subject: null, pre_form_schema: null } : null;
+        data = fb.data ? { ...fb.data, subject: null, subject_id: null, pre_form_schema: null } : null;
         e = fb.error;
       }
       if (e || !data) {
@@ -73,11 +77,24 @@ export default function ExamRegistration() {
     })();
   }, [slug, navigate, reset]);
 
+  // Élève connecté et validé: préremplir son identité, et sauter le code d'accès
+  // s'il est inscrit à la matière de cet examen (l'inscription remplace le code).
+  useEffect(() => {
+    if (authLoading || !exam || role !== 'eleve' || status !== 'approved') return;
+    (async () => {
+      const { data: me } = await supabase.rpc('student_me');
+      if (!me) return;
+      const enrolled = (me.matieres || []).some((m) => m.id === exam.subject_id);
+      setStudent({ ...me, enrolled });
+      reset((prev) => ({ ...prev, full_name: me.full_name || '', email: me.email || '' }));
+    })();
+  }, [authLoading, exam, role, status, reset]);
+
   const onSubmit = async (values) => {
     setError(null);
 
     let code = memoCode;
-    if (exam.requires_code) {
+    if (exam.requires_code && !student?.enrolled) {
       if (!memoCode) {
         code = (values.access_code || '').trim();
         if (!code) {
@@ -135,8 +152,9 @@ export default function ExamRegistration() {
         <div>
           <label className="block text-xs uppercase tracking-widest text-accent mb-2">Nom complet</label>
           <input
+            readOnly={!!student}
             {...register('full_name', { required: 'Nom requis', minLength: { value: 2, message: 'Min. 2 caractères' } })}
-            className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white focus:border-accent outline-none"
+            className={`w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white focus:border-accent outline-none ${student ? 'opacity-70' : ''}`}
           />
           {errors.full_name && <p className="text-incorrect text-xs mt-1">{errors.full_name.message}</p>}
         </div>
@@ -144,11 +162,12 @@ export default function ExamRegistration() {
           <label className="block text-xs uppercase tracking-widest text-accent mb-2">Email</label>
           <input
             type="email"
+            readOnly={!!student}
             {...register('email', {
               required: 'Email requis',
               pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Email invalide' }
             })}
-            className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white focus:border-accent outline-none"
+            className={`w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white focus:border-accent outline-none ${student ? 'opacity-70' : ''}`}
           />
           {errors.email && <p className="text-incorrect text-xs mt-1">{errors.email.message}</p>}
         </div>
@@ -169,10 +188,13 @@ export default function ExamRegistration() {
           <DynamicForm schema={exam.pre_form_schema} register={register} errors={errors} />
         )}
 
-        {exam.requires_code && memoCode && (
+        {exam.requires_code && student?.enrolled && (
+          <p className="text-xs text-muted">Inscrit à « {exam.subject} » : aucun code requis.</p>
+        )}
+        {exam.requires_code && !student?.enrolled && memoCode && (
           <p className="text-xs text-muted">Accès « {exam.subject} » déjà validé sur cet appareil.</p>
         )}
-        {exam.requires_code && !memoCode && (
+        {exam.requires_code && !student?.enrolled && !memoCode && (
           <div>
             <label className="block text-xs uppercase tracking-widest text-accent mb-2">Code d'accès</label>
             <input

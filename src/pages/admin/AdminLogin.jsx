@@ -21,6 +21,11 @@ export default function AdminLogin() {
       .select('role, is_admin, is_platform_admin')
       .eq('id', data.user.id)
       .maybeSingle();
+    // Un élève s'est trompé de porte: le renvoyer vers son espace au lieu de le déconnecter.
+    if (!pErr && profile?.role === 'eleve') {
+      navigate('/eleve', { replace: true });
+      return;
+    }
     const hasStaffAccess =
       profile?.is_platform_admin === true || // admin plateforme (tier du haut)
       profile?.role === 'owner' ||

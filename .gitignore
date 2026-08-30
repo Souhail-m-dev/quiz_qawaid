@@ -43,3 +43,4 @@ cours*hin*.json
 
 # Local Claude Code tooling
 .claude/
+cours[0-9]*.json

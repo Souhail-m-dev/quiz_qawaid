@@ -12,7 +12,8 @@ export default function QuizBank() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [form, setForm] = useState({ subject: '', number: '', title: '', course_date: '' });
+  const [classes, setClasses] = useState([]);
+  const [form, setForm] = useState({ subject: '', number: '', title: '', course_date: '', class_id: '' });
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -22,11 +23,18 @@ export default function QuizBank() {
     });
   }, [isPlatformAdmin]);
 
+  // Classes de l'instance: un cours peut être réservé à l'une d'elles.
+  useEffect(() => {
+    let query = supabase.from('classes').select('id, name').order('position').order('name');
+    if (isPlatformAdmin && tenantId) query = query.eq('tenant_id', tenantId);
+    query.then(({ data }) => setClasses(data || []));
+  }, [isPlatformAdmin, tenantId]);
+
   const load = async () => {
     setLoading(true);
     let query = supabase
       .from('quiz_courses')
-      .select('id, subject, number, title, course_date, position, quiz_questions(count)')
+      .select('id, subject, number, title, course_date, position, class_id, quiz_questions(count)')
       .order('subject')
       .order('created_at')
       .order('position');
@@ -54,14 +62,25 @@ export default function QuizBank() {
       number: form.number === '' ? null : Number.parseInt(form.number, 10),
       title: form.title.trim(),
       course_date: form.course_date.trim() || null,
+      class_id: form.class_id || null,
       created_by: userData.user?.id
     };
     if (isPlatformAdmin && tenantId) payload.tenant_id = tenantId;
     const { error: er } = await supabase.from('quiz_courses').insert(payload);
     setSaving(false);
     if (er) { setError(er.message); return; }
-    setForm({ subject: form.subject, number: '', title: '', course_date: '' });
+    setForm({ subject: form.subject, number: '', title: '', course_date: '', class_id: form.class_id });
     load();
+  };
+
+  const setCourseClass = async (c, classId) => {
+    setError(null);
+    const { error: er } = await supabase
+      .from('quiz_courses')
+      .update({ class_id: classId || null })
+      .eq('id', c.id);
+    if (er) { setError(er.message); return; }
+    setCourses((cs) => cs.map((x) => (x.id === c.id ? { ...x, class_id: classId || null } : x)));
   };
 
   // Regroupe par matière pour l'affichage.
@@ -121,6 +140,19 @@ export default function QuizBank() {
           />
         </div>
         <div className="sm:col-span-2">
+          <label className="block text-[10px] uppercase tracking-widest text-accent mb-1">
+            Réservé à une classe (option — sinon visible publiquement)
+          </label>
+          <select
+            value={form.class_id}
+            onChange={(e) => setForm((f) => ({ ...f, class_id: e.target.value }))}
+            className="w-full bg-bg/60 border border-accent/30 rounded px-3 py-2 text-white text-sm focus:border-accent outline-none"
+          >
+            <option value="">— Toutes les classes —</option>
+            {classes.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+          </select>
+        </div>
+        <div className="sm:col-span-2">
           <button type="submit" disabled={saving} className="btn-primary">{saving ? 'Ajout…' : 'Ajouter le cours'}</button>
         </div>
       </form>
@@ -137,8 +169,8 @@ export default function QuizBank() {
             <h2 className="title-display text-sm tracking-[0.2em] text-accent mb-3">{subject}</h2>
             <ul className="grid gap-3 sm:grid-cols-2">
               {list.map((c) => (
-                <li key={c.id}>
-                  <Link to={`/admin/quiz/${c.id}`} className="card block h-full hover:border-accent/50 transition">
+                <li key={c.id} className="card h-full flex flex-col gap-3">
+                  <Link to={`/admin/quiz/${c.id}`} className="block hover:opacity-80 transition">
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         {c.number != null && <div className="text-[10px] text-accent font-bold uppercase tracking-widest mb-1">Unité {c.number}</div>}
@@ -148,6 +180,15 @@ export default function QuizBank() {
                       <span className="text-[10px] text-muted uppercase shrink-0">{c.quiz_questions?.[0]?.count ?? 0} q.</span>
                     </div>
                   </Link>
+                  <select
+                    value={c.class_id || ''}
+                    onChange={(e) => setCourseClass(c, e.target.value)}
+                    title="Réserver ce cours à une classe"
+                    className="mt-auto bg-bg/60 border border-accent/30 rounded px-2 py-1 text-white text-[11px] focus:border-accent outline-none"
+                  >
+                    <option value="">Toutes les classes</option>
+                    {classes.map((cl) => <option key={cl.id} value={cl.id}>{cl.name}</option>)}
+                  </select>
                 </li>
               ))}
             </ul>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTenantBranding } from '../lib/useTenantBranding.js';
+import { TENANT_HOST, IS_HOST_OVERRIDDEN } from '../lib/tenantHost.js';
 
 // Entête de marque par sous-domaine sur les pages candidat. Ne rend rien si host inconnu.
 export default function ExamBrand() {
@@ -11,6 +12,9 @@ export default function ExamBrand() {
         <img src={branding.logo_url} alt={branding.name} className="h-12 w-auto object-contain" />
       )}
       <p className="text-[10px] text-accent uppercase tracking-[0.4em]">{branding.name}</p>
+      {IS_HOST_OVERRIDDEN && (
+        <p className="text-[9px] text-muted uppercase tracking-widest">instance simulée · {TENANT_HOST}</p>
+      )}
     </div>
   );
 }

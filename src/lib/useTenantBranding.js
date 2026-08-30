@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from './supabase.js';
+import { TENANT_HOST } from './tenantHost.js';
 
 // Branding du tenant déduit du sous-domaine (host). null tant que non résolu / inconnu.
 export function useTenantBranding() {
@@ -7,7 +8,7 @@ export function useTenantBranding() {
 
   useEffect(() => {
     let active = true;
-    const host = window.location.hostname;
+    const host = TENANT_HOST;
     supabase
       .rpc('tenant_branding_by_host', { p_host: host })
       .then(({ data }) => {

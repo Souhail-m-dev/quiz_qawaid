@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { RequireAdmin, RequireContentManager, RequireStaff, RequirePlatformAdmin } from './components/RequireRole.jsx';
+import { RequireAdmin, RequireContentManager, RequireStaff, RequirePlatformAdmin, RequireStudent } from './components/RequireRole.jsx';
 import AdminLayout from './components/AdminLayout.jsx';
 import AdminLogin from './pages/admin/AdminLogin.jsx';
 import AdminDashboard from './pages/admin/AdminDashboard.jsx';
@@ -14,8 +14,14 @@ import Activity from './pages/admin/Activity.jsx';
 import QuizBank from './pages/admin/QuizBank.jsx';
 import QuizCourseEditor from './pages/admin/QuizCourseEditor.jsx';
 import MatieresAdmin from './pages/admin/MatieresAdmin.jsx';
+import ClassesAdmin from './pages/admin/ClassesAdmin.jsx';
 import Tenants from './pages/admin/Tenants.jsx';
 import TenantDetail from './pages/admin/TenantDetail.jsx';
+import Students from './pages/admin/Students.jsx';
+import StudentDetail from './pages/admin/StudentDetail.jsx';
+import StudentSignup from './pages/eleve/StudentSignup.jsx';
+import StudentLogin from './pages/eleve/StudentLogin.jsx';
+import StudentDashboard from './pages/eleve/StudentDashboard.jsx';
 import ExamRegistration from './pages/exam/ExamRegistration.jsx';
 import ExamInstructions from './pages/exam/ExamInstructions.jsx';
 import ExamRun from './pages/exam/ExamRun.jsx';
@@ -41,6 +47,11 @@ export default function App() {
           <Route path="/exam/:slug/run" element={<ExamRun />} />
           <Route path="/exam/:slug/done" element={<ExamDone />} />
 
+          {/* Espace élève: inscription libre, accès aux examens après validation admin. */}
+          <Route path="/eleve/inscription" element={<StudentSignup />} />
+          <Route path="/eleve/login" element={<StudentLogin />} />
+          <Route path="/eleve" element={<RequireStudent><StudentDashboard /></RequireStudent>} />
+
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/invite/:token" element={<InviteAccept />} />
 
@@ -51,11 +62,14 @@ export default function App() {
             {/* Owner only */}
             <Route path="/admin/users" element={<RequireAdmin><Users /></RequireAdmin>} />
             <Route path="/admin/activity" element={<RequireAdmin><Activity /></RequireAdmin>} />
+            <Route path="/admin/eleves" element={<RequireAdmin><Students /></RequireAdmin>} />
+            <Route path="/admin/eleves/:studentId" element={<RequireAdmin><StudentDetail /></RequireAdmin>} />
 
             {/* Création/édition du contenu: owner + editeur (« Admin ») */}
             <Route path="/admin/exams/new" element={<RequireContentManager><ExamEditor /></RequireContentManager>} />
             <Route path="/admin/exams/:id" element={<RequireContentManager><ExamEditor /></RequireContentManager>} />
             <Route path="/admin/matieres" element={<RequireContentManager><MatieresAdmin /></RequireContentManager>} />
+            <Route path="/admin/classes" element={<RequireContentManager><ClassesAdmin /></RequireContentManager>} />
             <Route path="/admin/quiz" element={<RequireContentManager><QuizBank /></RequireContentManager>} />
             <Route path="/admin/quiz/:courseId" element={<RequireContentManager><QuizCourseEditor /></RequireContentManager>} />
 

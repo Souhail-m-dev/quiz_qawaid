@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase.js';
+import { TENANT_HOST } from '../../lib/tenantHost.js';
 import ExamBrand from '../../components/ExamBrand.jsx';
 
-const HOST = window.location.hostname;
+const HOST = TENANT_HOST;
 
 // Accueil public par domaine: vitrine des matières du tenant.
 export default function TenantHome() {
@@ -20,7 +21,12 @@ export default function TenantHome() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
       <ExamBrand />
-      <p className="text-xs text-muted uppercase tracking-[0.3em] text-center mb-10">Matières disponibles</p>
+      <p className="text-xs text-muted uppercase tracking-[0.3em] text-center mb-3">Matières disponibles</p>
+      <p className="text-xs text-muted text-center mb-10">
+        <Link to="/eleve/login" className="text-accent underline">Espace élève</Link>
+        {' · '}
+        <Link to="/eleve/inscription" className="text-accent underline">S'inscrire</Link>
+      </p>
 
       {loading ? (
         <p className="text-muted text-center">Chargement…</p>
