@@ -241,7 +241,7 @@ au trigger `handle_new_user`) · 0030 `list_students()` masque les élèves sans
 0031 portée classe (`exams.class_id`, `quiz_courses.class_id`; null = public, posé = réservé
 à la classe ET retiré des vues anon `matieres_by_host`/`quiz_courses_by_host`/`matiere_content`).
 
-**État en base au 2026-08-30:** 0001→0029 appliquées. **0030 et 0031 ne le sont pas.**
+**État en base au 2026-08-30:** 0001→0031 appliquées.
 
 **Contenu par instance (2026-08-30):** Abou Abdelwahab = 3 matières, 41 cours révision,
 2 examens · Miloud = **0 matière, 0 cours**, 1 examen. Aucun examen n'a encore de `course_id`.
