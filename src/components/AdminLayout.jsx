@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { NavLink, Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabase.js';
 import { useAuth, roleLabel } from '../lib/useAuth.js';
 
@@ -31,17 +31,46 @@ export default function AdminLayout() {
     navigate('/admin/login', { replace: true });
   };
 
-  const links = [
-    { to: '/admin', label: 'Tableau de bord', icon: <IconGrid />, end: true, show: true },
-    { to: '/admin/exams/new', label: 'Nouvel examen', icon: <IconPlus />, show: isContentManager },
-    { to: '/admin/matieres', label: 'Matières', icon: <IconLayers />, show: isContentManager },
-    { to: '/admin/classes', label: 'Classes', icon: <IconClass />, show: isContentManager },
-    { to: '/admin/quiz', label: 'Banque de quiz', icon: <IconBook />, show: isContentManager },
-    { to: '/admin/eleves', label: 'Élèves', icon: <IconGraduation />, show: isAdmin },
-    { to: '/admin/users', label: 'Utilisateurs', icon: <IconUsers />, show: isAdmin },
-    { to: '/admin/activity', label: 'Activité', icon: <IconPulse />, show: isAdmin },
-    { to: '/admin/tenants', label: 'Instances', icon: <IconBuilding />, show: isPlatformAdmin },
-  ].filter((l) => l.show);
+  // Groupé par fréquence d'usage : examens (quotidien) → contenu (setup/édition)
+  // → élèves → administration → plateforme. "Nouvel examen" est une action,
+  // pas une destination : bouton à part, pas une ligne de nav.
+  const sections = [
+    {
+      header: null,
+      items: [
+        { to: '/admin', label: 'Examens', icon: <IconGrid />, end: true, show: true },
+      ],
+    },
+    {
+      header: 'Contenu',
+      items: [
+        { to: '/admin/quiz', label: 'Révision', icon: <IconBook />, show: isContentManager },
+        { to: '/admin/matieres', label: 'Matières', icon: <IconLayers />, show: isContentManager },
+        { to: '/admin/classes', label: 'Classes', icon: <IconClass />, show: isContentManager },
+      ],
+    },
+    {
+      header: 'Élèves',
+      items: [
+        { to: '/admin/eleves', label: 'Élèves', icon: <IconGraduation />, show: isAdmin },
+      ],
+    },
+    {
+      header: 'Administration',
+      items: [
+        { to: '/admin/users', label: 'Utilisateurs', icon: <IconUsers />, show: isAdmin },
+        { to: '/admin/activity', label: 'Activité', icon: <IconPulse />, show: isAdmin },
+      ],
+    },
+    {
+      header: 'Plateforme',
+      items: [
+        { to: '/admin/tenants', label: 'Instances', icon: <IconBuilding />, show: isPlatformAdmin },
+      ],
+    },
+  ]
+    .map((s) => ({ ...s, items: s.items.filter((l) => l.show) }))
+    .filter((s) => s.items.length > 0);
 
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition ${
@@ -76,10 +105,25 @@ export default function AdminLayout() {
         </div>
 
         <nav className="flex-1 overflow-y-auto p-3 space-y-1">
-          {links.map((l) => (
-            <NavLink key={l.to} to={l.to} end={l.end} className={linkClass}>
-              {l.icon}<span>{l.label}</span>
-            </NavLink>
+          {isContentManager && (
+            <Link
+              to="/admin/exams/new"
+              className="btn-primary w-full flex items-center justify-center gap-2 mb-3 text-sm"
+            >
+              <IconPlus width={16} height={16} /><span>Nouvel examen</span>
+            </Link>
+          )}
+          {sections.map((s, i) => (
+            <div key={s.header ?? 'main'} className={i > 0 ? 'pt-3 mt-3 border-t border-accent/10' : ''}>
+              {s.header && (
+                <p className="px-3 pb-1 text-[10px] uppercase tracking-widest text-muted/70">{s.header}</p>
+              )}
+              {s.items.map((l) => (
+                <NavLink key={l.to} to={l.to} end={l.end} className={linkClass}>
+                  {l.icon}<span>{l.label}</span>
+                </NavLink>
+              ))}
+            </div>
           ))}
         </nav>
 
